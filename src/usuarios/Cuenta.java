@@ -4,6 +4,7 @@
  */
 package usuarios;
 
+import reservacion.ListaReservacion;
 import viaje.Viaje;
 
 /**
@@ -17,12 +18,14 @@ public abstract class Cuenta {
     protected Viaje[] viajes;
     Usuario usuario;
     //RestriccionDominio restriccion = new RestriccionDominio();
-    Vehiculo vehiculo;   
-        
+    Vehiculo vehiculo;
+    protected ListaReservacion listaReservacion;
+    
     public Cuenta(String correo, String contraseña, Usuario usuario) {
        this.correo = correo;
        this.contraseña = contraseña;
        this.usuario=usuario;
+       listaReservacion = new ListaReservacion();
     }
     
         

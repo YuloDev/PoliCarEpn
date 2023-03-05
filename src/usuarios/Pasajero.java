@@ -1,9 +1,11 @@
 
 package usuarios;
 
+import reservacion.Reservacion;
+import viaje.Viaje;
+
 
 public class Pasajero extends Cuenta {
-    public Reservacion reservacion;
 
     public Pasajero(String correo, String contraseña, Usuario usuario) {
         super(correo, contraseña, usuario);
@@ -15,12 +17,13 @@ public class Pasajero extends Cuenta {
     }
 
     public void crearReservacion(Reservacion nuevaReservacion) {
-        this.reservacion = nuevaReservacion;
-        nuevaReservacion.calcularPrecioReservacion();
+        listaReservacion.añadirReservacion(nuevaReservacion);
     }
 
-    public void cancelarReservacion() {
+    public void cancelarReservacion(Reservacion reservacion) {
         //Codigo de cancelar reservacion
+        reservacion.cancelar();
+        listaReservacion.quitarReservacion(reservacion);
     }
 
     public void calificarViaje() {

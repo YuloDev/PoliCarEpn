@@ -4,6 +4,7 @@
  */
 package usuarios;
 
+import reservacion.Reservacion;
 import viaje.Viaje;
 
 
@@ -23,13 +24,23 @@ public class PoliCar {
                 cuentaConductor.obtenerCantidadAsientos(),2.3);
         cuentaConductor.crearViaje(nuevoViaje);
         System.out.println(nuevoViaje);
-        cuentaPasajero.crearReservacion(new Reservacion(4, nuevoViaje));
-        cuentaPasajero.crearReservacion(new Reservacion(1, nuevoViaje));
-        cuentaPasajero.crearReservacion(new Reservacion(1, nuevoViaje));
-        cuentaPasajero.crearReservacion(new Reservacion(1, nuevoViaje));
-        cuentaPasajero.crearReservacion(new Reservacion(1, nuevoViaje));
-        cuentaPasajero.crearReservacion(new Reservacion(1, nuevoViaje));
+        System.out.println(nuevoViaje.getAsientos().length);
+        
+        Reservacion reservacion1 = new Reservacion(nuevoViaje,cuentaPasajero,4);
+        // Se utiliza un if para comprobar los datos de reservación porque si no hay asientos disponibles 
+        // Reservacion no puede eliminarse a si misma (combox solo con asientos disponibles)
+        // (otra opcion: lanzar un error)
+        if (reservacion1.getCuenta()!=null){
+            cuentaPasajero.crearReservacion(reservacion1);
+        }
+        //Todos los asientos ocupados
+        Reservacion reservacion2 = new Reservacion(nuevoViaje,cuentaPasajero,1);
+        if (reservacion2.getCuenta()!=null){
+            cuentaPasajero.crearReservacion(reservacion2);
+        }
+        System.out.println(reservacion1);
+        System.out.println(reservacion2);
+        
     }
-
 }
 

@@ -11,11 +11,21 @@ public class Asiento {
     }
 
     public final void actualizarEstado() {
-        estado = new Ocupado();
-        System.out.println("Asiento reservado");
+        if (estado instanceof Libre){
+            estado = new Ocupado();
+             System.out.println("Asiento reservado");
+        } else {
+            estado = new Libre();
+            System.out.println("Asiento liberado");
+        }
     }
+    
     public double getPrecio() {
         return precio;
+    }
+
+    public Estado getEstado() {
+        return estado;
     }
 
 

@@ -1,7 +1,7 @@
 package viaje;
 
 import usuarios.Cuenta;
-import usuarios.Reservacion;
+import reservacion.Reservacion;
 import usuarios.Usuario;
 
 import java.util.Arrays;
@@ -32,6 +32,10 @@ public class Viaje {
         for (int i = 0; i < asientos.length; i++) {
             asientos[i] = new Asiento(precioPorAsiento);
         }
+    }
+
+    public Asiento[] getAsientos() {
+        return asientos;
     }
 
     @Override
