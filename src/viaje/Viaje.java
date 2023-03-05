@@ -15,10 +15,11 @@ public class Viaje {
     Cuenta cuenta;
 
 
-    public Viaje(String ubicacionPartida, String ubicacionDestino, int numAsientos,double precioUnitarioAsiento) {
+    public Viaje(String ubicacionPartida, String ubicacionDestino, int numAsientos, double precioUnitarioAsiento, Cuenta cuenta) {
         asientos = new Asiento[numAsientos];
         this.ubicacionPartida = ubicacionPartida;
         this.ubicacionDestino = ubicacionDestino;
+        this.cuenta = cuenta;
         inicializaAsientos(precioUnitarioAsiento);
     }
 
@@ -37,6 +38,29 @@ public class Viaje {
     public Asiento[] getAsientos() {
         return asientos;
     }
+
+    public Reservacion[] getReservaciones() {
+        return reservaciones;
+    }
+
+    public Usuario[] getUsuarios() {
+        return usuarios;
+    }
+
+    public String getUbicacionPartida() {
+        return ubicacionPartida;
+    }
+
+    public String getUbicacionDestino() {
+        return ubicacionDestino;
+    }
+
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+    
+    
+    
 
     @Override
     public String toString() {

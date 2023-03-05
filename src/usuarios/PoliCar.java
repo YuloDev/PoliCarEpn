@@ -4,6 +4,9 @@
  */
 package usuarios;
 
+import ranking.CalificacionConductor;
+import ranking.CalificacionExperiencia;
+import ranking.CalificacionVehiculo;
 import reservacion.Reservacion;
 import viaje.Viaje;
 
@@ -21,7 +24,7 @@ public class PoliCar {
         Conductor cuentaConductor = new Conductor("r.p@epn.edu.ec", "1234",
                 nuevoUsuario, new Vehiculo("PBC123", "Kia rio", "rojo", 2019, 4));
         Viaje nuevoViaje = new Viaje("Quito", "Santa Rosa",
-                cuentaConductor.obtenerCantidadAsientos(),2.3);
+                cuentaConductor.obtenerCantidadAsientos(),2.3, cuentaConductor);
         cuentaConductor.crearViaje(nuevoViaje);
         System.out.println(nuevoViaje);
         System.out.println(nuevoViaje.getAsientos().length);
@@ -40,6 +43,23 @@ public class PoliCar {
         }
         System.out.println(reservacion1);
         System.out.println(reservacion2);
+        
+        
+        //ranking
+        
+        CalificacionConductor calificacionConductor = new CalificacionConductor(reservacion1.getViaje());
+        CalificacionVehiculo calificacionVehiculo = new CalificacionVehiculo(reservacion1.getViaje());
+        CalificacionExperiencia calificacionExperiencia = new CalificacionExperiencia(reservacion1.getViaje());
+        
+        calificacionConductor.ingresar(4);
+        calificacionVehiculo.ingresar(3);
+        calificacionExperiencia.ingresar(3);
+        calificacionExperiencia.agregarComentario("hahahah");
+        
+        
+        cuentaPasajero.calificarViaje(reservacion1, calificacionConductor, calificacionVehiculo, calificacionExperiencia);
+        
+        System.out.println(cuentaConductor.getEvaluacion().calcularCalificacionTotal());
         
     }
 }

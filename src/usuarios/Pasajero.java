@@ -1,9 +1,11 @@
-
 package usuarios;
 
+import ranking.Calificacion;
+import ranking.CalificacionConductor;
+import ranking.CalificacionExperiencia;
+import ranking.CalificacionVehiculo;
+import ranking.Evaluacion;
 import reservacion.Reservacion;
-import viaje.Viaje;
-
 
 public class Pasajero extends Cuenta {
 
@@ -26,8 +28,13 @@ public class Pasajero extends Cuenta {
         listaReservacion.quitarReservacion(reservacion);
     }
 
-    public void calificarViaje() {
+    public void calificarViaje(Reservacion reservacion, Calificacion ... calificaciones) {
         //codigo calificar viaje
+        Evaluacion evaluacionConductor = reservacion.getViaje().getCuenta().getEvaluacion();
+
+        for (Calificacion calificacion : calificaciones) {
+            evaluacionConductor.añadirCalificacion(calificacion);
+        }
     }
 
     public Conductor cambiarCuenta(Pasajero pasajero) {
@@ -48,6 +55,5 @@ public class Pasajero extends Cuenta {
         return usuario.toString()
                 + "\nPasajero";
     }
-
 
 }

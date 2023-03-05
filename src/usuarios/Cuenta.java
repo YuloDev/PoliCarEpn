@@ -1,16 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package usuarios;
 
+import ranking.Evaluacion;
 import reservacion.ListaReservacion;
 import viaje.Viaje;
 
-/**
- *
- * @author Gustavo
- */
 public abstract class Cuenta {    
     
     protected String correo;
@@ -20,11 +14,13 @@ public abstract class Cuenta {
     //RestriccionDominio restriccion = new RestriccionDominio();
     Vehiculo vehiculo;
     protected ListaReservacion listaReservacion;
+    protected Evaluacion evaluacion;
     
     public Cuenta(String correo, String contraseña, Usuario usuario) {
        this.correo = correo;
        this.contraseña = contraseña;
        this.usuario=usuario;
+       this.evaluacion = new Evaluacion();
        listaReservacion = new ListaReservacion();
     }
     
@@ -49,7 +45,10 @@ public abstract class Cuenta {
     public void cambiarCuenta(){
         //metodo polimorfico
     }
-    
+
+    public Evaluacion getEvaluacion() {
+        return evaluacion;
+    }
 
     @Override
     public String toString() {
