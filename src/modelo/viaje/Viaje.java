@@ -30,6 +30,9 @@ public class Viaje {
         this.reservaciones = new ListaReservacion();
         this.fecha = new Fecha();
     }
+    public Viaje() {
+        
+    }
 
     public void añadirAsiento(Asiento asiento) {
         for (int i = 0; i < listaDeAsientos.length; i++) {
