@@ -23,4 +23,10 @@ public abstract class Pago {
     private void realizarPago(){
         
     }
+
+    public ControladorTiempoDeReserva getControlador() {
+        return controlador;
+    }
+    
+    
 }
