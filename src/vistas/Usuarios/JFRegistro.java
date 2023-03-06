@@ -4,6 +4,14 @@
  */
 package vistas.Usuarios;
 
+import controladorBD.usuarios.SqlCuenta;
+import controladorBD.usuarios.SqlUsuario;
+import javax.swing.JOptionPane;
+import modelo.usuarios.Conductor;
+import modelo.usuarios.Cuenta;
+import modelo.usuarios.Pasajero;
+import modelo.usuarios.Usuario;
+
 /**
  *
  * @author Lenovo
@@ -13,6 +21,14 @@ public class JFRegistro extends javax.swing.JFrame {
     /**
      * Creates new form JFRegistro
      */
+    public static String nombre = "";
+    public static String apellido = "";
+    public static int codigoUnico = 0;
+    public static String telefono = "";
+    public static String correo = "";
+    public static String contrasenia = "";
+    public static String tipoCuenta = "";
+    
     public JFRegistro() {
         initComponents();
     }
@@ -33,7 +49,6 @@ public class JFRegistro extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         txtApellido = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
-        txtContrasenia = new javax.swing.JTextField();
         lblCodigoUnico = new javax.swing.JLabel();
         lblTelefono = new javax.swing.JLabel();
         txtCodigoUnico = new javax.swing.JTextField();
@@ -41,6 +56,7 @@ public class JFRegistro extends javax.swing.JFrame {
         cmbTipoCuenta = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         btnRegistrar = new javax.swing.JButton();
+        psswdContraseniaR = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +84,8 @@ public class JFRegistro extends javax.swing.JFrame {
             }
         });
 
+        psswdContraseniaR.setText("jPasswordField1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,8 +109,8 @@ public class JFRegistro extends javax.swing.JFrame {
                             .addComponent(txtCodigoUnico)
                             .addComponent(txtTelefono)
                             .addComponent(txtCorreo)
-                            .addComponent(txtContrasenia)
-                            .addComponent(cmbTipoCuenta, 0, 118, Short.MAX_VALUE)))
+                            .addComponent(cmbTipoCuenta, 0, 118, Short.MAX_VALUE)
+                            .addComponent(psswdContraseniaR)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(256, 256, 256)
                         .addComponent(btnRegistrar)))
@@ -122,16 +140,16 @@ public class JFRegistro extends javax.swing.JFrame {
                     .addComponent(lblCorreo)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblContrasenia)
-                    .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                    .addComponent(psswdContraseniaR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(59, 59, 59)
                 .addComponent(btnRegistrar)
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
 
         pack();
@@ -139,8 +157,37 @@ public class JFRegistro extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
+        codigoUnico = Integer.parseInt(txtCodigoUnico.getText());
+        nombre = txtNombre.getText();
+        apellido = txtApellido.getText();
+        telefono = txtTelefono.getText();
+        correo = txtCorreo.getText();
+        contrasenia = new String(psswdContraseniaR.getPassword());
+        tipoCuenta = cmbTipoCuenta.getSelectedItem().toString();
+        Usuario nuevoUsuario = new Usuario(nombre, apellido, telefono, codigoUnico);
+       
+        /*if(tipoCuenta.equals("pasajero")){
+            Cuenta cuentaPasajero = new Pasajero(correo, contrasenia, nuevoUsuario);
+        }else{
+             JFVehiculo jfvehiculo = new JFVehiculo();
+             jfvehiculo.setVisible(true);
+             this.setVisible(false);
+             
+                }
+        SqlUsuario modSql = new SqlUsuario();
         
-        
+
+        try{
+            if(modSql.registrarUsuario(codigoUnico,correo, contrasenia, tipoCuenta)){
+                JOptionPane.showMessageDialog(null, "Bienvenido", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
+
+        }*/
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
@@ -188,9 +235,9 @@ public class JFRegistro extends javax.swing.JFrame {
     private javax.swing.JLabel lblCorreo;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblTelefono;
+    private javax.swing.JPasswordField psswdContraseniaR;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCodigoUnico;
-    private javax.swing.JTextField txtContrasenia;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;

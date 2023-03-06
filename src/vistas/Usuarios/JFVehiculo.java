@@ -13,6 +13,13 @@ public class JFVehiculo extends javax.swing.JFrame {
     /**
      * Creates new form JFVehiculo
      */
+    public static String placa = "";
+    public static String modelo = "";
+    public static String color = "";
+    public static int anio = 0;
+    public static int numeroAsientos = 0;
+    
+    
     public JFVehiculo() {
         initComponents();
     }
@@ -51,6 +58,11 @@ public class JFVehiculo extends javax.swing.JFrame {
         lblNumeroAsientos.setText("Número de asientos");
 
         btnRegistrarVehiculo.setText("Registrar Vehículo");
+        btnRegistrarVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarVehiculoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,7 +87,7 @@ public class JFVehiculo extends javax.swing.JFrame {
                             .addComponent(txtAnio)
                             .addComponent(txtNumeroAsientos)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(187, 187, 187)
+                        .addGap(275, 275, 275)
                         .addComponent(btnRegistrarVehiculo)))
                 .addContainerGap(290, Short.MAX_VALUE))
         );
@@ -102,13 +114,24 @@ public class JFVehiculo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumeroAsientos)
                     .addComponent(txtNumeroAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
+                .addGap(48, 48, 48)
                 .addComponent(btnRegistrarVehiculo)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addContainerGap(191, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegistrarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVehiculoActionPerformed
+        // TODO add your handling code here:
+        placa = txtPlaca.getText();
+        modelo = txtModelo.getText();
+        color = txtColor.getText();
+        anio = Integer.parseInt(txtAnio.getText());
+        numeroAsientos = Integer.parseInt(txtNumeroAsientos.getText());
+        
+        
+    }//GEN-LAST:event_btnRegistrarVehiculoActionPerformed
 
     /**
      * @param args the command line arguments

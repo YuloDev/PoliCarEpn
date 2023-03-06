@@ -17,7 +17,7 @@ import modelo.usuarios.Usuario;
  * @author Cesar
  */
 public class SqlUsuario extends controladorBD.conexion.ConexionMySQL {
-    /*
+    
     
         public boolean registrarUsuario(Usuario usr, Cuenta cuenta ){
         PreparedStatement ps = null;
@@ -29,18 +29,21 @@ public class SqlUsuario extends controladorBD.conexion.ConexionMySQL {
         try {
             ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
             ps = (PreparedStatement) con.prepareStatement(sql);
-            ps.setString(1, usr.);
-            ps.setString(2, usr.getNombreDeUsuario());
-            ps.setString(3, usr.getClaveDeUsuario());
-            ps.setString(4, usr.getTipoDeUsuario());
+            ps.setInt(1, usr.getCodUnico());
+            ps.setString(2, usr.getNombre());
+            ps.setString(3, usr.getApellido());
+            ps.setString(4, usr.getTelefono());
+           
+            ps.setString(3, cuenta.getCorreo());
+            ps.setString(4, cuenta.getContraseña());
             ps.execute();
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(SqlUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SqlUsuario.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
    
-    }*/
+    }
      
 
 }

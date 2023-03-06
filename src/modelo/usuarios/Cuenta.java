@@ -42,6 +42,14 @@ public abstract class Cuenta {
         //metodo polimorfico
     }
 
+    public String getCorreo() {
+        return correo;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
     public Evaluacion getEvaluacion() {
         return evaluacion;
     }

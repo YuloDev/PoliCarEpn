@@ -43,8 +43,8 @@
                           <Component id="txtCodigoUnico" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtTelefono" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtCorreo" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtContrasenia" alignment="0" max="32767" attributes="0"/>
                           <Component id="cmbTipoCuenta" pref="118" max="32767" attributes="0"/>
+                          <Component id="psswdContraseniaR" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -85,18 +85,18 @@
                   <Component id="txtCorreo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblContrasenia" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtContrasenia" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblContrasenia" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="psswdContraseniaR" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="cmbTipoCuenta" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
               <Component id="btnRegistrar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="113" max="32767" attributes="0"/>
+              <EmptySpace pref="110" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -127,8 +127,6 @@
     <Component class="javax.swing.JTextField" name="txtApellido">
     </Component>
     <Component class="javax.swing.JTextField" name="txtCorreo">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtContrasenia">
     </Component>
     <Component class="javax.swing.JLabel" name="lblCodigoUnico">
       <Properties>
@@ -170,6 +168,11 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="psswdContraseniaR">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jPasswordField1"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
