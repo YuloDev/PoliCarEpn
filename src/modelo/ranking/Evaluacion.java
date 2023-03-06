@@ -1,41 +1,41 @@
 package modelo.ranking;
 
-import modelo.ranking.Calificacion;
-
 public class Evaluacion {
 
     private Calificacion[] listaCalificaciones;
-    double promedio = 5;
+    double promedio;
 
     public Evaluacion() {
         this.listaCalificaciones = new Calificacion[30];
-        //this.lista.mostrarLista();
         this.promedio = 0;
     }
 
     public double calcularCalificacionTotal() {
         int i = 0;
-        for (Calificacion calificacion : listaCalificaciones) {
-            if (calificacion != null) {
-                promedio = promedio + calificacion.getPuntaje();
+        
+        for (int j = 0; j < listaCalificaciones.length; j++) {
+            if (listaCalificaciones[j] != null) {
+                promedio = promedio + listaCalificaciones[j].getPuntaje();
                 i++;
+            }else{
+                break;
             }
         }
         promedio = promedio / i;
 
-        return promedio;
+        double promedioR = java.lang.Math.round(promedio * 100) / 100;
+
+        return promedioR;
 
     }
 
     public void añadirCalificacion(Calificacion calificacion) {
         for (int i = 0; i < listaCalificaciones.length; i++) {
-            if (listaCalificaciones[i] == null) {
-                listaCalificaciones[i] = calificacion;
-                listaCalificaciones[i].mostrar(); //Eliminar solo prueba
-                return;
+            if (this.listaCalificaciones[i] == null) {
+                this.listaCalificaciones[i] = calificacion;
+                break;
             }
         }
-        System.out.println("Máximo de calificaciones");
     }
 
     public void quitarCalificacion(Calificacion calificacion) {
@@ -45,7 +45,9 @@ public class Evaluacion {
                 return;
             }
         }
-        System.out.println("La calificacion no se encuentra");
     }
 
+    public Calificacion[] getListaCalificaciones() {
+        return listaCalificaciones;
+    }
 }

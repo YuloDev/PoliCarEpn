@@ -37,6 +37,9 @@ public class Usuario {
         System.out.println("Adios");
     }
 
+    public int getCodUnico() {
+        return codUnico;
+    }
     
     @Override
     public String toString() {
