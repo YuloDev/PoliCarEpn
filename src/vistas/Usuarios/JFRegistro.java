@@ -7,6 +7,8 @@ package vistas.Usuarios;
 import controladorBD.usuarios.SqlCuenta;
 import controladorBD.usuarios.SqlUsuario;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import modelo.usuarios.Conductor;
 import modelo.usuarios.Cuenta;
 import modelo.usuarios.Pasajero;
@@ -32,6 +34,24 @@ public class JFRegistro extends javax.swing.JFrame {
     
     public JFRegistro() {
         initComponents();
+        
+        
+    }
+
+    public JPasswordField getPsswdContraseniaR() {
+        return psswdContraseniaR;
+    }
+
+    public void setPsswdContraseniaR(JPasswordField psswdContraseniaR) {
+        this.psswdContraseniaR = psswdContraseniaR;
+    }
+
+    public JTextField getTxtCorreo() {
+        return txtCorreo;
+    }
+
+    public void setTxtCorreo(JTextField txtCorreo) {
+        this.txtCorreo = txtCorreo;
     }
 
     /**
@@ -85,7 +105,11 @@ public class JFRegistro extends javax.swing.JFrame {
             }
         });
 
-        psswdContraseniaR.setText("jPasswordField1");
+        psswdContraseniaR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                psswdContraseniaRActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,9 +137,9 @@ public class JFRegistro extends javax.swing.JFrame {
                             .addComponent(cmbTipoCuenta, 0, 118, Short.MAX_VALUE)
                             .addComponent(psswdContraseniaR)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(256, 256, 256)
+                        .addGap(281, 281, 281)
                         .addComponent(btnRegistrar)))
-                .addContainerGap(353, Short.MAX_VALUE))
+                .addContainerGap(354, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,13 +168,13 @@ public class JFRegistro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblContrasenia)
                     .addComponent(psswdContraseniaR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(59, 59, 59)
+                .addGap(51, 51, 51)
                 .addComponent(btnRegistrar)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
         pack();
@@ -185,6 +209,7 @@ public class JFRegistro extends javax.swing.JFrame {
             JFVehiculo jfvehiculo = new JFVehiculo();
             jfvehiculo.setVisible(true);
             this.setVisible(false);
+            
             /*
             jfvehiculo.retornaVehiculo(correo, contrasenia, nuevoUsuario, );
             System.out.println("3");
@@ -205,6 +230,10 @@ public class JFRegistro extends javax.swing.JFrame {
 
         
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void psswdContraseniaRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_psswdContraseniaRActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_psswdContraseniaRActionPerformed
 
     /**
      * @param args the command line arguments

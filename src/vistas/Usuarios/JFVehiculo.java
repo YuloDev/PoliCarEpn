@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import modelo.usuarios.Conductor;
 import modelo.usuarios.Usuario;
 import modelo.usuarios.Vehiculo;
+import vistas.Usuarios.JFRegistro;
 
 /**
  *
@@ -29,6 +30,11 @@ public class JFVehiculo extends javax.swing.JFrame {
     public JFVehiculo() {
         
         initComponents();
+        JFRegistro registro = new JFRegistro();
+        txtCorreo1.setText("HOLA");
+        txtCorreo1.setVisible(false);
+        //txtContrasenia1.setText(registro.txtCorreo.getText());
+      
     }
 
     /**
@@ -51,6 +57,8 @@ public class JFVehiculo extends javax.swing.JFrame {
         txtAnio = new javax.swing.JTextField();
         txtNumeroAsientos = new javax.swing.JTextField();
         btnRegistrarVehiculo = new javax.swing.JButton();
+        txtCorreo1 = new javax.swing.JTextField();
+        txtContrasenia1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,7 +93,9 @@ public class JFVehiculo extends javax.swing.JFrame {
                                 .addComponent(lblModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                                 .addComponent(lblColor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(lblAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNumeroAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblNumeroAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCorreo1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtContrasenia1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(93, 93, 93)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtPlaca, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
@@ -121,9 +131,13 @@ public class JFVehiculo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumeroAsientos)
                     .addComponent(txtNumeroAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
+                .addGap(18, 18, 18)
+                .addComponent(txtCorreo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtContrasenia1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
                 .addComponent(btnRegistrarVehiculo)
-                .addContainerGap(191, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         pack();
@@ -201,6 +215,8 @@ public class JFVehiculo extends javax.swing.JFrame {
     private javax.swing.JLabel lblPlaca;
     private javax.swing.JTextField txtAnio;
     private javax.swing.JTextField txtColor;
+    private javax.swing.JTextField txtContrasenia1;
+    private javax.swing.JTextField txtCorreo1;
     private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtNumeroAsientos;
     private javax.swing.JTextField txtPlaca;
