@@ -42,6 +42,8 @@ public class JFLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         cmbTipoCuenta = new javax.swing.JComboBox<>();
         psswdContrasenia = new javax.swing.JPasswordField();
+        jButtonRegistrarse = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 550));
@@ -74,29 +76,42 @@ public class JFLogin extends javax.swing.JFrame {
         cmbTipoCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pasajero", "Conductor" }));
         cmbTipoCuenta.setSelectedIndex(-1);
 
+        jButtonRegistrarse.setText("Registrate");
+        jButtonRegistrarse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRegistrarseActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("¿No tienes cuenta?");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(144, 144, 144)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(lblContrasenia)
-                            .addGap(91, 91, 91)))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(lblContrasenia)
+                                    .addGap(137, 137, Short.MAX_VALUE)))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(251, 251, 251)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnIniciarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonRegistrarse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
                     .addComponent(cmbTipoCuenta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(psswdContrasenia))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(251, 251, 251)
-                .addComponent(btnIniciarSesion)
-                .addGap(281, 394, Short.MAX_VALUE))
+                .addContainerGap(218, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,7 +130,11 @@ public class JFLogin extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(30, 30, 30)
                 .addComponent(btnIniciarSesion)
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addGap(14, 14, 14)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonRegistrarse)
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         pack();
@@ -132,6 +151,11 @@ public class JFLogin extends javax.swing.JFrame {
         try{
             if(modSql.iniciarSesion(correo, contrasenia, tipoCuenta)){
                 JOptionPane.showMessageDialog(null, "Bienvenido", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                /*
+                if(tipoCuenta.equals("Pasajero")){
+                    
+                }
+                */
             }else{
                 JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -158,6 +182,12 @@ public class JFLogin extends javax.swing.JFrame {
         }                           
 
     }//GEN-LAST:event_txtCorreoFocusLost
+
+    private void jButtonRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarseActionPerformed
+        this.setVisible(false); 
+        JFRegistro jfregistro = new JFRegistro();
+        jfregistro.setVisible(true);               
+    }//GEN-LAST:event_jButtonRegistrarseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,7 +227,9 @@ public class JFLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JComboBox<String> cmbTipoCuenta;
+    private javax.swing.JButton jButtonRegistrarse;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblContrasenia;
     private javax.swing.JLabel lblCorreo;
     private javax.swing.JPasswordField psswdContrasenia;

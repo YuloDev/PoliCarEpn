@@ -11,6 +11,7 @@ import modelo.usuarios.Conductor;
 import modelo.usuarios.Cuenta;
 import modelo.usuarios.Pasajero;
 import modelo.usuarios.Usuario;
+import modelo.usuarios.Vehiculo;
 
 /**
  *
@@ -165,29 +166,44 @@ public class JFRegistro extends javax.swing.JFrame {
         contrasenia = new String(psswdContraseniaR.getPassword());
         tipoCuenta = cmbTipoCuenta.getSelectedItem().toString();
         Usuario nuevoUsuario = new Usuario(nombre, apellido, telefono, codigoUnico);
-       
-        /*if(tipoCuenta.equals("pasajero")){
-            Cuenta cuentaPasajero = new Pasajero(correo, contrasenia, nuevoUsuario);
-        }else{
-             JFVehiculo jfvehiculo = new JFVehiculo();
-             jfvehiculo.setVisible(true);
-             this.setVisible(false);
-             
-                }
-        SqlUsuario modSql = new SqlUsuario();
-        
-
-        try{
-            if(modSql.registrarUsuario(codigoUnico,correo, contrasenia, tipoCuenta)){
-                JOptionPane.showMessageDialog(null, "Bienvenido", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        Pasajero cuentaPasajero = null;
+        if(tipoCuenta.equals("Pasajero")){
+            cuentaPasajero = new Pasajero(correo, contrasenia, nuevoUsuario);
+            SqlUsuario modSql = new SqlUsuario();
+            try{
+            if(modSql.registrarUsuario(nuevoUsuario,cuentaPasajero, tipoCuenta)){
+                JOptionPane.showMessageDialog(null, "Pasajero registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             }else{
-                JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No se pudo registrar pasajero", "Error", JOptionPane.ERROR_MESSAGE);
             }
             
-        }catch(Exception e){
+            }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
 
-        }*/
+            }
+        }else {
+            JFVehiculo jfvehiculo = new JFVehiculo();
+            jfvehiculo.setVisible(true);
+            this.setVisible(false);
+            /*
+            jfvehiculo.retornaVehiculo(correo, contrasenia, nuevoUsuario, );
+            System.out.println("3");
+            Conductor cuentaConductor = new Conductor(correo, contrasenia, nuevoUsuario, vehiculo);
+            SqlUsuario modSql = new SqlUsuario();
+            try{
+                if(modSql.registrarUsuario(nuevoUsuario,cuentaConductor, tipoCuenta)){
+                    JOptionPane.showMessageDialog(null, "Conductor registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(null, "No se pudo registrar conductor", "Error", JOptionPane.ERROR_MESSAGE);
+                }            
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
+            } */                        
+        }
+        
+        
+
+        
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**

@@ -19,9 +19,10 @@ import modelo.usuarios.Usuario;
 public class SqlUsuario extends controladorBD.conexion.ConexionMySQL {
     
     
-        public boolean registrarUsuario(Usuario usr, Cuenta cuenta ){
+        public boolean registrarUsuario(Usuario usr, Cuenta cuenta , String tipoCuenta){
         PreparedStatement ps = null;
-         Connection con = conectar();
+        PreparedStatement ps2 = null;
+        Connection con = conectar();
          
          String sql = "INSERT INTO usuario (codigounico, nombre, apellido,telefono) VALUES (?,?,?,?);";
          String sql2 = "INSERT INTO cuenta (codigounico, correo, contrasenia, tipocuenta) VALUES (?,?,?,?);";
@@ -29,14 +30,20 @@ public class SqlUsuario extends controladorBD.conexion.ConexionMySQL {
         try {
             ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
             ps = (PreparedStatement) con.prepareStatement(sql);
+            ps2 = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql2);
+            ps2 = (PreparedStatement) con.prepareStatement(sql2);
             ps.setInt(1, usr.getCodUnico());
             ps.setString(2, usr.getNombre());
             ps.setString(3, usr.getApellido());
             ps.setString(4, usr.getTelefono());
            
-            ps.setString(3, cuenta.getCorreo());
-            ps.setString(4, cuenta.getContraseña());
+            ps2.setInt(1, usr.getCodUnico());
+            ps2.setString(2, cuenta.getCorreo());
+            ps2.setString(3, cuenta.getContraseña());
+            ps2.setString(4, tipoCuenta);
+
             ps.execute();
+            ps2.execute();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(SqlUsuario.class.getName()).log(Level.SEVERE, null, ex);

@@ -4,6 +4,12 @@
  */
 package vistas.Usuarios;
 
+import controladorBD.usuarios.SqlVehiculo;
+import javax.swing.JOptionPane;
+import modelo.usuarios.Conductor;
+import modelo.usuarios.Usuario;
+import modelo.usuarios.Vehiculo;
+
 /**
  *
  * @author Lenovo
@@ -17,10 +23,11 @@ public class JFVehiculo extends javax.swing.JFrame {
     public static String modelo = "";
     public static String color = "";
     public static int anio = 0;
-    public static int numeroAsientos = 0;
-    
+    public static int numeroAsientos = 0;    
+    public Vehiculo vehiculo = null;
     
     public JFVehiculo() {
+        
         initComponents();
     }
 
@@ -122,15 +129,32 @@ public class JFVehiculo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegistrarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVehiculoActionPerformed
-        // TODO add your handling code here:
+    public void retornaVehiculo(String correo, String contrasenia, Usuario usuario){        
         placa = txtPlaca.getText();
         modelo = txtModelo.getText();
-        color = txtColor.getText();
-        anio = Integer.parseInt(txtAnio.getText());
+        color = txtColor.getText();       
+        anio = Integer.parseInt(txtAnio.getText());        
         numeroAsientos = Integer.parseInt(txtNumeroAsientos.getText());
-        
-        
+        vehiculo = new Vehiculo(placa, modelo, color, anio, numeroAsientos);
+        Conductor conductor = new Conductor(correo, contrasenia, usuario, vehiculo);
+        //return vehiculo;
+    }
+    
+    private void btnRegistrarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVehiculoActionPerformed
+        // TODO add your handling code here:                      
+        //vehiculo = retornaVehiculo();
+        SqlVehiculo modSql = new SqlVehiculo();
+        try{
+            if(modSql.registrarVehiculo(vehiculo)){
+                
+                JOptionPane.showMessageDialog(null, "Vehiculo registrado exitosamente!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                
+            }else{
+                JOptionPane.showMessageDialog(null, "No se pudo registrar el vehiculo", "Error", JOptionPane.ERROR_MESSAGE);
+            }            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
+        }       
     }//GEN-LAST:event_btnRegistrarVehiculoActionPerformed
 
     /**
