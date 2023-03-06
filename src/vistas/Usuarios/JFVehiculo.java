@@ -4,12 +4,14 @@
  */
 package vistas.Usuarios;
 
+import controladorBD.usuarios.SqlUsuario;
 import controladorBD.usuarios.SqlVehiculo;
 import javax.swing.JOptionPane;
 import modelo.usuarios.Conductor;
 import modelo.usuarios.Usuario;
 import modelo.usuarios.Vehiculo;
 import vistas.Usuarios.JFRegistro;
+
 
 /**
  *
@@ -30,9 +32,7 @@ public class JFVehiculo extends javax.swing.JFrame {
     public JFVehiculo() {
         
         initComponents();
-        JFRegistro registro = new JFRegistro();
-        txtCorreo1.setText("HOLA");
-        txtCorreo1.setVisible(false);
+        JFRegistro registro = new JFRegistro();        
         //txtContrasenia1.setText(registro.txtCorreo.getText());
       
     }
@@ -57,8 +57,6 @@ public class JFVehiculo extends javax.swing.JFrame {
         txtAnio = new javax.swing.JTextField();
         txtNumeroAsientos = new javax.swing.JTextField();
         btnRegistrarVehiculo = new javax.swing.JButton();
-        txtCorreo1 = new javax.swing.JTextField();
-        txtContrasenia1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,9 +91,7 @@ public class JFVehiculo extends javax.swing.JFrame {
                                 .addComponent(lblModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                                 .addComponent(lblColor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(lblAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNumeroAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCorreo1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtContrasenia1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblNumeroAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(93, 93, 93)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtPlaca, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
@@ -131,11 +127,7 @@ public class JFVehiculo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumeroAsientos)
                     .addComponent(txtNumeroAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(txtCorreo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtContrasenia1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(117, 117, 117)
                 .addComponent(btnRegistrarVehiculo)
                 .addContainerGap(122, Short.MAX_VALUE))
         );
@@ -143,24 +135,33 @@ public class JFVehiculo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void retornaVehiculo(String correo, String contrasenia, Usuario usuario){        
+    
+    
+    private void btnRegistrarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVehiculoActionPerformed
         placa = txtPlaca.getText();
         modelo = txtModelo.getText();
         color = txtColor.getText();       
         anio = Integer.parseInt(txtAnio.getText());        
         numeroAsientos = Integer.parseInt(txtNumeroAsientos.getText());
         vehiculo = new Vehiculo(placa, modelo, color, anio, numeroAsientos);
-        Conductor conductor = new Conductor(correo, contrasenia, usuario, vehiculo);
-        //return vehiculo;
-    }
-    
-    private void btnRegistrarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVehiculoActionPerformed
-        // TODO add your handling code here:                      
-        //vehiculo = retornaVehiculo();
+        JFRegistro jfregistro = new JFRegistro();
+        String contrasenia = jfregistro.retornaContrasenia();
+        String correo = jfregistro.retornaCorreo();
+        Usuario nuevoUsuario = jfregistro.returnUsuario();
         SqlVehiculo modSql = new SqlVehiculo();
         try{
             if(modSql.registrarVehiculo(vehiculo)){
-                
+                Conductor cuentaConductor = new Conductor(correo, contrasenia, nuevoUsuario, vehiculo);
+                SqlUsuario modSql2 = new SqlUsuario();
+                try{
+                    if(modSql2.registrarUsuario(nuevoUsuario,cuentaConductor, "Conductor")){
+                        JOptionPane.showMessageDialog(null, "Conductor registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "No se pudo registrar conductor", "Error", JOptionPane.ERROR_MESSAGE);
+                    }            
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
+                }      
                 JOptionPane.showMessageDialog(null, "Vehiculo registrado exitosamente!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 
             }else{
@@ -215,8 +216,6 @@ public class JFVehiculo extends javax.swing.JFrame {
     private javax.swing.JLabel lblPlaca;
     private javax.swing.JTextField txtAnio;
     private javax.swing.JTextField txtColor;
-    private javax.swing.JTextField txtContrasenia1;
-    private javax.swing.JTextField txtCorreo1;
     private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtNumeroAsientos;
     private javax.swing.JTextField txtPlaca;

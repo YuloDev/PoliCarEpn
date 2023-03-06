@@ -5,6 +5,7 @@ import modelo.viaje.Viaje;
 
 public class Conductor extends Cuenta {
 
+    
     public Conductor(String correo, String contraseña, Usuario usuario, Vehiculo vehiculo) {
         super(correo, contraseña, usuario);
         this.vehiculo = vehiculo;

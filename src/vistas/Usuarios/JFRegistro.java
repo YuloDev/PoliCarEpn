@@ -24,35 +24,21 @@ public class JFRegistro extends javax.swing.JFrame {
     /**
      * Creates new form JFRegistro
      */
-    public static String nombre = "";
-    public static String apellido = "";
-    public static int codigoUnico = 0;
-    public static String telefono = "";
-    public static String correo = "";
-    public static String contrasenia = "";
-    public static String tipoCuenta = "";
+    public String nombre = "";
+    public String apellido = "";
+    public int codigoUnico = 0;
+    public String telefono = "";
+    public String correo = "";
+    public String contrasenia = "";
+    public String tipoCuenta = "";
+    public Usuario nuevoUsuario = null;
     
     public JFRegistro() {
         initComponents();
         
         
     }
-
-    public JPasswordField getPsswdContraseniaR() {
-        return psswdContraseniaR;
-    }
-
-    public void setPsswdContraseniaR(JPasswordField psswdContraseniaR) {
-        this.psswdContraseniaR = psswdContraseniaR;
-    }
-
-    public JTextField getTxtCorreo() {
-        return txtCorreo;
-    }
-
-    public void setTxtCorreo(JTextField txtCorreo) {
-        this.txtCorreo = txtCorreo;
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -180,17 +166,36 @@ public class JFRegistro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        // TODO add your handling code here:
+    public String retornaContrasenia(){        
+        contrasenia = new String(psswdContraseniaR.getPassword());
+        return contrasenia;
+    }
+    
+    public String retornaCorreo(){        
+        correo = txtCorreo.getText();
+        return correo;
+    }
+    
+    public Usuario returnUsuario(){
         codigoUnico = Integer.parseInt(txtCodigoUnico.getText());
         nombre = txtNombre.getText();
         apellido = txtApellido.getText();
         telefono = txtTelefono.getText();
-        correo = txtCorreo.getText();
-        contrasenia = new String(psswdContraseniaR.getPassword());
-        tipoCuenta = cmbTipoCuenta.getSelectedItem().toString();
         Usuario nuevoUsuario = new Usuario(nombre, apellido, telefono, codigoUnico);
-        Pasajero cuentaPasajero = null;
+        return nuevoUsuario;
+    }
+    
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        // TODO add your handling code here:
+        
+        correo = retornaCorreo();
+        contrasenia = retornaContrasenia();
+        nuevoUsuario = returnUsuario();
+        System.out.println(correo);
+        System.out.println(contrasenia);
+        System.out.println(nuevoUsuario.toString());
+        tipoCuenta = cmbTipoCuenta.getSelectedItem().toString();
+        Cuenta cuentaPasajero = null;
         if(tipoCuenta.equals("Pasajero")){
             cuentaPasajero = new Pasajero(correo, contrasenia, nuevoUsuario);
             SqlUsuario modSql = new SqlUsuario();
@@ -199,31 +204,15 @@ public class JFRegistro extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Pasajero registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             }else{
                 JOptionPane.showMessageDialog(null, "No se pudo registrar pasajero", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            
+            }            
             }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
 
             }
-        }else {
+        }else {            
             JFVehiculo jfvehiculo = new JFVehiculo();
             jfvehiculo.setVisible(true);
-            this.setVisible(false);
-            
-            /*
-            jfvehiculo.retornaVehiculo(correo, contrasenia, nuevoUsuario, );
-            System.out.println("3");
-            Conductor cuentaConductor = new Conductor(correo, contrasenia, nuevoUsuario, vehiculo);
-            SqlUsuario modSql = new SqlUsuario();
-            try{
-                if(modSql.registrarUsuario(nuevoUsuario,cuentaConductor, tipoCuenta)){
-                    JOptionPane.showMessageDialog(null, "Conductor registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                }else{
-                    JOptionPane.showMessageDialog(null, "No se pudo registrar conductor", "Error", JOptionPane.ERROR_MESSAGE);
-                }            
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
-            } */                        
+            this.setVisible(false);                           
         }
         
         
