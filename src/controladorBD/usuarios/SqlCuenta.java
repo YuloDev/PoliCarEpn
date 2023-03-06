@@ -17,6 +17,8 @@ import modelo.usuarios.Cuenta;
 public class SqlCuenta extends controladorBD.conexion.ConexionMySQL{
     
     public boolean login(String correo, String contrasenia) {
+        
+        //metodo para iniciar sesion
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = conectar();
@@ -42,5 +44,6 @@ public class SqlCuenta extends controladorBD.conexion.ConexionMySQL{
             return false;
         }
     }
+
     
 }
