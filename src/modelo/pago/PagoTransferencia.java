@@ -15,15 +15,18 @@ import modelo.reservacion.ControladorTiempoDeReserva;
  */
 public class PagoTransferencia extends Pago{
     
-    private BilleteraPoliCar billetera = new BilleteraPoliCar();
+    public double valorTotal;
+    public BilleteraPoliCar billetera = new BilleteraPoliCar();
     
     public PagoTransferencia(Factura factura) {
         super(factura);
         controlador = new ControladorTiempoDeReserva(factura.reservacion,20*60*1000);
+        factura.calcularTotal();
+        this.valorTotal = super.factura.valorTotal;
     }
     
     public boolean realizarPago(){
-        return billetera.aumentarSaldo(factura.valorTotal);
+        return billetera.aumentarSaldo(valorTotal);
     }
-    
+  
 }
