@@ -24,20 +24,22 @@ public class JFRegistro extends javax.swing.JFrame {
     /**
      * Creates new form JFRegistro
      */
-    public String nombre = "";
-    public String apellido = "";
-    public int codigoUnico = 0;
-    public String telefono = "";
-    public String correo = "";
-    public String contrasenia = "";
-    public String tipoCuenta = "";
-    public Usuario nuevoUsuario = null;
+    public static String nombre;
+    public static String apellido;
+    public static int codigoUnico;
+    public static String telefono;
+    public static String correo;
+    public static String contrasenia;
+    public static String tipoCuenta;
+    public static Usuario nuevoUsuario;
     
     public JFRegistro() {
-        initComponents();
-        
+        initComponents();        
         
     }
+
+    
+    
     
 
     /**
@@ -166,41 +168,24 @@ public class JFRegistro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public String retornaContrasenia(){        
-        contrasenia = new String(psswdContraseniaR.getPassword());
-        return contrasenia;
-    }
-    
-    public String retornaCorreo(){        
-        correo = txtCorreo.getText();
-        return correo;
-    }
-    
-    public Usuario returnUsuario(){
-        codigoUnico = Integer.parseInt(txtCodigoUnico.getText());
-        nombre = txtNombre.getText();
-        apellido = txtApellido.getText();
-        telefono = txtTelefono.getText();
-        Usuario nuevoUsuario = new Usuario(nombre, apellido, telefono, codigoUnico);
-        return nuevoUsuario;
-    }
     
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
         
-        correo = retornaCorreo();
-        contrasenia = retornaContrasenia();
-        nuevoUsuario = returnUsuario();
-        System.out.println(correo);
-        System.out.println(contrasenia);
-        System.out.println(nuevoUsuario.toString());
+        correo = txtCorreo.getText();
+        contrasenia = new String(psswdContraseniaR.getPassword());
+        nombre = txtNombre.getText();
+        apellido = txtApellido.getText();
+        codigoUnico = Integer.parseInt(txtCodigoUnico.getText());
+        telefono = txtTelefono.getText();
+        nuevoUsuario = new Usuario(nombre, apellido, telefono, codigoUnico);
         tipoCuenta = cmbTipoCuenta.getSelectedItem().toString();
         Cuenta cuentaPasajero = null;
         if(tipoCuenta.equals("Pasajero")){
             cuentaPasajero = new Pasajero(correo, contrasenia, nuevoUsuario);
             SqlUsuario modSql = new SqlUsuario();
             try{
-            if(modSql.registrarUsuario(nuevoUsuario,cuentaPasajero, tipoCuenta)){
+            if(modSql.registrarPasajero(nuevoUsuario,cuentaPasajero, tipoCuenta)){
                 JOptionPane.showMessageDialog(null, "Pasajero registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             }else{
                 JOptionPane.showMessageDialog(null, "No se pudo registrar pasajero", "Error", JOptionPane.ERROR_MESSAGE);

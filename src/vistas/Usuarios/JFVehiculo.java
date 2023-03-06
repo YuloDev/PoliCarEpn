@@ -8,6 +8,7 @@ import controladorBD.usuarios.SqlUsuario;
 import controladorBD.usuarios.SqlVehiculo;
 import javax.swing.JOptionPane;
 import modelo.usuarios.Conductor;
+import modelo.usuarios.Cuenta;
 import modelo.usuarios.Usuario;
 import modelo.usuarios.Vehiculo;
 import vistas.Usuarios.JFRegistro;
@@ -17,22 +18,25 @@ import vistas.Usuarios.JFRegistro;
  *
  * @author Lenovo
  */
-public class JFVehiculo extends javax.swing.JFrame {
+public class JFVehiculo extends javax.swing.JFrame{
 
     /**
      * Creates new form JFVehiculo
      */
-    public static String placa = "";
-    public static String modelo = "";
-    public static String color = "";
-    public static int anio = 0;
-    public static int numeroAsientos = 0;    
-    public Vehiculo vehiculo = null;
+    public static String placa ;
+    public static String modelo;
+    public static String color;
+    public static int anio;
+    public static int numeroAsientos;    
+    public Vehiculo vehiculo;
+    public static String correo;
+    public static String contrasenia;
+    public static Usuario nuevoUsuario;
     
     public JFVehiculo() {
         
         initComponents();
-        JFRegistro registro = new JFRegistro();        
+        //JFRegistro registro = new JFRegistro();        
         //txtContrasenia1.setText(registro.txtCorreo.getText());
       
     }
@@ -144,17 +148,22 @@ public class JFVehiculo extends javax.swing.JFrame {
         anio = Integer.parseInt(txtAnio.getText());        
         numeroAsientos = Integer.parseInt(txtNumeroAsientos.getText());
         vehiculo = new Vehiculo(placa, modelo, color, anio, numeroAsientos);
-        JFRegistro jfregistro = new JFRegistro();
-        String contrasenia = jfregistro.retornaContrasenia();
-        String correo = jfregistro.retornaCorreo();
-        Usuario nuevoUsuario = jfregistro.returnUsuario();
+        //JFRegistro jfregistro = new JFRegistro();
+        contrasenia = JFRegistro.contrasenia;
+        System.err.println(contrasenia);
+        correo = JFRegistro.correo;
+        System.err.println(correo);
+        nuevoUsuario = JFRegistro.nuevoUsuario;
+        System.err.println(nuevoUsuario.toString());
+
         SqlVehiculo modSql = new SqlVehiculo();
         try{
             if(modSql.registrarVehiculo(vehiculo)){
-                Conductor cuentaConductor = new Conductor(correo, contrasenia, nuevoUsuario, vehiculo);
+                Cuenta cuentaConductor = new Conductor(correo, contrasenia, nuevoUsuario, vehiculo);
                 SqlUsuario modSql2 = new SqlUsuario();
+                System.out.println("*********");
                 try{
-                    if(modSql2.registrarUsuario(nuevoUsuario,cuentaConductor, "Conductor")){
+                    if(modSql2.registrarConductor(nuevoUsuario,cuentaConductor, "Conductor", placa)){
                         JOptionPane.showMessageDialog(null, "Conductor registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                     }else{
                         JOptionPane.showMessageDialog(null, "No se pudo registrar conductor", "Error", JOptionPane.ERROR_MESSAGE);
@@ -168,7 +177,7 @@ public class JFVehiculo extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No se pudo registrar el vehiculo", "Error", JOptionPane.ERROR_MESSAGE);
             }            
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Credenciales incorrectas 2", "Error", JOptionPane.ERROR_MESSAGE);
         }       
     }//GEN-LAST:event_btnRegistrarVehiculoActionPerformed
 
