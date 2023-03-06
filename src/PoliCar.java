@@ -28,11 +28,12 @@ public class PoliCar {
         Vehiculo vehiculo = new Vehiculo("PBC123", "Kia rio", "rojo", 2019, 4);
              
         Conductor cuentaConductor = null;
+        /*
         if (vehiculo.validarAño()){
             cuentaConductor = new Conductor("r.p@epn.edu.ec", "1234",
                 nuevoUsuario, vehiculo);
         }
-        
+        */
         Viaje nuevoViaje = new Viaje("Quito", "Santa Rosa",
                 cuentaConductor.obtenerCantidadAsientos(),2.3, cuentaConductor);
         cuentaConductor.crearViaje(nuevoViaje);

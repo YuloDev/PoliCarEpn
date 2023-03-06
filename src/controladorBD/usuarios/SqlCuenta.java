@@ -44,6 +44,27 @@ public class SqlCuenta extends controladorBD.conexion.ConexionMySQL{
             return false;
         }
     }
+    
+    public String verificarCuenta(String correo, String contrasenia){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = conectar();
+        String tipoCuenta = "";
+
+        String sql = "SELECT tipocuenta FROM cuenta WHERE correo=?";
+        try{
+            ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
+            ps.setString(1, correo);            
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                tipoCuenta = rs.getString("tipocuenta");
+            }
+        }catch(SQLException e){
+            
+        }
+        
+        return tipoCuenta;
+    }
 
     
 }

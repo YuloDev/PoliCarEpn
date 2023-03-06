@@ -38,6 +38,7 @@ public class JFPasajero extends javax.swing.JFrame {
         lblTelefono = new javax.swing.JLabel();
         btnEvaluacion = new javax.swing.JButton();
         lblCuentaPasajero = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,6 +62,8 @@ public class JFPasajero extends javax.swing.JFrame {
         btnEvaluacion.setText("Evaluación");
 
         lblCuentaPasajero.setText("Cuenta Pasajero");
+
+        jButton1.setText("Quiero ser conductor");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,15 +96,19 @@ public class JFPasajero extends javax.swing.JFrame {
                                 .addComponent(btnEvaluacion))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(118, 118, 118)
-                        .addComponent(lblCuentaPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblCuentaPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1)))
                 .addContainerGap(187, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(lblCuentaPasajero)
-                .addGap(61, 61, 61)
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCuentaPasajero)
+                    .addComponent(jButton1))
+                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombre)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -171,6 +178,7 @@ public class JFPasajero extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscarViaje;
     private javax.swing.JButton btnCrearReservacion;
     private javax.swing.JButton btnEvaluacion;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblCodigoUnico;
     private javax.swing.JLabel lblCuentaPasajero;

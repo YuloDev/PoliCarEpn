@@ -147,12 +147,17 @@ public class JFLogin extends javax.swing.JFrame {
 
         try{
             if(modSql.iniciarSesion(correo, contrasenia, tipoCuenta)){
+                
                 JOptionPane.showMessageDialog(null, "Bienvenido", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                /*
                 if(tipoCuenta.equals("Pasajero")){
-                    
+                    JFPasajero jfpasajero = new JFPasajero();
+                    jfpasajero.setVisible(true);
+                    this.setVisible(false);
+                }else{
+                    JFCuentaConductor jfconductor = new JFCuentaConductor();
+                    jfconductor.setVisible(true);
+                    this.setVisible(false);
                 }
-                */
             }else{
                 JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
             }

@@ -54,12 +54,9 @@ public class SqlUsuario extends controladorBD.conexion.ConexionMySQL {
         public boolean registrarConductor(Usuario usr, Cuenta cuenta , String tipoCuenta, String placa){
             PreparedStatement ps = null;
             PreparedStatement ps2 = null;
-            Connection con = conectar();
-            System.out.println("Registro Conductor");
+            Connection con = conectar();            
             String sql = "INSERT INTO usuario (codigounico, nombre, apellido,telefono) VALUES (?,?,?,?);";
             String sql2 = "INSERT INTO cuenta (placa, codigounico, correo, contrasenia, tipocuenta) VALUES (?,?,?,?,?);";
-            System.out.println("Registro **********");
-
             try {
                 ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
                 ps = (PreparedStatement) con.prepareStatement(sql);

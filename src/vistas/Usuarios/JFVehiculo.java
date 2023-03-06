@@ -9,6 +9,7 @@ import controladorBD.usuarios.SqlVehiculo;
 import javax.swing.JOptionPane;
 import modelo.usuarios.Conductor;
 import modelo.usuarios.Cuenta;
+import modelo.usuarios.Pasajero;
 import modelo.usuarios.Usuario;
 import modelo.usuarios.Vehiculo;
 import vistas.Usuarios.JFRegistro;
@@ -73,6 +74,12 @@ public class JFVehiculo extends javax.swing.JFrame{
         lblAnio.setText("Año");
 
         lblNumeroAsientos.setText("Número de asientos");
+
+        txtAnio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtAnioFocusLost(evt);
+            }
+        });
 
         btnRegistrarVehiculo.setText("Registrar Vehículo");
         btnRegistrarVehiculo.addActionListener(new java.awt.event.ActionListener() {
@@ -150,18 +157,19 @@ public class JFVehiculo extends javax.swing.JFrame{
         vehiculo = new Vehiculo(placa, modelo, color, anio, numeroAsientos);
         //JFRegistro jfregistro = new JFRegistro();
         contrasenia = JFRegistro.contrasenia;
-        System.err.println(contrasenia);
+        
         correo = JFRegistro.correo;
-        System.err.println(correo);
+        
         nuevoUsuario = JFRegistro.nuevoUsuario;
-        System.err.println(nuevoUsuario.toString());
+        
 
         SqlVehiculo modSql = new SqlVehiculo();
         try{
             if(modSql.registrarVehiculo(vehiculo)){
                 Cuenta cuentaConductor = new Conductor(correo, contrasenia, nuevoUsuario, vehiculo);
+                Cuenta cuentaPasajero = new Pasajero(correo, contrasenia, nuevoUsuario);
                 SqlUsuario modSql2 = new SqlUsuario();
-                System.out.println("*********");
+                SqlUsuario modSql3 = new SqlUsuario();
                 try{
                     if(modSql2.registrarConductor(nuevoUsuario,cuentaConductor, "Conductor", placa)){
                         JOptionPane.showMessageDialog(null, "Conductor registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -180,6 +188,16 @@ public class JFVehiculo extends javax.swing.JFrame{
             JOptionPane.showMessageDialog(null, "Credenciales incorrectas 2", "Error", JOptionPane.ERROR_MESSAGE);
         }       
     }//GEN-LAST:event_btnRegistrarVehiculoActionPerformed
+
+    private void txtAnioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAnioFocusLost
+        Vehiculo vehiculo = new Vehiculo();
+        if(vehiculo.validarAño(Integer.parseInt(txtAnio.getText()))){
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Solo se puede ingresar vehiculos mayores al 2008 en adelante");            
+            txtAnio.requestFocus();
+        }
+    }//GEN-LAST:event_txtAnioFocusLost
 
     /**
      * @param args the command line arguments
