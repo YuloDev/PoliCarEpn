@@ -11,12 +11,12 @@ import modelo.reservacion.ListaReservacion;
 
 public class Viaje {
     public Asiento[] listaDeAsientos;
-    ListaReservacion reservaciones;
-    Usuario[] usuarios;
-    String ubicacionPartida;
-    String ubicacionDestino;
-    Cuenta cuenta;
-    Fecha fecha;
+    private ListaReservacion reservaciones;
+    private Usuario[] usuarios;
+    private String ubicacionPartida;
+    private String ubicacionDestino;
+    private Cuenta cuenta;
+    private Fecha fecha;
 
 
     public Viaje(String ubicacionPartida, String ubicacionDestino, int numAsientos, double precioUnitarioAsiento, Cuenta cuenta) {
