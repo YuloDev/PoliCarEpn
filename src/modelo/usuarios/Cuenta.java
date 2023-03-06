@@ -29,7 +29,7 @@ public abstract class Cuenta {
     public boolean validarCredenciales(String correo, String contraseña){
         boolean validador = false;
         if((this.correo.equals(correo)) && (this.contraseña.equals(contraseña))){
-            System.out.println("Bienvenido "+ correo);
+            
             validador = true;
         }else{
             validador = false;
