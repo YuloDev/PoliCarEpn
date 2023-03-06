@@ -10,4 +10,5 @@ package vistas.Usuarios;
  */
 public class BorrarClase {
     
+    
 }

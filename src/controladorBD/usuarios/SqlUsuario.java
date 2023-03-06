@@ -10,4 +10,5 @@ package controladorBD.usuarios;
  */
 public class SqlUsuario {
     
+    
 }
