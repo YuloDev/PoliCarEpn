@@ -10,5 +10,7 @@ package controladorBD.usuarios;
  */
 public class SqlUsuario {
     
-    
+    public void RegistrarUsuario(){
+        //probar
+    }
 }
