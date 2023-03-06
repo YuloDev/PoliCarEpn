@@ -21,8 +21,7 @@ public class SqlVehiculo extends controladorBD.conexion.ConexionMySQL{
     
         public boolean registrarVehiculo(Vehiculo vehiculo){
          PreparedStatement ps = null;
-         Connection con = conectar();
-            System.out.println("2");
+         Connection con = conectar();            
          String sql = "INSERT INTO vehiculo (placa, modelo, color, anio, numeroasientos) VALUES (?,?,?,?,?);";
        
          
