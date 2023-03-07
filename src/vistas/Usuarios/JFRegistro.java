@@ -181,12 +181,16 @@ public class JFRegistro extends javax.swing.JFrame {
         nuevoUsuario = new Usuario(nombre, apellido, telefono, codigoUnico);
         tipoCuenta = cmbTipoCuenta.getSelectedItem().toString();
         Cuenta cuentaPasajero = null;
-        if(tipoCuenta.equals("Pasajero")){
+        if(tipoCuenta.equals("Pasajero")){            
             cuentaPasajero = new Pasajero(correo, contrasenia, nuevoUsuario);
             SqlUsuario modSql = new SqlUsuario();
             try{
-            if(modSql.registrarPasajero(nuevoUsuario,cuentaPasajero, tipoCuenta)){
-                JOptionPane.showMessageDialog(null, "Pasajero registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            if((modSql.registrarUsuario(nuevoUsuario))){
+                if((modSql.registrarPasajero(nuevoUsuario,cuentaPasajero, tipoCuenta))){
+                    JOptionPane.showMessageDialog(null, "Pasajero registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(null, "No se pudo registrar pasajero", "Error", JOptionPane.ERROR_MESSAGE);
+                }                
             }else{
                 JOptionPane.showMessageDialog(null, "No se pudo registrar pasajero", "Error", JOptionPane.ERROR_MESSAGE);
             }            

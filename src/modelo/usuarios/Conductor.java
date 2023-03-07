@@ -24,11 +24,11 @@ public class Conductor extends Cuenta {
             }
         }
     }
-
+    
+    
     @Override
     public void cambiarCuenta() {
-        Pasajero pasajero = new Pasajero(this.correo, this.contraseña, this.usuario, this.vehiculo);
-        this.usuario.iniciarSesion(this.correo, this.contraseña, pasajero);
+        
     }
 
     public int obtenerCantidadAsientos() {

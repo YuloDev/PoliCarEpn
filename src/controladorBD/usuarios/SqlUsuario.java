@@ -18,32 +18,44 @@ import modelo.usuarios.Usuario;
  */
 public class SqlUsuario extends controladorBD.conexion.ConexionMySQL {
     
-    
+        public boolean registrarUsuario(Usuario usr){
+            PreparedStatement ps = null;
+            Connection con = conectar();
+
+             String sql = "INSERT INTO usuario (codigounico, nombre, apellido, telefono) VALUES (?,?,?,?);";
+            try{
+                ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
+                ps = (PreparedStatement) con.prepareStatement(sql);  
+                
+                ps.setInt(1, usr.getCodUnico());
+                ps.setString(2, usr.getNombre());
+                ps.setString(3, usr.getApellido());
+                ps.setString(4, usr.getTelefono());
+                ps.execute();
+                return true;
+            }catch(SQLException ex){
+                Logger.getLogger(SqlUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }       
+        }
+        
         public boolean registrarPasajero(Usuario usr, Cuenta cuenta , String tipoCuenta){
-        PreparedStatement ps = null;
-        PreparedStatement ps2 = null;
+        PreparedStatement ps = null;        
         Connection con = conectar();
          
-         String sql = "INSERT INTO usuario (codigounico, nombre, apellido,telefono) VALUES (?,?,?,?);";
-         String sql2 = "INSERT INTO cuenta (codigounico, correo, contrasenia, tipocuenta) VALUES (?,?,?,?);";
+         String sql = "INSERT INTO cuenta (codigounico, correo, contrasenia, tipocuenta) VALUES (?,?,?,?);";         
          
         try {
             ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
-            ps = (PreparedStatement) con.prepareStatement(sql);
-            ps2 = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql2);
-            ps2 = (PreparedStatement) con.prepareStatement(sql2);
-            ps.setInt(1, usr.getCodUnico());
-            ps.setString(2, usr.getNombre());
-            ps.setString(3, usr.getApellido());
-            ps.setString(4, usr.getTelefono());
+            ps = (PreparedStatement) con.prepareStatement(sql);           
+            
            
-            ps2.setInt(1, usr.getCodUnico());
-            ps2.setString(2, cuenta.getCorreo());
-            ps2.setString(3, cuenta.getContraseña());
-            ps2.setString(4, tipoCuenta);
+            ps.setInt(1, usr.getCodUnico());
+            ps.setString(2, cuenta.getCorreo());
+            ps.setString(3, cuenta.getContraseña());
+            ps.setString(4, tipoCuenta);
 
-            ps.execute();
-            ps2.execute();
+            ps.execute();            
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(SqlUsuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -52,29 +64,20 @@ public class SqlUsuario extends controladorBD.conexion.ConexionMySQL {
         }
         
         public boolean registrarConductor(Usuario usr, Cuenta cuenta , String tipoCuenta, String placa){
-            PreparedStatement ps = null;
-            PreparedStatement ps2 = null;
+            PreparedStatement ps = null;            
             Connection con = conectar();            
-            String sql = "INSERT INTO usuario (codigounico, nombre, apellido,telefono) VALUES (?,?,?,?);";
-            String sql2 = "INSERT INTO cuenta (placa, codigounico, correo, contrasenia, tipocuenta) VALUES (?,?,?,?,?);";
+            String sql = "INSERT INTO cuenta (placa, codigounico, correo, contrasenia, tipocuenta) VALUES (?,?,?,?,?);";            
             try {
                 ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
-                ps = (PreparedStatement) con.prepareStatement(sql);
-                ps2 = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql2);
-                ps2 = (PreparedStatement) con.prepareStatement(sql2);
-                ps.setInt(1, usr.getCodUnico());
-                ps.setString(2, usr.getNombre());
-                ps.setString(3, usr.getApellido());
-                ps.setString(4, usr.getTelefono());
+                ps = (PreparedStatement) con.prepareStatement(sql);             
 
-                ps2.setString(1, placa);
-                ps2.setInt(2, usr.getCodUnico());
-                ps2.setString(3, cuenta.getCorreo());
-                ps2.setString(4, cuenta.getContraseña());
-                ps2.setString(5, tipoCuenta);
+                ps.setString(1, placa);
+                ps.setInt(2, usr.getCodUnico());
+                ps.setString(3, cuenta.getCorreo());
+                ps.setString(4, cuenta.getContraseña());
+                ps.setString(5, tipoCuenta);
 
-                ps.execute();
-                ps2.execute();
+                ps.execute();                
                 return true;
             } catch (SQLException ex) {
                 Logger.getLogger(SqlUsuario.class.getName()).log(Level.SEVERE, null, ex);

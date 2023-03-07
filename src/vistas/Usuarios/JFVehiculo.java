@@ -171,10 +171,18 @@ public class JFVehiculo extends javax.swing.JFrame{
                 SqlUsuario modSql2 = new SqlUsuario();
                 SqlUsuario modSql3 = new SqlUsuario();
                 try{
-                    if(modSql2.registrarConductor(nuevoUsuario,cuentaConductor, "Conductor", placa)){
-                        JOptionPane.showMessageDialog(null, "Conductor registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    if((modSql2.registrarUsuario(nuevoUsuario)) ){
+                        if((modSql2.registrarConductor(nuevoUsuario,cuentaConductor, "Conductor", placa))){
+                            if((modSql2.registrarPasajero(nuevoUsuario,cuentaPasajero, "Pasajero"))){
+                                JOptionPane.showMessageDialog(null, "Conductor registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                            }else{
+                                JOptionPane.showMessageDialog(null, "No se pudo registrar pasajero", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }else{
+                            JOptionPane.showMessageDialog(null, "No se pudo registrar conductor", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
                     }else{
-                        JOptionPane.showMessageDialog(null, "No se pudo registrar conductor", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "No se pudo registrar usuario", "Error", JOptionPane.ERROR_MESSAGE);
                     }            
                 }catch(Exception e){
                     JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);

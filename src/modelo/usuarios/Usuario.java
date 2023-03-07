@@ -59,10 +59,11 @@ public class Usuario {
         this.codUnico = codUnico;
     }
     
+    /*
     public boolean iniciarSesion(String correo, String contraseña, Cuenta cuenta){
         this.cuenta = cuenta;
         return this.cuenta.validarCredenciales(correo, contraseña);
-    }
+    }*/
     
     
     public void cerrarSesion(String correo, String contraseña){
