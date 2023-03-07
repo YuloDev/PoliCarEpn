@@ -11,14 +11,15 @@ import modelo.reservacion.Reservacion;
  * @author Kevin
  */
 public class Factura {
-    Reservacion reservacion;
+    protected Reservacion reservacion;
     public double valorTotal;
     public double valorIva;
     public double valorServicio;
     public double valorViaje;
 
-    public Factura(double valorViaje) {
-        this.valorViaje = valorViaje;
+    public Factura() {
+        this.valorViaje = 4.20;
+        //reservacion.getPrecio();
     }
     
     private void calcularIva(){
