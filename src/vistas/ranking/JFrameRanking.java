@@ -21,13 +21,15 @@ public class JFrameRanking extends javax.swing.JFrame {
     public JFrameRanking(Calificacion calificacion) {
         initComponents();
         this.setLocationRelativeTo(null);
-        
         this.sqlCalificacion = new SqlCalificacion(calificacion);
         this.evaluacion = this.sqlCalificacion.seleccionarCalificacion();
 
         this.jLabel2.setText((evaluacion.calcularCalificacionTotal()+"/5"));
+        String [] comentarios = new SqlComentario().mostrarComentarios(201821107);
         
-        
+        setComentario(comentarios[0], jTextArea1);
+        setComentario(comentarios[1], jTextArea2);
+        setComentario(comentarios[2], jTextArea3);
         //set comentarios
     }
     
@@ -35,16 +37,6 @@ public class JFrameRanking extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
-        this.sqlCalificacion = new SqlCalificacion();
-        this.evaluacion = this.sqlCalificacion.seleccionarCalificacion(201821107);
-
-        
-        this.jLabel2.setText((evaluacion.calcularCalificacionTotal()+"/5"));
-        String [] comentarios = new SqlComentario().mostrarComentarios(201821107);
-        
-        setComentario(comentarios[0], jTextArea1);
-        setComentario(comentarios[1], jTextArea2);
-        setComentario(comentarios[2], jTextArea3);
     }
     
     private void setComentario(String comentario, javax.swing.JTextArea jTextArea){
@@ -73,8 +65,7 @@ public class JFrameRanking extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea3 = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

@@ -166,7 +166,7 @@ Pasajero pasajero;
         // TODO add your handling code here:
         int filaSeleccionada = tblListaReservacionPasajero.rowAtPoint(evt.getPoint());
         this.setVisible(false);
-
+        new JFVerReservacion(this.listaReservacion.getReservaciones()[filaSeleccionada]).setVisible(true);
     }//GEN-LAST:event_tblListaReservacionPasajeroMouseClicked
 
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed

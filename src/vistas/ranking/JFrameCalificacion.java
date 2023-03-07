@@ -15,7 +15,6 @@ public class JFrameCalificacion extends javax.swing.JFrame {
     /**
      * Creates new form vistaCalificacion
      */
-    private SqlCalificacion sqlCalificacion;
     private Calificacion calificacion;
     
     public JFrameCalificacion(Calificacion calificacion) {
@@ -28,13 +27,9 @@ public class JFrameCalificacion extends javax.swing.JFrame {
         this.PanelAgradecimiento.setVisible(false);  
     }
     
+    //borrar
     public JFrameCalificacion() {
         initComponents();
-        this.setLocationRelativeTo(null);
-        
-        this.PanelCalificacionVehiculo.setVisible(false);
-        this.PanelCalificacionExperiencia.setVisible(false);
-        this.PanelAgradecimiento.setVisible(false);  
     }
 
     /**
@@ -300,34 +295,31 @@ public class JFrameCalificacion extends javax.swing.JFrame {
     private void jButtonCalificacionConductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalificacionConductorActionPerformed
         this.PanelCalificacionConductor.setVisible(false);
         this.PanelCalificacionVehiculo.setVisible(true);
-        CalificacionConductor cC = (CalificacionConductor) this.calificacion;
+        CalificacionConductor cC = new CalificacionConductor((this.calificacion.getViaje()));
         cC.ingresar(jComboBoxCalificacionConductor.getSelectedIndex()+1);
-        this.sqlCalificacion = new SqlCalificacion(cC);
-        //select idViaje
-        sqlCalificacion.ingresarCalificacion(0, 0);
+        SqlCalificacion sqlCalificacion = new SqlCalificacion(cC);
+        sqlCalificacion.ingresarCalificacion(0);
         
     }//GEN-LAST:event_jButtonCalificacionConductorActionPerformed
 
     private void jButtonCalificacionVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalificacionVehiculoActionPerformed
         this.PanelCalificacionVehiculo.setVisible(false);
         this.PanelCalificacionExperiencia.setVisible(true);
-        CalificacionVehiculo ch = (CalificacionVehiculo) this.calificacion;
-        ch.ingresar(jComboBoxCalificacionConductor.getSelectedIndex()+1);
-        this.sqlCalificacion = new SqlCalificacion(ch);
-        //select idViaje
-        sqlCalificacion.ingresarCalificacion(0, 1);
+        CalificacionVehiculo ch = new CalificacionVehiculo(this.calificacion.getViaje());
+        ch.ingresar(jComboBoxCalificacionVehiculo.getSelectedIndex()+1);
+        SqlCalificacion sqlCalificacion = new SqlCalificacion(ch);
+        sqlCalificacion.ingresarCalificacion(1);
     }//GEN-LAST:event_jButtonCalificacionVehiculoActionPerformed
 
     private void jButtonCalificacionExperienciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalificacionExperienciaActionPerformed
         this.PanelCalificacionExperiencia.setVisible(false);
         this.PanelAgradecimiento.setVisible(true);
 
-        CalificacionExperiencia cE = (CalificacionExperiencia) this.calificacion;
-        cE.ingresar(jComboBoxCalificacionConductor.getSelectedIndex()+1);
+        CalificacionExperiencia cE = new CalificacionExperiencia(this.calificacion.getViaje());
+        cE.ingresar(jComboBoxCalificacionExperiencia.getSelectedIndex()+1);
         cE.agregarComentario(jTextAreaCalificacionExperiencia.getText());
-        this.sqlCalificacion = new SqlCalificacion(cE);
-        //select idViaje
-        sqlCalificacion.ingresarCalificacion(0, 3);
+        SqlCalificacion sqlCalificacion = new SqlCalificacion(cE);
+        sqlCalificacion.ingresarCalificacion(2);
         new SqlComentario().registrarComentario(cE.getComentario());
         
         new Timer(1_000, (e) -> { this.setVisible(false); this.dispose(); }).start();

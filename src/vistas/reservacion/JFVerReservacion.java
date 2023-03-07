@@ -6,6 +6,7 @@ package vistas.reservacion;
 
 import java.time.format.DateTimeFormatter;
 import modelo.externo.Fecha;
+import modelo.ranking.Calificacion;
 import modelo.reservacion.Reservacion;
 import modelo.usuarios.Conductor;
 import modelo.usuarios.Pasajero;
@@ -13,6 +14,8 @@ import modelo.usuarios.Usuario;
 import modelo.usuarios.Vehiculo;
 import modelo.viaje.Asiento;
 import modelo.viaje.Viaje;
+import vistas.ranking.JFrameCalificacion;
+import vistas.ranking.JFrameRanking;
 
 /**
  *
@@ -108,6 +111,11 @@ public class JFVerReservacion extends javax.swing.JFrame {
         txtFecha.setEditable(false);
 
         txtNombreConductor.setEditable(false);
+        txtNombreConductor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNombreConductorMouseClicked(evt);
+            }
+        });
 
         txtApellidoConductor.setEditable(false);
 
@@ -266,9 +274,15 @@ public class JFVerReservacion extends javax.swing.JFrame {
 
     private void btnCalificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalificarActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        //this.setVisible(false);
         //Sentencia para mostrar el panel de calificacion
+        new JFrameCalificacion(new Calificacion(this.reservacionSeleccionada.getViaje())).setVisible(true);
     }//GEN-LAST:event_btnCalificarActionPerformed
+
+    private void txtNombreConductorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreConductorMouseClicked
+        // TODO add your handling code here:
+        new JFrameRanking(new Calificacion(this.reservacionSeleccionada.getViaje())).setVisible(true);
+    }//GEN-LAST:event_txtNombreConductorMouseClicked
 
     /**
      * @param args the command line arguments
