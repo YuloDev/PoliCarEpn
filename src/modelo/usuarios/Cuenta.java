@@ -26,20 +26,28 @@ public abstract class Cuenta {
        listaReservacion = new ListaReservacion();
     }
     
+    /*
     public boolean validarCredenciales(String correo, String contraseña){
         boolean validador = false;
-        if((this.correo.equals(correo)) && (this.contraseña.equals(contraseña))){
-            System.out.println("Bienvenido "+ correo);
+        if((this.correo.equals(correo)) && (this.contraseña.equals(contraseña))){            
             validador = true;
         }else{
             validador = false;
             System.out.println("Incorrecto");
         }
         return validador;
-    }
+    }*/
     
     public void cambiarCuenta(){
         //metodo polimorfico
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public String getContraseña() {
+        return contraseña;
     }
 
     public Evaluacion getEvaluacion() {
@@ -64,6 +72,14 @@ public abstract class Cuenta {
 
     public ListaReservacion getListaReservacion() {
         return listaReservacion;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public String getContraseña() {
+        return contraseña;
     }
     
     @Override
