@@ -7,6 +7,7 @@ package modelo.usuarios;
 import modelo.viaje.Viaje;
 
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 
 
 public class Vehiculo {
@@ -16,6 +17,11 @@ public class Vehiculo {
     private int año;
     private int numeroAsientos;
     Viaje[] viajes;
+
+    public Vehiculo() {
+    }
+    
+    
 
     public Vehiculo(String placa, String modelo, String color, int año, int numeroAsientos) {
         this.placa = placa;
@@ -50,15 +56,13 @@ public class Vehiculo {
     }
 
     
-    public boolean validarAño(){
+    public boolean validarAño(int anio){        
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         year = year - 15;
-        if(this.año > year ){
-            System.out.println("Vehículo Registrado");
+        if(anio > year ){            
             return true;
-        }else{
-            System.out.println("Solo se pueden registrar vehiculos del " + year + " en adelante");
+        }else{           
             return false;
         }
     }

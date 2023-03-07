@@ -25,6 +25,10 @@ public class ControladorTiempoDeReserva {
         reservacion.cancelar();
     }
 
+    public void pausarContolador() {
+        temporizador.deternerTemporizador();
+    }
+    
     public Reservacion getReservacion() {
         return reservacion;
     }

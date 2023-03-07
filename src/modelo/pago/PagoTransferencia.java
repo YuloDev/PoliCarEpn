@@ -18,7 +18,7 @@ public class PagoTransferencia extends Pago{
     public double valorTotal;
     public BilleteraPoliCar billetera = new BilleteraPoliCar();
     
-    public PagoTransferencia(Factura factura) {
+    public PagoTransferencia(Factura factura, long timpoeRestante) {
         super(factura);
         controlador = new ControladorTiempoDeReserva(factura.reservacion,20*60*1000);
         factura.calcularTotal();
