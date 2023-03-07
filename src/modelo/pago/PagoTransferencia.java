@@ -17,9 +17,9 @@ public class PagoTransferencia extends Pago{
     
     private BilleteraPoliCar billetera = new BilleteraPoliCar();
     
-    public PagoTransferencia(Factura factura) {
+    public PagoTransferencia(Factura factura, long timpoeRestante) {
         super(factura);
-        controlador = new ControladorTiempoDeReserva(factura.reservacion,20*60*1000);
+        controlador = new ControladorTiempoDeReserva(factura.reservacion,timpoeRestante);
     }
     
     public boolean realizarPago(){

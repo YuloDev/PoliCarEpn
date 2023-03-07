@@ -19,7 +19,7 @@ public class Viaje {
     Fecha fecha;
 
 
-    public Viaje(String ubicacionPartida, String ubicacionDestino, int numAsientos, double precioUnitarioAsiento, Cuenta cuenta) {
+    public Viaje(String ubicacionPartida, String ubicacionDestino, int numAsientos, double precioUnitarioAsiento, Cuenta cuenta, Fecha fecha) {
         listaDeAsientos = new Asiento[numAsientos];
         this.ubicacionPartida = ubicacionPartida;
         this.ubicacionDestino = ubicacionDestino;
@@ -28,7 +28,7 @@ public class Viaje {
             listaDeAsientos[i] = new Asiento(precioUnitarioAsiento);
         }
         this.reservaciones = new ListaReservacion();
-        this.fecha = new Fecha();
+        this.fecha  = fecha;
     }
 
     public void añadirAsiento(Asiento asiento) {
@@ -74,7 +74,17 @@ public class Viaje {
     public Cuenta getCuenta() {
         return cuenta;
     }
+
+    public ListaReservacion getReservaciones() {
+        return reservaciones;
+    }
+
+    public Fecha getFecha() {
+        return fecha;
+    }
    
+    
+    
     @Override
     public String toString() {
         return "Viaje{" +
