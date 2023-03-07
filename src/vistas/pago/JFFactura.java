@@ -12,6 +12,8 @@ import modelo.usuarios.Pasajero;
 import modelo.usuarios.Usuario;
 import modelo.usuarios.Vehiculo;
 import modelo.viaje.Viaje;
+import static vistas.pago.JFPago.pasajero;
+import vistas.reservacion.JFListaReservacionPasajero;
 
 /**
  *
@@ -19,24 +21,28 @@ import modelo.viaje.Viaje;
  */
 public class JFFactura extends javax.swing.JFrame {
     Factura factura;
+    JFListaReservacionPasajero lrp;
+    
     /**
      * Creates new form JFFactura
      */
-    public JFFactura(Reservacion reservacion){
-        factura = new Factura(reservacion);
+    public JFFactura(Reservacion reservacion, Pasajero pasajero){
         initComponents();
         this.setLocationRelativeTo(null);
+        lrp = new JFListaReservacionPasajero(pasajero);
+        factura = new Factura(reservacion);
         factura.calcularTotal();    
-        mostrarDatos();
+        mostrarDatos(reservacion);
     }
 
-    private void mostrarDatos(){
+    private void mostrarDatos(Reservacion reservacion){
         // EXTRAER LOS DATOS DEL USUARIO DE LA RESERVACIÓN-------------
-        // txtNombre.setText();
-        // txtApellido.setText();
-        // txtAsientos.setText();
-        // txtCedula.setText();
-        // txtCorreo.setText();
+        
+        txtNombre.setText(reservacion.getCuenta().getUsuario().getNombre());
+        txtApellido.setText(reservacion.getCuenta().getUsuario().getApellido());
+        txtAsientos.setText(reservacion.getListaDeAsientos().length+"");
+        txtCodUnico.setText(reservacion.getCuenta().getUsuario().getCodUnico()+"");
+        txtCorreo.setText(reservacion.getCuenta().getCorreo());
         txtValorIva.setText(factura.valorIva+"");
         txtValorServicio.setText(factura.valorServicio+"");
         txtValorTotal.setText(factura.valorTotal+"");
@@ -62,12 +68,12 @@ public class JFFactura extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         txtApellido = new javax.swing.JTextField();
         lblFactura = new javax.swing.JLabel();
-        txtCedula = new javax.swing.JTextField();
+        txtCodUnico = new javax.swing.JTextField();
         lblNombre = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JTextField();
         lblApellido = new javax.swing.JLabel();
         txtAsientos = new javax.swing.JTextField();
-        lblCedula = new javax.swing.JLabel();
+        lblCodUnico = new javax.swing.JLabel();
         txtValorServicio = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -101,7 +107,7 @@ public class JFFactura extends javax.swing.JFrame {
 
         txtAsientos.setToolTipText("");
 
-        lblCedula.setText("Cédula");
+        lblCodUnico.setText("Código Unico");
 
         javax.swing.GroupLayout pnlFacturaLayout = new javax.swing.GroupLayout(pnlFactura);
         pnlFactura.setLayout(pnlFacturaLayout);
@@ -115,21 +121,20 @@ public class JFFactura extends javax.swing.JFrame {
                             .addGroup(pnlFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(lblApellido)
                                 .addComponent(lblNombre))
-                            .addGroup(pnlFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblCorreo)
-                                .addComponent(lblCedula))
+                            .addComponent(lblCodUnico)
                             .addGroup(pnlFacturaLayout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addGroup(pnlFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblValorServicio)
                                     .addComponent(lblAsientos)
                                     .addComponent(lblValorIva)
-                                    .addComponent(lblValorTotal))))
+                                    .addComponent(lblValorTotal)
+                                    .addComponent(lblCorreo))))
                         .addGap(173, 173, 173)
                         .addGroup(pnlFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNombre)
                             .addComponent(txtApellido)
-                            .addComponent(txtCedula)
+                            .addComponent(txtCodUnico)
                             .addComponent(txtCorreo)
                             .addComponent(txtAsientos)
                             .addComponent(txtValorServicio)
@@ -157,7 +162,7 @@ public class JFFactura extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(pnlFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlFacturaLayout.createSequentialGroup()
-                        .addComponent(lblCedula)
+                        .addComponent(lblCodUnico)
                         .addGap(28, 28, 28)
                         .addGroup(pnlFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblCorreo)
@@ -178,7 +183,7 @@ public class JFFactura extends javax.swing.JFrame {
                         .addGroup(pnlFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblValorTotal)
                             .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodUnico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addComponent(btnContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
@@ -206,7 +211,8 @@ public class JFFactura extends javax.swing.JFrame {
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
         // TODO add your handling code here:
-        //// MOSTRAR PARA CALIFICACION
+        this.setVisible(false);
+        lrp.setVisible(true);
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     /**
@@ -257,7 +263,7 @@ public class JFFactura extends javax.swing.JFrame {
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new JFFactura(reservacion).setVisible(true);
+            new JFFactura(reservacion,pasajero).setVisible(true);
         });
     }
 
@@ -265,7 +271,7 @@ public class JFFactura extends javax.swing.JFrame {
     private javax.swing.JButton btnContinuar;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblAsientos;
-    private javax.swing.JLabel lblCedula;
+    private javax.swing.JLabel lblCodUnico;
     private javax.swing.JLabel lblCorreo;
     private javax.swing.JLabel lblFactura;
     private javax.swing.JLabel lblNombre;
@@ -275,7 +281,7 @@ public class JFFactura extends javax.swing.JFrame {
     private javax.swing.JPanel pnlFactura;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtAsientos;
-    private javax.swing.JTextField txtCedula;
+    private javax.swing.JTextField txtCodUnico;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtValorIva;

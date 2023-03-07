@@ -62,10 +62,7 @@
                                   <Component id="lblApellido" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblNombre" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Component id="lblCorreo" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblCedula" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="lblCodUnico" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -73,6 +70,7 @@
                                       <Component id="lblAsientos" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblValorIva" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblValorTotal" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblCorreo" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -80,7 +78,7 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="txtNombre" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtApellido" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtCedula" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtCodUnico" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtCorreo" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtAsientos" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtValorServicio" alignment="0" max="32767" attributes="0"/>
@@ -117,7 +115,7 @@
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblCedula" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblCodUnico" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblCorreo" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -144,7 +142,7 @@
                               <Component id="txtValorTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="txtCedula" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCodUnico" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="75" max="32767" attributes="0"/>
                   <Component id="btnContinuar" min="-2" pref="31" max="-2" attributes="0"/>
@@ -204,7 +202,7 @@
             <Property name="text" type="java.lang.String" value="Factura"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtCedula">
+        <Component class="javax.swing.JTextField" name="txtCodUnico">
         </Component>
         <Component class="javax.swing.JLabel" name="lblNombre">
           <Properties>
@@ -223,9 +221,9 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblCedula">
+        <Component class="javax.swing.JLabel" name="lblCodUnico">
           <Properties>
-            <Property name="text" type="java.lang.String" value="C&#xe9;dula"/>
+            <Property name="text" type="java.lang.String" value="C&#xf3;digo Unico"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtValorServicio">

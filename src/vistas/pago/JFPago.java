@@ -25,16 +25,18 @@ import modelo.viaje.Viaje;
 public class JFPago extends javax.swing.JFrame {
     PagoTransferencia pagoTransferencia;
     Reservacion reservacion;
+    static Pasajero pasajero;
     Factura factura;
     SqlPago s = new SqlPago();
     /**
      * Creates new form JFPago
      */
-    public JFPago(Reservacion reservacion) {
+    public JFPago(Reservacion reservacion, Pasajero pasajero) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.reservacion = reservacion;
         factura = new Factura(reservacion);
+        this.pasajero = pasajero;
         pagoTransferencia = new PagoTransferencia(factura, 20*60*1000);
     }
    
@@ -114,7 +116,7 @@ public class JFPago extends javax.swing.JFrame {
         System.out.println(tipoPago);
         try {
             s.insertarPago(factura, tipoPago);
-            jPagoTransferencia = new JFPagoTransferencia(reservacion);
+            jPagoTransferencia = new JFPagoTransferencia(reservacion, pasajero);
         } catch (SQLException ex) {
             Logger.getLogger(JFPago.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -131,7 +133,7 @@ public class JFPago extends javax.swing.JFrame {
             s.insertarPago(factura, tipoPago);
             this.setVisible(false);
             JFFactura jFactura = null;
-            jFactura = new JFFactura(reservacion);
+            jFactura = new JFFactura(reservacion,pasajero);
             jFactura.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(JFPago.class.getName()).log(Level.SEVERE, null, ex);
@@ -192,7 +194,7 @@ public class JFPago extends javax.swing.JFrame {
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new JFPago(reservacion).setVisible(true);
+            new JFPago(reservacion,pasajero).setVisible(true);
         });
     }
 
