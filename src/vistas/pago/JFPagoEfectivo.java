@@ -27,14 +27,16 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
     PagoEfectivo pagoEfectivo;
     Factura factura;
     JFPago jPago;
+    static Pasajero pasajero;
     SqlPago s = new SqlPago();
 
-    public JFPagoEfectivo(Reservacion reservacion){
+    public JFPagoEfectivo(Reservacion reservacion, Pasajero pasajero){
         initComponents();
         this.setLocationRelativeTo(null);
         factura = new Factura(reservacion);
         pagoEfectivo = new PagoEfectivo(factura);
-        jPago = new JFPago(reservacion);
+        jPago = new JFPago(reservacion, pasajero);
+        this.pasajero = pasajero;
         factura.calcularTotal();
         txtMontoaCancelar.setText(factura.valorTotal+"");
     }
@@ -202,7 +204,7 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new JFPagoEfectivo(reservacion).setVisible(true);
+            new JFPagoEfectivo(reservacion, pasajero).setVisible(true);
         });
     }
 

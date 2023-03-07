@@ -18,6 +18,7 @@ import modelo.usuarios.Pasajero;
 import modelo.usuarios.Usuario;
 import modelo.usuarios.Vehiculo;
 import modelo.viaje.Viaje;
+import static vistas.pago.JFPago.pasajero;
 
 /**
  *
@@ -32,13 +33,13 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
     /**
      * Creates new form JFPagoTransferencia
      */
-    public JFPagoTransferencia(Reservacion reservacion) throws SQLException {
+    public JFPagoTransferencia(Reservacion reservacion, Pasajero pasajero) throws SQLException {
         initComponents();
         this.setLocationRelativeTo(null);
         factura = new Factura(reservacion);
         pagoTransferencia = new PagoTransferencia(factura, 20*60*1000);
-        jfFactura = new JFFactura(reservacion);
-        jPago = new JFPago(reservacion);
+        jfFactura = new JFFactura(reservacion, pasajero);
+        jPago = new JFPago(reservacion, pasajero);
         factura.calcularTotal();
         txtMontoTotal.setText(factura.valorTotal+"");
     }
@@ -213,7 +214,7 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             try {
-                new JFPagoTransferencia(reservacion).setVisible(true);
+                new JFPagoTransferencia(reservacion, pasajero).setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(JFPagoTransferencia.class.getName()).log(Level.SEVERE, null, ex);
             }
