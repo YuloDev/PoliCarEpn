@@ -26,17 +26,53 @@ public class Usuario {
        // this.contraseña = contraseña;
         
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public int getCodUnico() {
+        return codUnico;
+    }
+
+    public void setCodUnico(int codUnico) {
+        this.codUnico = codUnico;
+    }
     
+    /*
     public boolean iniciarSesion(String correo, String contraseña, Cuenta cuenta){
         this.cuenta = cuenta;
         return this.cuenta.validarCredenciales(correo, contraseña);
-    }
+    }*/
     
     
     public void cerrarSesion(String correo, String contraseña){
         System.out.println("Adios");
     }
 
+    public int getCodUnico() {
+        return codUnico;
+    }
     
     @Override
     public String toString() {

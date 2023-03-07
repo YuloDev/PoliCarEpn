@@ -4,21 +4,24 @@
  */
 package modelo.pago;
 
+import controladorBD.pago.SqlPago;
+
 /**
  *
  * @author Kevin
  */
 public class BilleteraPoliCar {
-    double saldo;
+    SqlPago s =  new SqlPago();
+    public double saldo;
 
     public BilleteraPoliCar() {
-        
+        this.saldo = s.obtenerSaldo();
     }
     
     public boolean aumentarSaldo(double valor){
-        double saldoActual;
-        saldoActual = this.saldo;
-        this.saldo += valor;
+        double saldoActual = this.saldo;
+        this.saldo = this.saldo + valor;
+        System.out.println(saldoActual + "  " +this.saldo+ "   " + valor);
         return saldoActual < saldo;
-    }
+    }   
 }

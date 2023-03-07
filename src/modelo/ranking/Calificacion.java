@@ -1,12 +1,11 @@
 package modelo.ranking;
 
 import modelo.externo.Fecha;
-import java.time.LocalDateTime;
 import modelo.viaje.Viaje;
 
-public abstract class Calificacion {
+public class Calificacion {
 
-    protected double puntaje;
+    protected int puntaje;
     protected Viaje viaje;
     protected Fecha fecha;
 
@@ -14,8 +13,10 @@ public abstract class Calificacion {
         this.viaje = viaje;
         this.fecha = new Fecha();
     }
+    
+    public Calificacion(){}
 
-    public void ingresar(double puntaje) {
+    public void ingresar(int puntaje) {
         this.puntaje = puntaje;
     }
 
@@ -27,11 +28,7 @@ public abstract class Calificacion {
         return fecha;
     }
 
-    public void mostrar() {
-        System.out.println("La calificacion es:" + this.puntaje);
-    }
-
-    public double getPuntaje() {
+    public int getPuntaje() {
         return puntaje;
     }
 
