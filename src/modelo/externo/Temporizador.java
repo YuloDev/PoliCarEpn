@@ -37,5 +37,7 @@ public class Temporizador extends TimerTask{
         return controlador;
     }
     
-    
+    public void deternerTemporizador() {
+        timer.cancel();
+    }
 }

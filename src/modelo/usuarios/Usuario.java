@@ -70,6 +70,27 @@ public class Usuario {
         System.out.println("Adios");
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public int getCodUnico() {
+        return codUnico;
+    }
+
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    
     
     @Override
     public String toString() {

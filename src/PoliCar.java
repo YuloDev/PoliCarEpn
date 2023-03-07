@@ -4,6 +4,7 @@
  */
 
 
+import modelo.externo.Fecha;
 import modelo.usuarios.Vehiculo;
 import modelo.usuarios.Usuario;
 import modelo.usuarios.Pasajero;
@@ -35,7 +36,7 @@ public class PoliCar {
         }
         */
         Viaje nuevoViaje = new Viaje("Quito", "Santa Rosa",
-                cuentaConductor.obtenerCantidadAsientos(),2.3, cuentaConductor);
+                cuentaConductor.obtenerCantidadAsientos(),2.3, cuentaConductor, new Fecha("2023-03-05 17:05:28"));
         cuentaConductor.crearViaje(nuevoViaje);
         System.out.println(nuevoViaje);
         System.out.println(nuevoViaje.getListaDeAsientos().length);

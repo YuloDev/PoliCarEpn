@@ -32,6 +32,8 @@ public class Reservacion {
         }
         this.cuenta = cuenta;
         calcularPrecioReservacion();
+        calcularPrecioReservacion();
+        viaje.getListaReservacion().añadirReservacion(this);
     }
 
     private boolean buscarAsientosDisponibles(Viaje viaje, int numeroAsientos) {
@@ -51,6 +53,7 @@ public class Reservacion {
 
     public void cancelar() {
         cuenta.getListaReservacion().quitarReservacion(this);
+        viaje.getListaReservacion().quitarReservacion(this);
         for (Asiento asiento : listaDeAsientos) {
             asiento.actualizarEstado();
         }

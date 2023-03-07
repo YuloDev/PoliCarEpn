@@ -73,6 +73,14 @@ public abstract class Cuenta {
     public ListaReservacion getListaReservacion() {
         return listaReservacion;
     }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
     
     @Override
     public String toString() {
