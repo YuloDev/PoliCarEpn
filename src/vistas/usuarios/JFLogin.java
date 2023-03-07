@@ -32,6 +32,7 @@ public class JFLogin extends javax.swing.JFrame {
     public JFLogin() {
         initComponents();
         setLocationRelativeTo(null);
+        cmbTipoCuenta.setSelectedIndex(-1);
 
     }
 
@@ -200,13 +201,6 @@ public class JFLogin extends javax.swing.JFrame {
 
     private void txtCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCorreoFocusLost
         // TODO add your handling code here:
-        RestriccionDominio restriccionDominio = new RestriccionDominio();
-        if (restriccionDominio.validarDominio(txtCorreo.getText()) == true) {
-
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "El correo ingresado no es valido, debe tener el formato: nombre.apellido@epn.edu.ec");
-            txtCorreo.requestFocus();
-        }
 
     }//GEN-LAST:event_txtCorreoFocusLost
 

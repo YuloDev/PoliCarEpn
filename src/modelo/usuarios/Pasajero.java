@@ -29,20 +29,6 @@ public class Pasajero extends Cuenta {
     }
 
     @Override
-    public void cambiarCuenta() {
-        Conductor conductor;
-        if (this.vehiculo == null) {//verifica si el pasajero posee un vehiculo y lo crea
-            //Gui ingresar vehiculo
-            conductor = new Conductor(this.correo, this.contraseña, this.usuario, new Vehiculo("PDB1856", "AVEO", "azul", 2010, 4));
-            System.out.println("Registro exitoso");
-        } else {//si ya tiene vehiculo solo cambia a conductor
-            conductor = new Conductor(this.correo, this.contraseña, this.usuario, this.vehiculo);
-            System.out.println("Se ha cambiado a conductor");
-        }
-        //usuario.iniciarSesion(correo, contraseña, conductor);
-    }
-
-    @Override
     public String toString() {
         return usuario.toString()
                 + "\nPasajero";

@@ -25,22 +25,6 @@ public abstract class Cuenta {
        listaViaje = new ListaViaje();
        listaReservacion = new ListaReservacion();
     }
-    
-    /*
-    public boolean validarCredenciales(String correo, String contraseña){
-        boolean validador = false;
-        if((this.correo.equals(correo)) && (this.contraseña.equals(contraseña))){            
-            validador = true;
-        }else{
-            validador = false;
-            System.out.println("Incorrecto");
-        }
-        return validador;
-    }*/
-    
-    public void cambiarCuenta(){
-        //metodo polimorfico
-    }
 
     public String getCorreo() {
         return correo;

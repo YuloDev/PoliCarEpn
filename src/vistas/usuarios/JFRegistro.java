@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import modelo.usuarios.Conductor;
 import modelo.usuarios.Cuenta;
 import modelo.usuarios.Pasajero;
+import modelo.usuarios.RestriccionDominio;
 import modelo.usuarios.Usuario;
 import modelo.usuarios.Vehiculo;
 
@@ -63,6 +64,7 @@ public class JFRegistro extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnRegistrar = new javax.swing.JButton();
         psswdContraseniaR = new javax.swing.JPasswordField();
+        btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,6 +75,12 @@ public class JFRegistro extends javax.swing.JFrame {
         lblCorreo.setText("Correo");
 
         lblContrasenia.setText("Contraseña");
+
+        txtCorreo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCorreoFocusLost(evt);
+            }
+        });
 
         lblCodigoUnico.setText("Código Único");
 
@@ -93,6 +101,13 @@ public class JFRegistro extends javax.swing.JFrame {
         psswdContraseniaR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 psswdContraseniaRActionPerformed(evt);
+            }
+        });
+
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
             }
         });
 
@@ -125,11 +140,17 @@ public class JFRegistro extends javax.swing.JFrame {
                         .addGap(281, 281, 281)
                         .addComponent(btnRegistrar)))
                 .addContainerGap(354, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnRegresar)
+                .addGap(222, 222, 222))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(92, 92, 92)
+                .addGap(28, 28, 28)
+                .addComponent(btnRegresar)
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombre)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -159,7 +180,7 @@ public class JFRegistro extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(51, 51, 51)
                 .addComponent(btnRegistrar)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
 
         pack();
@@ -206,9 +227,29 @@ public class JFRegistro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_psswdContraseniaRActionPerformed
 
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+        JFLogin login = new JFLogin();
+        login.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void txtCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCorreoFocusLost
+        // TODO add your handling code here:
+        RestriccionDominio restriccionDominio = new RestriccionDominio();
+        if (restriccionDominio.validarDominio(txtCorreo.getText()) == true) {
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "El correo ingresado no es valido, debe tener el formato: nombre.apellido@epn.edu.ec");
+            txtCorreo.requestFocus();
+        }
+
+    }//GEN-LAST:event_txtCorreoFocusLost
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<String> cmbTipoCuenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblApellido;

@@ -37,8 +37,8 @@ public class JFVehiculo extends javax.swing.JFrame{
     public JFVehiculo() {
         
         initComponents();
-        //JFRegistro registro = new JFRegistro();        
-        //txtContrasenia1.setText(registro.txtCorreo.getText());
+        setLocationRelativeTo(null);
+
       
     }
 
@@ -174,7 +174,7 @@ public class JFVehiculo extends javax.swing.JFrame{
                     if((modSql2.registrarUsuario(nuevoUsuario)) ){
                         if((modSql2.registrarConductor(nuevoUsuario,cuentaConductor, "Conductor", placa))){
                             if((modSql2.registrarPasajero(nuevoUsuario,cuentaPasajero, "Pasajero"))){
-                                JOptionPane.showMessageDialog(null, "Conductor registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(null,"Vehiculo registrado exitosamente!" , "Aviso", JOptionPane.INFORMATION_MESSAGE);
                             }else{
                                 JOptionPane.showMessageDialog(null, "No se pudo registrar pasajero", "Error", JOptionPane.ERROR_MESSAGE);
                             }
@@ -187,8 +187,10 @@ public class JFVehiculo extends javax.swing.JFrame{
                 }catch(Exception e){
                     JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
                 }      
-                JOptionPane.showMessageDialog(null, "Vehiculo registrado exitosamente!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                
+                JOptionPane.showMessageDialog(null, "Conductor registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                JFConductor conductor = new JFConductor((Conductor) cuentaConductor);
+                conductor.setVisible(true);
+                this.setVisible(false);
             }else{
                 JOptionPane.showMessageDialog(null, "No se pudo registrar el vehiculo", "Error", JOptionPane.ERROR_MESSAGE);
             }            

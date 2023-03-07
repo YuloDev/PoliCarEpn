@@ -25,12 +25,6 @@ public class Conductor extends Cuenta {
         }
     }
     
-    
-    @Override
-    public void cambiarCuenta() {
-        
-    }
-
     public int obtenerCantidadAsientos() {
         return vehiculo.getNumeroAsientos();
     }
