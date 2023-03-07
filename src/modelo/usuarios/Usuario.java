@@ -69,10 +69,6 @@ public class Usuario {
     public void cerrarSesion(String correo, String contraseña){
         System.out.println("Adios");
     }
-
-    public int getCodUnico() {
-        return codUnico;
-    }
     
     @Override
     public String toString() {

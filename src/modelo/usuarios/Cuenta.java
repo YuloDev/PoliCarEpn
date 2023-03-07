@@ -74,13 +74,6 @@ public abstract class Cuenta {
         return listaReservacion;
     }
 
-    public String getCorreo() {
-        return correo;
-    }
-
-    public String getContraseña() {
-        return contraseña;
-    }
     
     @Override
     public String toString() {

@@ -16,9 +16,8 @@ import modelo.pago.Factura;
  * @author Kevin
  */
 public class SqlPago extends ConexionMySQL{
-    Factura factura = new Factura();
     
-     public boolean registrarFactura() throws SQLException{
+     public boolean registrarFactura(Factura factura) throws SQLException{
         PreparedStatement ps = null;
         Connection con = conectar();
         String sql = "INSERT INTO Factura (IDRESERVACION,VALORTOTAL,VALORIVA,VALORSERVICIO) VALUES (?,?,?,?);"; 
@@ -110,7 +109,7 @@ public class SqlPago extends ConexionMySQL{
         }
     }
     
-    public boolean insertarPago(String tipoPago) throws SQLException{
+    public boolean insertarPago(Factura factura, String tipoPago) throws SQLException{
         PreparedStatement ps = null;
         Connection con = conectar();
         factura.calcularTotal();

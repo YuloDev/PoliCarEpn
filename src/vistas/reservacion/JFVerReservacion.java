@@ -18,14 +18,14 @@ import modelo.viaje.Viaje;
  *
  * @author Cesar
  */
-public class jfmVerReservacion extends javax.swing.JFrame {
+public class JFVerReservacion extends javax.swing.JFrame {
 
     private Reservacion reservacionSeleccionada;
 
     /**
      * Creates new form jfmVerResrvacion
      */
-    public jfmVerReservacion(Reservacion reservacion) {
+    public JFVerReservacion(Reservacion reservacion) {
         initComponents();
         setTitle("PoliCar4");
         setSize(817, 650);
@@ -287,14 +287,16 @@ public class jfmVerReservacion extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(jfmVerReservacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFVerReservacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(jfmVerReservacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFVerReservacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(jfmVerReservacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFVerReservacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(jfmVerReservacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFVerReservacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -323,7 +325,7 @@ public class jfmVerReservacion extends javax.swing.JFrame {
                 /**
                  * ******************Borrar*********************+
                  */
-                new jfmVerReservacion(reservacion).setVisible(true);
+                new JFVerReservacion(reservacion).setVisible(true);
             }
         });
     }

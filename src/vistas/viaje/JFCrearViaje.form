@@ -103,7 +103,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="lblPrecio">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Precio:"/>
+        <Property name="text" type="java.lang.String" value="Precio por Asiento:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPartida">
@@ -111,9 +111,6 @@
     <Component class="javax.swing.JTextField" name="txtDestino">
     </Component>
     <Component class="javax.swing.JTextField" name="txtAsientos">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAsientosActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPrecio">
     </Component>

@@ -20,7 +20,7 @@ import modelo.viaje.Viaje;
  *
  * @author Cesar
  */
-public class jfmListaReservacionesConductor extends javax.swing.JFrame {
+public class JFListaReservacionesConductor extends javax.swing.JFrame {
 
     private Viaje viaje;
     private ListaReservacion listaReservacion;
@@ -28,7 +28,7 @@ public class jfmListaReservacionesConductor extends javax.swing.JFrame {
     /**
      * Creates new form jfmListaReservacionesConductor
      */
-    public jfmListaReservacionesConductor(Viaje viaje) {
+    public JFListaReservacionesConductor(Viaje viaje) {
         initComponents();
         setTitle("PoliCar4");
         setSize(817, 650);
@@ -47,6 +47,7 @@ public class jfmListaReservacionesConductor extends javax.swing.JFrame {
         model.addColumn("Destino");
         model.addColumn("Fecha");
         model.addColumn("Hora");
+        
         tblListaReservacionConductor.setModel(model);
 
         String[] fila = new String[5];
@@ -65,7 +66,6 @@ public class jfmListaReservacionesConductor extends javax.swing.JFrame {
                     model.addRow(fila);
                 }
             }
-
         }
     }
 
@@ -82,7 +82,7 @@ public class jfmListaReservacionesConductor extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListaReservacionConductor = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,10 +107,10 @@ public class jfmListaReservacionesConductor extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblListaReservacionConductor);
 
-        jButton1.setText("Volver");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnVolverActionPerformed(evt);
             }
         });
 
@@ -128,7 +128,7 @@ public class jfmListaReservacionesConductor extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(btnVolver)
                                 .addGap(336, 336, 336))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -142,7 +142,7 @@ public class jfmListaReservacionesConductor extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnVolver)
                 .addGap(23, 23, 23))
         );
 
@@ -172,11 +172,14 @@ public class jfmListaReservacionesConductor extends javax.swing.JFrame {
 
     private void tblListaReservacionConductorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaReservacionConductorMouseClicked
         // TODO add your handling code here:
+        
+        
+        
     }//GEN-LAST:event_tblListaReservacionConductorMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnVolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,14 +198,15 @@ public class jfmListaReservacionesConductor extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(jfmListaReservacionesConductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFListaReservacionesConductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(jfmListaReservacionesConductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFListaReservacionesConductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(jfmListaReservacionesConductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFListaReservacionesConductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(jfmListaReservacionesConductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFListaReservacionesConductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -230,13 +234,13 @@ public class jfmListaReservacionesConductor extends javax.swing.JFrame {
                 /**
                  * ******************Borrar*********************+
                  */
-                new jfmListaReservacionesConductor(nuevoViaje).setVisible(true);
+                new JFListaReservacionesConductor(nuevoViaje).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

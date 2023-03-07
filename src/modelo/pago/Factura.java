@@ -17,9 +17,9 @@ public class Factura {
     public double valorServicio;
     public double valorViaje;
 
-    public Factura() {
-        this.valorViaje = 4.20;
-        //reservacion.getPrecio();
+    public Factura(Reservacion reservacion) {
+        this.valorViaje = reservacion.getPrecio();
+        this.reservacion = reservacion;
     }
     
     private void calcularIva(){

@@ -20,7 +20,7 @@ import modelo.viaje.Viaje;
  *
  * @author Cesar
  */
-public class jfmCrearReservación extends javax.swing.JFrame {
+public class JFCrearReservación extends javax.swing.JFrame {
 
     private Viaje viajeSeleccionado;
     private Cuenta pasajero;
@@ -28,7 +28,7 @@ public class jfmCrearReservación extends javax.swing.JFrame {
     /**
      * Creates new form jfmCrearReservación
      */
-    public jfmCrearReservación(Viaje viaje, Cuenta pasajero) {
+    public JFCrearReservación(Viaje viaje, Cuenta pasajero) {
         initComponents();
         setTitle("PoliCar4");
         setSize(817, 650);
@@ -289,14 +289,15 @@ public class jfmCrearReservación extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(jfmCrearReservación.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFCrearReservación.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(jfmCrearReservación.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFCrearReservación.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(jfmCrearReservación.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFCrearReservación.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(jfmCrearReservación.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFCrearReservación.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -324,7 +325,7 @@ public class jfmCrearReservación extends javax.swing.JFrame {
                 /**
                  * ******************Borrar*********************+
                  */
-                new jfmCrearReservación(nuevoViaje, cuentaPasajero).setVisible(true);
+                new JFCrearReservación(nuevoViaje, cuentaPasajero).setVisible(true);
             }
         });
     }

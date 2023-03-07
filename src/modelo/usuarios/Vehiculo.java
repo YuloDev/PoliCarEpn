@@ -17,12 +17,7 @@ public class Vehiculo {
     private int año;
     private int numeroAsientos;
     Viaje[] viajes;
-
-    public Vehiculo() {
-    }
     
-    
-
     public Vehiculo(String placa, String modelo, String color, int año, int numeroAsientos) {
         this.placa = placa;
         this.modelo = modelo;
@@ -55,12 +50,11 @@ public class Vehiculo {
         return numeroAsientos;
     }
 
-    
-    public boolean validarAño(int anio){        
+    public boolean validarAño(){        
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         year = year - 15;
-        if(anio > year ){            
+        if(año > year ){            
             return true;
         }else{           
             return false;

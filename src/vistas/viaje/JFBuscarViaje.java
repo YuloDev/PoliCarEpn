@@ -2,18 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package vistas.Viaje;
+package vistas.viaje;
+
+import modelo.usuarios.Pasajero;
+import vistas.usuarios.JFPasajero;
 
 /**
  *
  * @author Dana
  */
-public class JFListaViajeGeneral extends javax.swing.JFrame {
+public class JFBuscarViaje extends javax.swing.JFrame {
 
-    
-            
-    public JFListaViajeGeneral() {
+    Pasajero pasajero;
+
+    public JFBuscarViaje(Pasajero pasajero) {
         initComponents();
+        setLocationRelativeTo(null);
+
+        this.pasajero = pasajero;
+
     }
 
     /**
@@ -42,6 +49,7 @@ public class JFListaViajeGeneral extends javax.swing.JFrame {
         btnReservar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
         btnSiguiente = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -129,6 +137,14 @@ public class JFListaViajeGeneral extends javax.swing.JFrame {
             }
         });
 
+        btnVolver.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,7 +183,9 @@ public class JFListaViajeGeneral extends javax.swing.JFrame {
                         .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(105, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
+                .addComponent(btnVolver)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
                 .addGap(18, 18, 18)
                 .addComponent(btnSiguiente)
@@ -208,7 +226,8 @@ public class JFListaViajeGeneral extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresar)
-                    .addComponent(btnSiguiente))
+                    .addComponent(btnSiguiente)
+                    .addComponent(btnVolver))
                 .addContainerGap())
         );
 
@@ -251,6 +270,16 @@ public class JFListaViajeGeneral extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        // TODO add your handling code here:
+
+        setVisible(false);
+
+        JFPasajero jFPasajero = new JFPasajero(pasajero);
+        jFPasajero.setVisible(true);
+
+    }//GEN-LAST:event_btnVolverActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -268,21 +297,23 @@ public class JFListaViajeGeneral extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFListaViajeGeneral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFBuscarViaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFListaViajeGeneral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFBuscarViaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFListaViajeGeneral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFBuscarViaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFListaViajeGeneral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFBuscarViaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
-        
+        //</editor-fold>
+        //</editor-fold>
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFListaViajeGeneral().setVisible(true);
+                //new JFBuscarViaje().setVisible(true);
             }
         });
     }
@@ -291,6 +322,7 @@ public class JFListaViajeGeneral extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnReservar;
     private javax.swing.JButton btnSiguiente;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

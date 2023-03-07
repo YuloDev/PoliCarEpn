@@ -1,11 +1,7 @@
 package modelo.usuarios;
 
-import modelo.usuarios.Cuenta;
-import modelo.usuarios.Conductor;
+
 import modelo.ranking.Calificacion;
-import modelo.ranking.CalificacionConductor;
-import modelo.ranking.CalificacionExperiencia;
-import modelo.ranking.CalificacionVehiculo;
 import modelo.ranking.Evaluacion;
 import modelo.reservacion.Reservacion;
 
@@ -13,11 +9,6 @@ public class Pasajero extends Cuenta {
 
     public Pasajero(String correo, String contraseña, Usuario usuario) {
         super(correo, contraseña, usuario);
-    }
-
-    public Pasajero(String correo, String contraseña, Usuario usuario, Vehiculo vehiculo) {
-        super(correo, contraseña, usuario);
-        this.vehiculo = vehiculo;
     }
 
     public void crearReservacion(Reservacion nuevaReservacion) {

@@ -26,12 +26,12 @@ import java.time.Duration;
  *
  * @author Cesar
  */
-public class jfmTestDeTemporizador extends javax.swing.JFrame {
+public class JFTestDeTemporizador extends javax.swing.JFrame {
 
     /**
      * Creates new form jfmVentana
      */
-    public jfmTestDeTemporizador() {
+    public JFTestDeTemporizador() {
         initComponents();
         setTitle("PoliCar4");
         setSize(817, 650);
@@ -67,7 +67,7 @@ public class jfmTestDeTemporizador extends javax.swing.JFrame {
          */
 
         /* Ejemplo para eliminar controlador de tiempo de pago*/
-        Factura factura = new Factura(3.05);
+        Factura factura = new Factura(reservacion);
         
         Pago pagoTransf = new PagoTransferencia(factura, 20*60*1000);
        
@@ -165,14 +165,18 @@ public class jfmTestDeTemporizador extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(jfmTestDeTemporizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFTestDeTemporizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(jfmTestDeTemporizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFTestDeTemporizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(jfmTestDeTemporizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFTestDeTemporizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(jfmTestDeTemporizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFTestDeTemporizador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -181,7 +185,7 @@ public class jfmTestDeTemporizador extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new jfmTestDeTemporizador().setVisible(true);
+                new JFTestDeTemporizador().setVisible(true);
             }
         });
     }

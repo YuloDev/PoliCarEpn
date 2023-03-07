@@ -18,7 +18,6 @@ import modelo.usuarios.Cuenta;
 public class SqlCuenta extends controladorBD.conexion.ConexionMySQL{
     
     public boolean iniciarSesion(String correo, String contrasenia, String tipoCuenta) {
-        
         //metodo para iniciar sesion
         PreparedStatement ps = null;
         ResultSet rs = null;

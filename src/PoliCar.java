@@ -14,6 +14,7 @@ import modelo.ranking.CalificacionExperiencia;
 import modelo.ranking.CalificacionVehiculo;
 import modelo.reservacion.Reservacion;
 import modelo.viaje.Viaje;
+import vistas.usuarios.JFInicio;
 
 
 public class PoliCar {
@@ -21,6 +22,17 @@ public class PoliCar {
 
     public static void main(String[] args) {
 
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new JFInicio().setVisible(true);
+            }
+        });
+        
+        
+        
+        
+        /*
         Usuario nuevoUsuario = new Usuario("Rafael", "Piedra", "0983973649", 202010344);
         Pasajero cuentaPasajero = new Pasajero("r.p@epn.edu.ec", "1234", nuevoUsuario);
         Pasajero cuentaPasajero1 = new Pasajero("r.p@epn.edu.ec", "1234", nuevoUsuario);
@@ -35,6 +47,7 @@ public class PoliCar {
                 nuevoUsuario, vehiculo);
         }
         */
+        /*
         Viaje nuevoViaje = new Viaje("Quito", "Santa Rosa",
                 cuentaConductor.obtenerCantidadAsientos(),2.3, cuentaConductor, new Fecha("2023-03-05 17:05:28"));
         cuentaConductor.crearViaje(nuevoViaje);
@@ -72,6 +85,7 @@ public class PoliCar {
         cuentaPasajero.calificarViaje( calificacionConductor, calificacionVehiculo, calificacionExperiencia);
         
         System.out.println(cuentaConductor.getEvaluacion().calcularCalificacionTotal());
+        */
         
     }
 }
