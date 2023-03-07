@@ -7,6 +7,7 @@ import modelo.reservacion.Reservacion;
 import modelo.usuarios.Usuario;
 
 import java.util.Arrays;
+
 import modelo.reservacion.ListaReservacion;
 
 public class Viaje {
@@ -19,24 +20,26 @@ public class Viaje {
     private Fecha fecha;
 
 
-    public Viaje(String ubicacionPartida, String ubicacionDestino, int numAsientos, double precioUnitarioAsiento, Cuenta cuenta) {
+    public Viaje(String ubicacionPartida, String ubicacionDestino, int numAsientos, double precioUnitarioAsiento, Fecha fecha, Cuenta cuenta) {
         listaDeAsientos = new Asiento[numAsientos];
         this.ubicacionPartida = ubicacionPartida;
         this.ubicacionDestino = ubicacionDestino;
         this.cuenta = cuenta;
+        this.fecha = fecha;
         for (int i = 0; i < listaDeAsientos.length; i++) {
             listaDeAsientos[i] = new Asiento(precioUnitarioAsiento);
         }
         this.reservaciones = new ListaReservacion();
         this.fecha = new Fecha();
     }
+
     public Viaje() {
-        
+
     }
 
     public void añadirAsiento(Asiento asiento) {
         for (int i = 0; i < listaDeAsientos.length; i++) {
-            if (listaDeAsientos[i]==null) {
+            if (listaDeAsientos[i] == null) {
                 listaDeAsientos[i] = asiento;
                 return;
             }
@@ -53,7 +56,7 @@ public class Viaje {
         }
         System.out.println("La reservacion no se encuentra");
     }
-    
+
     public Asiento[] getListaDeAsientos() {
         return listaDeAsientos;
     }
@@ -77,7 +80,7 @@ public class Viaje {
     public Cuenta getCuenta() {
         return cuenta;
     }
-   
+
     @Override
     public String toString() {
         return "Viaje{" +

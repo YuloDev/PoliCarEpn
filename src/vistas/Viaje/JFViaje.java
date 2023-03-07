@@ -5,23 +5,29 @@
 package vistas.Viaje;
 
 import javax.swing.JOptionPane;
+
+import modelo.usuarios.Conductor;
+import modelo.usuarios.Usuario;
+import modelo.usuarios.Vehiculo;
 import modelo.viaje.Viaje;
 import modelo.viaje.ListaViaje;
+import modelo.externo.Fecha;
+
+import java.time.LocalDateTime;
 
 /**
- *
  * @author stalinnarvaezmolina
  */
 public class JFViaje extends javax.swing.JFrame {
 
     public Viaje viaje;
     public ListaViaje listaViaje;
-  //  public U_JFPerfilConductor perfilConductor;
-    
+    //  public U_JFPerfilConductor perfilConductor;
+
     public JFViaje() {
         initComponents();
         this.setLocationRelativeTo(this);
-        
+
         viaje = new Viaje();
         listaViaje = new ListaViaje();
         //perfilConductor = new U_JFPerfilConductor();
@@ -36,12 +42,10 @@ public class JFViaje extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblFecha = new javax.swing.JLabel();
         lblPrecio = new javax.swing.JLabel();
         txtPartida = new javax.swing.JTextField();
         txtDestino = new javax.swing.JTextField();
         txtAsientos = new javax.swing.JTextField();
-        txtFechaHora = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
@@ -51,8 +55,6 @@ public class JFViaje extends javax.swing.JFrame {
         lblAsientosDisponibles = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        lblFecha.setText("Fecha y Hora del Viaje:");
 
         lblPrecio.setText("Precio:");
 
@@ -88,69 +90,63 @@ public class JFViaje extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(132, 132, 132)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblFecha)
-                            .addComponent(lblPartida)
-                            .addComponent(lblDestino)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblPrecio)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblAsientosDisponibles)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(82, 82, 82)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(txtFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(181, 181, 181)
-                                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(txtPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(331, 331, 331)
-                        .addComponent(jLabel1)))
-                .addContainerGap(205, Short.MAX_VALUE))
+                                                .addGap(132, 132, 132)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(lblPartida)
+                                                        .addComponent(lblDestino)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                                .addGroup(layout.createSequentialGroup()
+                                                                        .addComponent(lblPrecio)
+                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addGroup(layout.createSequentialGroup()
+                                                                        .addComponent(lblAsientosDisponibles)
+                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(txtAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addGroup(layout.createSequentialGroup()
+                                                                        .addGap(82, 82, 82)
+                                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                                .addGroup(layout.createSequentialGroup()
+                                                                                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addGap(181, 181, 181)
+                                                                                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                .addComponent(txtPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(331, 331, 331)
+                                                .addComponent(jLabel1)))
+                                .addContainerGap(205, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(127, 127, 127)
-                .addComponent(jLabel1)
-                .addGap(79, 79, 79)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPartida)
-                    .addComponent(txtPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDestino)
-                    .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAsientosDisponibles)
-                    .addComponent(txtAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblFecha)
-                    .addComponent(txtFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPrecio)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(97, 97, 97))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(127, 127, 127)
+                                .addComponent(jLabel1)
+                                .addGap(79, 79, 79)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(lblPartida)
+                                        .addComponent(txtPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(lblDestino)
+                                        .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(lblAsientosDisponibles)
+                                        .addComponent(txtAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(lblPrecio)
+                                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(43, 43, 43)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(140, Short.MAX_VALUE))
         );
 
         pack();
@@ -166,7 +162,7 @@ public class JFViaje extends javax.swing.JFrame {
         //perfilConductor.setVisible(false);
         int opcion;// = JOptionPane.showMessageDialog(null, "V_JFViaje Cancelado");
         opcion = JOptionPane.showConfirmDialog(null, "Desea cancelar el Viaje", "Viaje", JOptionPane.YES_NO_OPTION);
-        if(opcion == JOptionPane.YES_OPTION){
+        if (opcion == JOptionPane.YES_OPTION) {
             //termina toda la ejecucion
             //System.exit(0);
             // perfilConductor.setVisible(true);
@@ -175,44 +171,26 @@ public class JFViaje extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        // TODO add your handling code here:
-        /*
-        viaje. = txtPartida.getText();
-        viaje.destino = destinoTextField.getText();
-        viaje.numeroAsientos = Integer.parseInt(asientosTextField.getText());
-        //Mejorar ciclo
-        for(int i = 0; i <= viaje.numeroAsientos; i++){
-            viaje.listaAsiento[i] = new V_Asiento(Integer.parseInt(precioTextField.getText()));
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {
+        String partida, destino, asientos, precio;
+        Fecha fecha = new Fecha();
+        partida = txtPartida.getText();
+        destino = txtDestino.getText();
+        asientos = txtAsientos.getText();
+        precio = txtPrecio.getText();
+        Viaje nuevoViaje = new Viaje(partida, destino, Integer.parseInt(asientos), Double.parseDouble(precio), fecha,
+                new Conductor("r.p@epn.edu.ec", "1234",
+                        new Usuario("r", "p", "12", 1212),
+                        new Vehiculo("dadf", "dad", "sdaf", 12, 5)));
+        listaViaje.añadirViaje(nuevoViaje);
+    }
 
-            if(viaje.listaAsiento[i] != null){
-                viaje.listaAsiento[i] = new V_Asiento(Integer.parseInt(precioTextField.getText()));
-            }
-        }
-        viaje.fechaHora = fechaHoraTextField.getText();
-        */
-        //viaje.partida = "EPN";
-        //viaje.destino = "Valle de los Chillos";
-        //viaje.numeroAsientos = 3;
-        //viaje.precio = 2.5;
-        //for(int i = 0; i <= viaje.numeroAsientos; i++){
-            //    viaje.listaAsiento[i] = new V_Asiento(viaje.precio);
-            //}
-        //viaje.fechaHora = "27/02/2023 - 06:00 am";
-        //listaViaje.agregarViaje(viaje);
 
-        //this.setVisible(false);
-        //perfilConductor.setVisible(true);
-    }//GEN-LAST:event_btnAceptarActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -247,12 +225,10 @@ public class JFViaje extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblAsientosDisponibles;
     private javax.swing.JLabel lblDestino;
-    private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblPartida;
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JTextField txtAsientos;
     private javax.swing.JTextField txtDestino;
-    private javax.swing.JTextField txtFechaHora;
     private javax.swing.JTextField txtPartida;
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables

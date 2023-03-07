@@ -28,7 +28,6 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblFecha" min="-2" max="-2" attributes="0"/>
                           <Component id="lblPartida" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblDestino" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
@@ -45,7 +44,6 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="txtFechaHora" min="-2" pref="285" max="-2" attributes="0"/>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="btnAceptar" min="-2" pref="100" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
@@ -88,31 +86,21 @@
                   <Component id="txtAsientos" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="lblFecha" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtFechaHora" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblPrecio" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtPrecio" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="46" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnAceptar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="btnCancelar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
+              <EmptySpace pref="140" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="lblFecha">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Fecha y Hora del Viaje:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="lblPrecio">
       <Properties>
         <Property name="text" type="java.lang.String" value="Precio:"/>
@@ -126,8 +114,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAsientosActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtFechaHora">
     </Component>
     <Component class="javax.swing.JTextField" name="txtPrecio">
     </Component>
