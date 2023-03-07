@@ -37,6 +37,7 @@ public class Pasajero extends Cuenta {
         }
     }
 
+    @Override
     public void cambiarCuenta() {
         Conductor conductor;
         if (this.vehiculo == null) {//verifica si el pasajero posee un vehiculo y lo crea
@@ -47,7 +48,7 @@ public class Pasajero extends Cuenta {
             conductor = new Conductor(this.correo, this.contraseña, this.usuario, this.vehiculo);
             System.out.println("Se ha cambiado a conductor");
         }
-        usuario.iniciarSesion(correo, contraseña, conductor);
+        //usuario.iniciarSesion(correo, contraseña, conductor);
     }
 
     @Override

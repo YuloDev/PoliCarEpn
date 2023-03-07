@@ -5,6 +5,7 @@ import modelo.viaje.Viaje;
 
 public class Conductor extends Cuenta {
 
+    
     public Conductor(String correo, String contraseña, Usuario usuario, Vehiculo vehiculo) {
         super(correo, contraseña, usuario);
         this.vehiculo = vehiculo;
@@ -23,11 +24,11 @@ public class Conductor extends Cuenta {
             }
         }
     }
-
+    
+    
     @Override
     public void cambiarCuenta() {
-        Pasajero pasajero = new Pasajero(this.correo, this.contraseña, this.usuario, this.vehiculo);
-        this.usuario.iniciarSesion(this.correo, this.contraseña, pasajero);
+        
     }
 
     public int obtenerCantidadAsientos() {
