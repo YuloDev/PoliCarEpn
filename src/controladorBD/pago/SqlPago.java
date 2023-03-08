@@ -56,7 +56,6 @@ public class SqlPago extends ConexionMySQL{
     }
     
     public Float obtenerSaldo(){
-        String idReservacion;
         PreparedStatement ps = null;
         ResultSet rs = null;
         java.sql.Connection con = conectar();
@@ -74,12 +73,27 @@ public class SqlPago extends ConexionMySQL{
     }
     
     public int obtenerUltimaF(){
-        String idReservacion;
         PreparedStatement ps = null;
         ResultSet rs = null;
         java.sql.Connection con = conectar();
 
         String sql = "SELECT IDFACTURA FROM FACTURA ORDER BY IDFACTURA DESC; ";
+        try {
+            ps = (PreparedStatement) con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+        } catch (SQLException e) {
+            return -1;
+        }
+    }
+    
+    public int obtenerUltimoP(){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        java.sql.Connection con = conectar();
+
+        String sql = "SELECT IDPAGO FROM pago ORDER BY IDPAGO DESC;";
         try {
             ps = (PreparedStatement) con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -120,6 +134,23 @@ public class SqlPago extends ConexionMySQL{
             ps.setInt(1, obtenerUltimaF());
             ps.setFloat(2, (float)factura.valorTotal);
             ps.setString(3, tipoPago);
+            ps.execute();
+            con.close();
+            return true;
+        } catch (SQLException ex) {
+            con.close();
+            System.err.println(ex);
+            return false;
+        }
+    }
+    
+    public boolean eliminarPago() throws SQLException{
+        PreparedStatement ps = null;
+        Connection con = conectar();
+        String sql = "DELETE FROM PAGO WHERE IDPAGO =" + obtenerUltimoP();  
+        try {
+            ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
+            ps = (PreparedStatement) con.prepareStatement(sql);
             ps.execute();
             con.close();
             return true;

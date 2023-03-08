@@ -146,7 +146,7 @@ public class JFPago extends javax.swing.JFrame {
             s.insertarPago(factura, tipoPago);
             this.setVisible(false);
             JFFactura jFactura = null;
-            jFactura = new JFFactura(reservacion,pasajero);
+            jFactura = new JFFactura(reservacion, pasajero);
             jFactura.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(JFPago.class.getName()).log(Level.SEVERE, null, ex);
@@ -210,7 +210,7 @@ public class JFPago extends javax.swing.JFrame {
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            //new JFPago(reservacion,pasajero).setVisible(true);
+            //new JFPago(reservacion).setVisible(true);
         });
     }
 

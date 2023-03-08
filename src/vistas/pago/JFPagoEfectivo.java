@@ -6,6 +6,7 @@ package vistas.pago;
 
 import controladorBD.pago.SqlPago;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -146,13 +147,15 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
 
     private void btnPagoRealizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagoRealizadoActionPerformed
         try {
-            s.registrarFactura(factura);
-            JOptionPane.showMessageDialog(rootPane, "Pago Confirmado","Pago Efectivo",1);
-            // MOSTRAR LISTA DE VIAJES
-            JFListaViajesDeConductor jFListaViajesDeConductor = new JFListaViajesDeConductor((Conductor)reservacion.getViaje().getCuenta());
-            
-            jFListaViajesDeConductor.setVisible(true);
-        this.setVisible(false);
+            pagoEfectivo.setEstaPagado(true);
+            if(pagoEfectivo.realizarPago()){
+                s.registrarFactura(factura);
+                JOptionPane.showMessageDialog(rootPane, "Pago Confirmado","Pago Efectivo",1);
+                // MOSTRAR LISTA DE VIAJES
+                JFListaViajesDeConductor jFListaViajesDeConductor = new JFListaViajesDeConductor((Conductor)reservacion.getViaje().getCuenta());
+                jFListaViajesDeConductor.setVisible(true);
+                this.setVisible(false);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(JFPagoEfectivo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -161,10 +164,17 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
     private void btnRegresarPEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarPEActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        
         JFListaReservacionesConductor jFListaReservacionesConductor = new JFListaReservacionesConductor(reservacion.getViaje());
-        
         jFListaReservacionesConductor.setVisible(true);
+        if(!pagoEfectivo.realizarPago()){
+            pagoEfectivo.setEstaPagado(false);
+            try {
+                s.eliminarPago();
+            } catch (SQLException ex) {
+                Logger.getLogger(JFPagoEfectivo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            JOptionPane.showMessageDialog(rootPane, "Pago no confirmado","Pago Efectivo",2);
+        }
     }//GEN-LAST:event_btnRegresarPEActionPerformed
 
     /**
@@ -215,7 +225,7 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            //new JFPagoEfectivo(reservacion, pasajero).setVisible(true);
+            //new JFPagoEfectivo(reservacion).setVisible(true);
         });
     }
 
