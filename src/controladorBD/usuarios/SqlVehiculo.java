@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.usuarios.Cuenta;
@@ -65,6 +67,28 @@ public class SqlVehiculo extends controladorBD.conexion.ConexionMySQL {
                 return vehiculo;
             }
             return null;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
+    public HashMap<String,Vehiculo> obtenerVehiculos() {
+        HashMap<String,Vehiculo> vehiculos = new HashMap<String,Vehiculo>();
+        
+        ResultSet rs = null;
+        com.mysql.jdbc.PreparedStatement ps = null;
+        ConexionMySQL con = new ConexionMySQL();
+        Connection conexion = con.conectar();
+
+        String sql = "select * from vehiculo";
+        try {
+            ps = (com.mysql.jdbc.PreparedStatement) conexion.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                vehiculos.put(rs.getString(1),new Vehiculo(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getInt(5)));
+            }
+            System.out.println("Instanciación de Vehiculos");
+            return vehiculos;
         } catch (SQLException e) {
             return null;
         }

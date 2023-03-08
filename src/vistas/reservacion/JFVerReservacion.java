@@ -4,7 +4,10 @@
  */
 package vistas.reservacion;
 
+import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.externo.Fecha;
 import modelo.ranking.Calificacion;
 import modelo.reservacion.Reservacion;
@@ -14,6 +17,7 @@ import modelo.usuarios.Usuario;
 import modelo.usuarios.Vehiculo;
 import modelo.viaje.Asiento;
 import modelo.viaje.Viaje;
+import vistas.pago.JFPagoTransferencia;
 import vistas.ranking.JFrameCalificacion;
 import vistas.ranking.JFrameRanking;
 
@@ -264,12 +268,25 @@ public class JFVerReservacion extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
         //Sentencia para mostrar el panel anterior
+        
+        JFListaReservacionPasajero jFListaReservacionPasajero = new JFListaReservacionPasajero( (Pasajero) reservacionSeleccionada.getCuenta());
+        
+        jFListaReservacionPasajero.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
         //Sentencia para mostrar el panel de pago
+        
+        JFPagoTransferencia jFPagoTransferencia = null;
+        try {
+            jFPagoTransferencia = new JFPagoTransferencia(reservacionSeleccionada, (Pasajero) reservacionSeleccionada.getCuenta());
+        } catch (SQLException ex) {
+            Logger.getLogger(JFVerReservacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        jFPagoTransferencia.setVisible(true);
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void btnCalificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalificarActionPerformed
@@ -277,6 +294,7 @@ public class JFVerReservacion extends javax.swing.JFrame {
         //this.setVisible(false);
         //Sentencia para mostrar el panel de calificacion
         new JFrameCalificacion(new Calificacion(this.reservacionSeleccionada.getViaje())).setVisible(true);
+        
     }//GEN-LAST:event_btnCalificarActionPerformed
 
     private void txtNombreConductorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreConductorMouseClicked

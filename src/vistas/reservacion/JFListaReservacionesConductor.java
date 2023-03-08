@@ -6,6 +6,7 @@ package vistas.reservacion;
 
 import controladorBD.reservacion.SqlReservacion;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import modelo.externo.Fecha;
 import modelo.reservacion.ListaReservacion;
@@ -15,6 +16,9 @@ import modelo.usuarios.Pasajero;
 import modelo.usuarios.Usuario;
 import modelo.usuarios.Vehiculo;
 import modelo.viaje.Viaje;
+import vistas.pago.JFPagoEfectivo;
+import static vistas.usuarios.JFLogin.reservaciones;
+import vistas.viaje.JFListaViajesDeConductor;
 
 /**
  *
@@ -23,7 +27,7 @@ import modelo.viaje.Viaje;
 public class JFListaReservacionesConductor extends javax.swing.JFrame {
 
     private Viaje viaje;
-    private ListaReservacion listaReservacion;
+    private ArrayList<Reservacion> listaReservacionesEnEfectivo = new ArrayList<>();
 
     /**
      * Creates new form jfmListaReservacionesConductor
@@ -39,7 +43,7 @@ public class JFListaReservacionesConductor extends javax.swing.JFrame {
 
         SqlReservacion sqlReservacion = new SqlReservacion();
 
-        listaReservacion = viaje.getListaReservacion();
+        ListaReservacion listaReservacion = viaje.getListaReservacion();
 
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Pasajero");
@@ -55,6 +59,9 @@ public class JFListaReservacionesConductor extends javax.swing.JFrame {
         for (Reservacion reservacion : listaReservacion.getReservaciones()) {
             if (reservacion != null) {
                 if (sqlReservacion.verificarTipoDePagoEnEfectivo(reservacion)) {
+                    
+                    listaReservacionesEnEfectivo.add(reservacion);
+                    
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                     String fechaHora = this.viaje.getFecha().getFechaYHora().format(formatter);
 
@@ -172,13 +179,22 @@ public class JFListaReservacionesConductor extends javax.swing.JFrame {
 
     private void tblListaReservacionConductorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaReservacionConductorMouseClicked
         // TODO add your handling code here:
+        setVisible(false);
         
+        int filaSeleccionada = tblListaReservacionConductor.rowAtPoint(evt.getPoint());
         
-        
+        JFPagoEfectivo jFPagoEfectivo = new JFPagoEfectivo(listaReservacionesEnEfectivo.get(filaSeleccionada));
+                
+        jFPagoEfectivo.setVisible(true);
     }//GEN-LAST:event_tblListaReservacionConductorMouseClicked
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
+        setVisible(false);
+        
+        JFListaViajesDeConductor jFListaViajesDeConductor = new JFListaViajesDeConductor((Conductor)viaje.getCuenta());
+        
+        jFListaViajesDeConductor.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     /**

@@ -11,9 +11,11 @@ import modelo.usuarios.Conductor;
 import modelo.usuarios.Pasajero;
 import modelo.usuarios.Usuario;
 import modelo.usuarios.Vehiculo;
+import modelo.viaje.Asiento;
 import modelo.viaje.Viaje;
 import static vistas.pago.JFPago.pasajero;
 import vistas.reservacion.JFListaReservacionPasajero;
+import vistas.usuarios.JFPasajero;
 
 /**
  *
@@ -22,6 +24,7 @@ import vistas.reservacion.JFListaReservacionPasajero;
 public class JFFactura extends javax.swing.JFrame {
     Factura factura;
     JFListaReservacionPasajero lrp;
+    Pasajero pasajero;
     
     /**
      * Creates new form JFFactura
@@ -29,6 +32,7 @@ public class JFFactura extends javax.swing.JFrame {
     public JFFactura(Reservacion reservacion, Pasajero pasajero){
         initComponents();
         this.setLocationRelativeTo(null);
+        this.pasajero = pasajero;
         lrp = new JFListaReservacionPasajero(pasajero);
         factura = new Factura(reservacion);
         factura.calcularTotal();    
@@ -40,7 +44,13 @@ public class JFFactura extends javax.swing.JFrame {
         
         txtNombre.setText(reservacion.getCuenta().getUsuario().getNombre());
         txtApellido.setText(reservacion.getCuenta().getUsuario().getApellido());
-        txtAsientos.setText(reservacion.getListaDeAsientos().length+"");
+        int numeroDeAsientos = 0;
+        for (Asiento asiento : reservacion.getListaDeAsientos()){
+            if (asiento!=null){
+                numeroDeAsientos++;
+            }
+        }
+        txtAsientos.setText(numeroDeAsientos+"");
         txtCodUnico.setText(reservacion.getCuenta().getUsuario().getCodUnico()+"");
         txtCorreo.setText(reservacion.getCuenta().getCorreo());
         txtValorIva.setText(factura.valorIva+"");
@@ -212,7 +222,12 @@ public class JFFactura extends javax.swing.JFrame {
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        lrp.setVisible(true);
+        
+        
+        
+        JFPasajero jFPasajero = new JFPasajero(pasajero);
+        
+        jFPasajero.setVisible(true);
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     /**
@@ -263,7 +278,7 @@ public class JFFactura extends javax.swing.JFrame {
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new JFFactura(reservacion,pasajero).setVisible(true);
+            //new JFFactura(reservacion,pasajero).setVisible(true);
         });
     }
 

@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.usuarios.Cuenta;
@@ -86,28 +88,44 @@ public class SqlUsuario extends controladorBD.conexion.ConexionMySQL {
         }
     }
 
-    public Usuario obtenerUsuario(String correo) {
-        Usuario usuario = null;
-
+    public String obtenerCodigoUnico(String correo) {
         ResultSet rs = null;
         com.mysql.jdbc.PreparedStatement ps = null;
         ConexionMySQL con = new ConexionMySQL();
         Connection conexion = con.conectar();
 
-        String sql = "select nombre, apellido, telefono, us.codigounico "
-                + "from usuario us join cuenta cu on us.codigounico = cu.codigounico "
-                + "where correo = ?;";
+        String sql = "select codigounico from usuario where correo = ?";
 
         try {
             ps = (com.mysql.jdbc.PreparedStatement) conexion.prepareStatement(sql);
             ps.setString(1, correo);
             rs = ps.executeQuery();
             if (rs.next()) {
-                usuario = new Usuario(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4));
-                System.out.println("Suuuuuuuuu");
-                return usuario;
+                return rs.getString(1);
             }
             return null;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
+    public HashMap<Integer,Usuario> obtenerUsuarios() {
+        HashMap<Integer,Usuario> usuarios = new HashMap<Integer,Usuario>();
+
+        ResultSet rs = null;
+        com.mysql.jdbc.PreparedStatement ps = null;
+        ConexionMySQL con = new ConexionMySQL();
+        Connection conexion = con.conectar();
+
+        String sql = "select * from usuario";
+        try {
+            ps = (com.mysql.jdbc.PreparedStatement) conexion.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                usuarios.put(rs.getInt(1), new Usuario(rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(1)));
+            }
+            System.out.println("Instanciación de Usuarios");
+            return usuarios;
         } catch (SQLException e) {
             return null;
         }

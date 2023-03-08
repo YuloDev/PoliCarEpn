@@ -8,7 +8,7 @@ import modelo.viaje.ListaViaje;
 public abstract class Cuenta {    
     
     protected String correo;
-    protected String contraseña ;
+    protected String contraseña;
     protected Evaluacion evaluacion;
     protected RestriccionDominio restriccion = new RestriccionDominio();
     protected Usuario usuario;
@@ -58,6 +58,17 @@ public abstract class Cuenta {
         return listaReservacion;
     }
 
+    public boolean validarCredenciales(String correo, String contraseña){
+        boolean validador = false;
+        if((this.correo.equals(correo)) && (this.contraseña.equals(contraseña))){
+            
+            validador = true;
+        }else{
+            validador = false;
+            //System.out.println("Incorrecto");
+        }
+        return validador;
+    }
     
     @Override
     public String toString() {

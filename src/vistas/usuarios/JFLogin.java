@@ -4,17 +4,24 @@
  */
 package vistas.usuarios;
 
+import controladorBD.reservacion.SqlReservacion;
 import controladorBD.usuarios.SqlCuenta;
 import controladorBD.usuarios.SqlUsuario;
 import controladorBD.usuarios.SqlVehiculo;
+import controladorBD.viaje.SqlAsiento;
 import controladorBD.viaje.SqlViaje;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
+import modelo.reservacion.Reservacion;
 import modelo.usuarios.Conductor;
 import modelo.usuarios.Cuenta;
 import modelo.usuarios.Pasajero;
 import modelo.usuarios.RestriccionDominio;
 import modelo.usuarios.Usuario;
 import modelo.usuarios.Vehiculo;
+import modelo.viaje.Asiento;
+import modelo.viaje.Viaje;
 
 /**
  *
@@ -25,6 +32,17 @@ public class JFLogin extends javax.swing.JFrame {
     public static String correo = "";
     public static String contrasenia = "";
     public static String tipoCuenta = "";
+    public static HashMap<String, Vehiculo> vehiculos;
+    public static HashMap<Integer, Usuario> usuarios;
+    public static HashMap<Integer, Cuenta> cuentas;
+    public static HashMap<Integer, Viaje> viajes;
+    public static HashMap<Integer, Reservacion> reservaciones;
+
+    SqlVehiculo sqlVehiculo = new SqlVehiculo();
+    SqlUsuario sqlUsuario = new SqlUsuario();
+    SqlCuenta sqlCuenta = new SqlCuenta();
+    SqlViaje sqlViaje = new SqlViaje();
+    SqlReservacion sqlReservacion = new SqlReservacion();
 
     /**
      * Creates new form JFLogin
@@ -32,8 +50,12 @@ public class JFLogin extends javax.swing.JFrame {
     public JFLogin() {
         initComponents();
         setLocationRelativeTo(null);
-        cmbTipoCuenta.setSelectedIndex(-1);
 
+        vehiculos = sqlVehiculo.obtenerVehiculos();
+        usuarios = sqlUsuario.obtenerUsuarios();
+        cuentas = sqlCuenta.obtenerCuentas(usuarios, vehiculos);
+        viajes = sqlViaje.obtenerViajes(cuentas);
+        reservaciones = sqlReservacion.obtenerReservaciones(viajes, cuentas);
     }
 
     /**
@@ -83,7 +105,6 @@ public class JFLogin extends javax.swing.JFrame {
         jLabel1.setText("Tipo de cuenta");
 
         cmbTipoCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pasajero", "Conductor" }));
-        cmbTipoCuenta.setSelectedIndex(1);
 
         jButtonRegistrarse.setText("Registrate");
         jButtonRegistrarse.addActionListener(new java.awt.event.ActionListener() {
@@ -156,41 +177,36 @@ public class JFLogin extends javax.swing.JFrame {
         contrasenia = new String(psswdContrasenia.getPassword());
         tipoCuenta = cmbTipoCuenta.getSelectedItem().toString();
 
-        SqlCuenta sqlCuenta = new SqlCuenta();
-        SqlUsuario sqlUsuario = new SqlUsuario();
-        SqlVehiculo sqlVehiculo = new SqlVehiculo();
-
-        try {
-            if (sqlCuenta.iniciarSesion(correo, contrasenia, tipoCuenta)) {
-                Usuario usuario = sqlUsuario.obtenerUsuario(correo);
-                JOptionPane.showMessageDialog(null, "Bienvenido", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                if (tipoCuenta.equals("Pasajero")) {
-                    Pasajero pasajero = new Pasajero(correo, contrasenia, usuario);
-                    JFPasajero jfpasajero = new JFPasajero(pasajero);
-                    jfpasajero.setVisible(true);
-                    this.setVisible(false);
-                } else {
-                    Vehiculo vehiculo = sqlVehiculo.obtenerVehiculo(correo);
-                    Conductor conductor = new Conductor(correo, contrasenia, usuario, vehiculo);
-
-                    //sql conductor crear viajes
-                    SqlViaje sqlViaje = new SqlViaje();
-                    sqlViaje.instanciarViajes(conductor);
-                    
-                    
-                    
-
-                    JFConductor jfconductor = new JFConductor(conductor);
-                    jfconductor.setVisible(true);
-                    this.setVisible(false);
+        for (int idcuenta : cuentas.keySet()) {
+            Cuenta cuentaTemp = cuentas.get(idcuenta);
+            if (tipoCuenta.equals("Pasajero")) {
+                if (!(cuentaTemp instanceof Pasajero)) {
+                    continue;
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
+                if (!(cuentaTemp instanceof Conductor)) {
+                    continue;
+                }
             }
+            if (correo.equals(cuentaTemp.getCorreo())) {
+                if (cuentaTemp.getUsuario().iniciarSesion(correo, contrasenia, cuentaTemp)) {
+                    JOptionPane.showMessageDialog(null, "Bienvenido", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
-
+                    if (tipoCuenta.equals("Pasajero")) {
+                        JFPasajero jfpasajero = new JFPasajero((Pasajero) cuentaTemp);
+                        jfpasajero.setVisible(true);
+                        this.setVisible(false);
+                    } else {
+                        JFConductor jfconductor = new JFConductor((Conductor) cuentaTemp);
+                        jfconductor.setVisible(true);
+                        this.setVisible(false);
+                    }
+                    break;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+            }
         }
 
     }//GEN-LAST:event_btnIniciarSesionActionPerformed

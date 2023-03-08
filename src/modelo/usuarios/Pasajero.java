@@ -16,7 +16,6 @@ public class Pasajero extends Cuenta {
     }
 
     public void cancelarReservacion(Reservacion reservacion) {
-        //Codigo de cancelar reservacion
         reservacion.cancelar();
     }
 

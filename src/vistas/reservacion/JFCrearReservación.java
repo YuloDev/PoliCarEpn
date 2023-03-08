@@ -15,6 +15,8 @@ import modelo.usuarios.Usuario;
 import modelo.usuarios.Vehiculo;
 import modelo.viaje.Asiento;
 import modelo.viaje.Viaje;
+import vistas.pago.JFPago;
+import vistas.viaje.JFBuscarViaje;
 
 /**
  *
@@ -23,12 +25,12 @@ import modelo.viaje.Viaje;
 public class JFCrearReservación extends javax.swing.JFrame {
 
     private Viaje viajeSeleccionado;
-    private Cuenta pasajero;
+    private Pasajero pasajero;
 
     /**
      * Creates new form jfmCrearReservación
      */
-    public JFCrearReservación(Viaje viaje, Cuenta pasajero) {
+    public JFCrearReservación(Viaje viaje, Pasajero pasajero) {
         initComponents();
         setTitle("PoliCar4");
         setSize(817, 650);
@@ -197,6 +199,11 @@ public class JFCrearReservación extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -265,12 +272,22 @@ public class JFCrearReservación extends javax.swing.JFrame {
         //System.out.println(cmbNumeroAsientos.getSelectedIndex()+1);
         this.setVisible(false);
         Reservacion reservacion = new Reservacion(viajeSeleccionado, pasajero, cmbNumeroAsientos.getSelectedIndex() + 1);
-        //Sentencia para mostrar el panel de pago
+        
+        
+        JFPago jFPago = new JFPago(reservacion);
 
-        // Una vez que se crea el pago;
-        SqlReservacion sqlReservacion = new SqlReservacion();
-        sqlReservacion.registrarReservacion(reservacion);
+        jFPago.setVisible(true);
+        
     }//GEN-LAST:event_btnConfirmarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+         
+        JFBuscarViaje jFBuscarViaje = new JFBuscarViaje(pasajero);
+        
+        jFBuscarViaje.setVisible(true);
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments

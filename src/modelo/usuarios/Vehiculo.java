@@ -7,7 +7,7 @@ package modelo.usuarios;
 import modelo.viaje.Viaje;
 
 import java.util.Calendar;
-import javax.swing.JOptionPane;
+import modelo.externo.Fecha;
 
 
 public class Vehiculo {
@@ -51,10 +51,9 @@ public class Vehiculo {
     }
 
     public boolean validarAño(){        
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        year = year - 15;
-        if(año > year ){            
+        Fecha fecha = new Fecha();
+        int añoMinimo = fecha.obtenerAñoActual() - 15;
+        if(this.año > añoMinimo ){            
             return true;
         }else{           
             return false;

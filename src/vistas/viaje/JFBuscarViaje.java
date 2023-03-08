@@ -4,18 +4,35 @@
  */
 package vistas.viaje;
 
+import controladorBD.viaje.SqlViaje;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.table.DefaultTableModel;
+import modelo.usuarios.Cuenta;
 import modelo.usuarios.Pasajero;
-import vistas.usuarios.JFPasajero;
+import modelo.viaje.Asiento;
+import modelo.viaje.Libre;
 import modelo.viaje.ListaViaje;
+import vistas.usuarios.JFPasajero;
 import modelo.viaje.Viaje;
+import vistas.reservacion.JFCrearReservación;
 import vistas.reservacion.JFListaReservacionesConductor;
+import static vistas.usuarios.JFLogin.viajes;
 
 /**
  * @author Dana
  */
+import vistas.usuarios.JFLogin;
+import static vistas.usuarios.JFLogin.cuentas;
+
 public class JFBuscarViaje extends javax.swing.JFrame {
 
     Pasajero pasajero;
+    String destinoBuscar;
+    double precioBuscar;
+    int asientosBuscar;
+    ArrayList<Integer> idViajes = new ArrayList<>();
 
     public JFBuscarViaje(Pasajero pasajero) {
         initComponents();
@@ -40,7 +57,6 @@ public class JFBuscarViaje extends javax.swing.JFrame {
         txtDestino = new javax.swing.JTextField();
         txtPrecioAsiento = new javax.swing.JTextField();
         txtAsientoDisponible = new javax.swing.JTextField();
-        btnReservar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         scrTablaViajes = new javax.swing.JScrollPane();
         tblViajes = new javax.swing.JTable();
@@ -55,10 +71,10 @@ public class JFBuscarViaje extends javax.swing.JFrame {
         jLabel2.setText("Destino:");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText("Precio por asiento:");
+        jLabel3.setText("Precio máximo por asiento:");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Asientos disponibles:");
+        jLabel4.setText("Asientos minimos disponibles:");
 
         txtDestino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,14 +94,6 @@ public class JFBuscarViaje extends javax.swing.JFrame {
             }
         });
 
-        btnReservar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnReservar.setText("Reservar");
-        btnReservar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReservarActionPerformed(evt);
-            }
-        });
-
         btnVolver.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -96,13 +104,13 @@ public class JFBuscarViaje extends javax.swing.JFrame {
 
         tblViajes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Partida", "Destino", "Fecha"
+                "Partida", "Destino", "Fecha", "Hora"
             }
         ));
         tblViajes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -124,70 +132,61 @@ public class JFBuscarViaje extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(btnVolver)
-                .addGap(25, 743, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(287, 287, 287)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(319, 319, 319)
-                        .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
+                        .addGap(57, 57, 57)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4))
-                        .addGap(67, 67, 67)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPrecioAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtAsientoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(btnVolver))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(scrTablaViajes, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(25, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(104, 104, 104)
-                    .addComponent(scrTablaViajes, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(156, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtPrecioAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtAsientoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(txtPrecioAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addComponent(txtAsientoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 331, Short.MAX_VALUE)
-                .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
+                        .addComponent(jLabel2)
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel3)
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addComponent(scrTablaViajes, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
                 .addComponent(btnVolver)
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(218, 218, 218)
-                    .addComponent(scrTablaViajes, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(158, Short.MAX_VALUE)))
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -205,10 +204,6 @@ public class JFBuscarViaje extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAsientoDisponibleActionPerformed
 
-    private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReservarActionPerformed
-
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
 
@@ -219,25 +214,57 @@ public class JFBuscarViaje extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+
+        destinoBuscar = txtDestino.getText();
+        precioBuscar = Double.parseDouble(txtPrecioAsiento.getText());
+        asientosBuscar = Integer.parseInt(txtAsientoDisponible.getText());
+
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Partida");
+        model.addColumn("Destino");
+        model.addColumn("Fecha");
+        model.addColumn("Hora");
+
+        tblViajes.setModel(model);
+
+        String[] fila = new String[4];
+
+        System.out.println(viajes);
+        for (int idviaje : viajes.keySet()) {
+            Viaje viaje = viajes.get(idviaje);
+            Asiento[] asientos = viaje.getListaDeAsientos();
+            double precioPorAsiento = asientos[0].getPrecio();
+            int numeroDeAsientosDisponibles = 0;
+            for (Asiento asiento : asientos) {
+                if (asiento.getEstado() instanceof Libre) {
+                    numeroDeAsientosDisponibles++;
+                }
+            }
+
+            if (viaje.getUbicacionDestino().equals(destinoBuscar) && precioPorAsiento <= precioBuscar && asientosBuscar <= numeroDeAsientosDisponibles) {
+                idViajes.add(idviaje);
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                String fechaHora = viaje.getFecha().getFechaYHora().format(formatter);
+
+                fila[0] = viaje.getUbicacionPartida();
+                fila[1] = viaje.getUbicacionDestino();
+                fila[2] = fechaHora.substring(0, 10);
+                fila[3] = fechaHora.substring(11);
+                model.addRow(fila);
+            }
+        }
+
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
     private void tblViajesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblViajesMouseClicked
         // TODO add your handling code here:
+        int fila = tblViajes.getSelectedRow();
         setVisible(false);
-
-        int filaSeleccionada = tblViajes.rowAtPoint(evt.getPoint());
-        Viaje[] viajes = null;
-        JFListaReservacionesConductor jFListaReservacionesConductor = new JFListaReservacionesConductor(viajes[filaSeleccionada]);
-        jFListaReservacionesConductor.setVisible(true);
-
-
+        JFCrearReservación JFCrearReservación = new JFCrearReservación(viajes.get(idViajes.get(fila)), pasajero);
+        JFCrearReservación.setVisible(true);
     }//GEN-LAST:event_tblViajesMouseClicked
-
-    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
-        String destinoBuscar, precioBuscar, asientosBuscar;
-        destinoBuscar = txtDestino.getText();
-        precioBuscar = txtPrecioAsiento.getText();
-        asientosBuscar = txtAsientoDisponible.getText();
-        
-    }//GEN-LAST:event_btnFiltrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,7 +306,6 @@ public class JFBuscarViaje extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFiltrar;
-    private javax.swing.JButton btnReservar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

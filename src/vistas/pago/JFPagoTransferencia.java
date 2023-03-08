@@ -39,7 +39,7 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
         factura = new Factura(reservacion);
         pagoTransferencia = new PagoTransferencia(factura, 20*60*1000);
         jfFactura = new JFFactura(reservacion, pasajero);
-        jPago = new JFPago(reservacion, pasajero);
+        jPago = new JFPago(reservacion);
         factura.calcularTotal();
         txtMontoTotal.setText(factura.valorTotal+"");
     }
@@ -164,6 +164,8 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
         jPago.setVisible(true);
+        
+        
     }//GEN-LAST:event_btnRegresarPTActionPerformed
 
     /**

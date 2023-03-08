@@ -78,7 +78,7 @@ public class SqlCalificacion {
         try {
             ps = (PreparedStatement) conexion.prepareStatement(sql);
             ps.setInt(1, idCuentaConductor);
-            ps.setString(2, "2023-03-05 19:45:00"); //cambiar por fecha
+            ps.setString(2, fechaViaje); //cambiar por fecha
             rs = ps.executeQuery();
             if (rs.next()) {
                 return rs.getInt(1);

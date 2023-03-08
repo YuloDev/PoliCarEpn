@@ -18,6 +18,8 @@ import modelo.usuarios.Pasajero;
 import modelo.usuarios.Usuario;
 import modelo.usuarios.Vehiculo;
 import modelo.viaje.Viaje;
+import vistas.reservacion.JFListaReservacionesConductor;
+import vistas.viaje.JFListaViajesDeConductor;
 
 /**
  *
@@ -29,13 +31,16 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
     JFPago jPago;
     static Pasajero pasajero;
     SqlPago s = new SqlPago();
+    Reservacion reservacion;
 
-    public JFPagoEfectivo(Reservacion reservacion, Pasajero pasajero){
+    public JFPagoEfectivo(Reservacion reservacion){
         initComponents();
         this.setLocationRelativeTo(null);
+        this.reservacion = reservacion;
         factura = new Factura(reservacion);
         pagoEfectivo = new PagoEfectivo(factura);
-        jPago = new JFPago(reservacion, pasajero);
+        this.pasajero = (Pasajero) reservacion.getCuenta();
+        jPago = new JFPago(reservacion);
         this.pasajero = pasajero;
         factura.calcularTotal();
         txtMontoaCancelar.setText(factura.valorTotal+"");
@@ -144,6 +149,9 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
             s.registrarFactura(factura);
             JOptionPane.showMessageDialog(rootPane, "Pago Confirmado","Pago Efectivo",1);
             // MOSTRAR LISTA DE VIAJES
+            JFListaViajesDeConductor jFListaViajesDeConductor = new JFListaViajesDeConductor((Conductor)reservacion.getViaje().getCuenta());
+            
+            jFListaViajesDeConductor.setVisible(true);
         this.setVisible(false);
         } catch (SQLException ex) {
             Logger.getLogger(JFPagoEfectivo.class.getName()).log(Level.SEVERE, null, ex);
@@ -153,7 +161,10 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
     private void btnRegresarPEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarPEActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        // MOSTRAR LISTA DE VIAJES
+        
+        JFListaReservacionesConductor jFListaReservacionesConductor = new JFListaReservacionesConductor(reservacion.getViaje());
+        
+        jFListaReservacionesConductor.setVisible(true);
     }//GEN-LAST:event_btnRegresarPEActionPerformed
 
     /**
@@ -204,7 +215,7 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new JFPagoEfectivo(reservacion, pasajero).setVisible(true);
+            //new JFPagoEfectivo(reservacion, pasajero).setVisible(true);
         });
     }
 

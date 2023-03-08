@@ -10,9 +10,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import modelo.externo.Fecha;
 import modelo.reservacion.Reservacion;
+import modelo.usuarios.Conductor;
 import modelo.usuarios.Cuenta;
+import modelo.usuarios.Pasajero;
 import modelo.viaje.Viaje;
 
 /**
@@ -103,7 +108,7 @@ public class SqlReservacion {
 
         int idCuentaPasajero = obtenerIDCuenta(cuentaPasajero);
         int idViaje = obtenerIDViaje(cuentaConductor, viaje);
-        
+
         PreparedStatement ps = null;
         ResultSet rs = null;
         ConexionMySQL con = new ConexionMySQL();
@@ -115,7 +120,7 @@ public class SqlReservacion {
                 + "ON F.IDFACTURA = PAGO.IDFACTURA "
                 + "WHERE PAGO.TIPOPAGO = 'efectivo' "
                 + "AND R.IDVIAJE = ? AND R.IDCUENTA = ?;";
-        
+
         try {
             ps = (PreparedStatement) conexion.prepareStatement(sql);
             ps.setInt(1, idViaje); //IDVIAJE
@@ -131,7 +136,36 @@ public class SqlReservacion {
             System.out.println("1");
             return false;
         }
-        
+
+    }
+
+    public HashMap<Integer,Reservacion> obtenerReservaciones(HashMap<Integer,Viaje> viajes, HashMap<Integer,Cuenta> cuentas) {
+        HashMap<Integer,Reservacion> reservaciones = new HashMap<Integer,Reservacion>();
+
+        ResultSet rs = null;
+        com.mysql.jdbc.PreparedStatement ps = null;
+        ConexionMySQL con = new ConexionMySQL();
+        java.sql.Connection conexion = con.conectar();
+
+        String sql = "select * from reservacion";
+        try {
+            ps = (com.mysql.jdbc.PreparedStatement) conexion.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                
+                Pasajero cuentaTemp = (Pasajero) cuentas.get(rs.getInt(3));
+
+                Reservacion reservacion = new Reservacion(viajes.get(rs.getInt(2)), cuentaTemp, rs.getInt(5));
+
+                reservaciones.put(rs.getInt(1),reservacion);
+
+                cuentaTemp.crearReservacion(reservacion);
+            }
+            System.out.println("Instanciación de Reservaciones");
+            return reservaciones;
+        } catch (SQLException e) {
+            return null;
+        }
     }
 
 }
