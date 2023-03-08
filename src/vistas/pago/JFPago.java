@@ -37,10 +37,14 @@ public class JFPago extends javax.swing.JFrame {
     public JFPago(Reservacion reservacion) {
         initComponents();
         this.setLocationRelativeTo(null);
+        
         this.reservacion = reservacion;
         factura = new Factura(reservacion);
         this.pasajero = (Pasajero) reservacion.getCuenta();
         pagoTransferencia = new PagoTransferencia(factura, 20*60*1000);
+        
+        factura.calcularTotal();
+        txfValorTotal.setText(factura.valorTotal+"");
     }
    
     /**
@@ -57,6 +61,8 @@ public class JFPago extends javax.swing.JFrame {
         BtnPagoEfectivo = new javax.swing.JToggleButton();
         btnRegresar = new javax.swing.JButton();
         lblElegirPago = new javax.swing.JLabel();
+        lblValorTotal = new javax.swing.JLabel();
+        txfValorTotal = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,7 +76,7 @@ public class JFPago extends javax.swing.JFrame {
                 BtnPagoTransferenciaActionPerformed(evt);
             }
         });
-        pnlPago.add(BtnPagoTransferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 200, 160, 30));
+        pnlPago.add(BtnPagoTransferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 160, 30));
 
         BtnPagoEfectivo.setText("Pago Efectivo");
         BtnPagoEfectivo.addActionListener(new java.awt.event.ActionListener() {
@@ -78,7 +84,7 @@ public class JFPago extends javax.swing.JFrame {
                 BtnPagoEfectivoActionPerformed(evt);
             }
         });
-        pnlPago.add(BtnPagoEfectivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, 160, 30));
+        pnlPago.add(BtnPagoEfectivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, 160, 30));
 
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -86,11 +92,18 @@ public class JFPago extends javax.swing.JFrame {
                 btnRegresarActionPerformed(evt);
             }
         });
-        pnlPago.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 403, 160, 30));
+        pnlPago.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 470, 160, 30));
 
         lblElegirPago.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblElegirPago.setText("Elegir Método De Pago");
-        pnlPago.add(lblElegirPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 265, 50));
+        pnlPago.add(lblElegirPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 265, 50));
+
+        lblValorTotal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblValorTotal.setText("Valor total");
+        pnlPago.add(lblValorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, -1, -1));
+
+        txfValorTotal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        pnlPago.add(txfValorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 120, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -219,6 +232,8 @@ public class JFPago extends javax.swing.JFrame {
     private javax.swing.JToggleButton BtnPagoTransferencia;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel lblElegirPago;
+    private javax.swing.JLabel lblValorTotal;
     private javax.swing.JPanel pnlPago;
+    private javax.swing.JTextField txfValorTotal;
     // End of variables declaration//GEN-END:variables
 }

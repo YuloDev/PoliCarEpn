@@ -176,6 +176,7 @@ public class JFLogin extends javax.swing.JFrame {
         correo = txtCorreo.getText();
         contrasenia = new String(psswdContrasenia.getPassword());
         tipoCuenta = cmbTipoCuenta.getSelectedItem().toString();
+        boolean bandera=false;
 
         for (int idcuenta : cuentas.keySet()) {
             Cuenta cuentaTemp = cuentas.get(idcuenta);
@@ -201,12 +202,16 @@ public class JFLogin extends javax.swing.JFrame {
                         jfconductor.setVisible(true);
                         this.setVisible(false);
                     }
+                    bandera=true;
                     break;
                 } else {
                     JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
             }
+        }
+        if (!bandera){
+            JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnIniciarSesionActionPerformed

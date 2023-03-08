@@ -216,7 +216,6 @@ public class JFRegistro extends javax.swing.JFrame {
             }            
             }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
-
             }
         }else {            
             JFVehiculo jfvehiculo = new JFVehiculo();

@@ -47,7 +47,7 @@ public class SqlReservacion {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            System.out.println("1");
+            System.out.println(e.toString());
             return false;
         }
     }

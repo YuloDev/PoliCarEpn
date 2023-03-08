@@ -11,38 +11,62 @@ import modelo.externo.Fecha;
 import modelo.usuarios.Conductor;
 import modelo.usuarios.Cuenta;
 import modelo.usuarios.Usuario;
+import modelo.viaje.Asiento;
 import modelo.viaje.Viaje;
+import static vistas.usuarios.JFLogin.viajes;
 
 public class SqlViaje extends ConexionMySQL {
 
     ArrayList lista = new ArrayList();
 
-    public void registrarViaje() throws SQLException {
-        //obtener idCuenta del conductor
-        //puntuacion quemada
-        //obtener partida
-        //obtener destino
-        //obtener fecha - cambiar la forma de registrar la fecha
+    public boolean registrarViaje(Viaje nuevoViaje, int numeroDeAsientos, double precioAsiento, String fecha) {
+        
+        int idCuenta = obtenerIDCuentaConductor(nuevoViaje.getCuenta());
+        
         PreparedStatement ps = null;
         Connection con = conectar();
-        String sql = "INSERT INTO VIAJE (IDCUENTA,PUNTUACION,UBICACIONPARTIDA,UBICACIONDESTINO, FECHA) VALUES (?,?,?,?,?);";
+        String sql = "INSERT INTO VIAJE (idcuenta, numerodeasientos, precioporasiento, ubicacionpartida, ubicaciondestino, fecha) "
+                + " VALUES (?,?,?,?,?,?);";
         try {
             ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
             ps = (PreparedStatement) con.prepareStatement(sql);
-            ps.setInt(1, 123);
-            ps.setFloat(2, (float) 5.4);
-            ps.setString(3, "partida");
-            ps.setString(4, "destino");
-            ps.setString(5, "'yyyy-mm-dd hh:mm:ss'");
+            ps.setInt(1, idCuenta);
+            ps.setInt(2, numeroDeAsientos);
+            ps.setDouble(3, precioAsiento);
+            ps.setString(4, nuevoViaje.getUbicacionPartida());
+            ps.setString(5, nuevoViaje.getUbicacionDestino());
+            ps.setString(6, fecha);
             ps.execute();
-            con.close();
-            //return true;
+            System.out.println("bandera");
+            return true;
         } catch (SQLException ex) {
-            con.close();
-            //return false;
+            System.out.println(ex.toString());
+            return false;
         }
     }
 
+    private int obtenerIDCuentaConductor(Cuenta cuentaConductor) {
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        ConexionMySQL con = new ConexionMySQL();
+        java.sql.Connection conexion = con.conectar();
+
+        String sql = "SELECT IDCUENTA FROM CUENTA WHERE CORREO = ? AND TIPOCUENTA = \"Conductor\"";
+
+        try {
+            ps = (PreparedStatement) conexion.prepareStatement(sql);
+            ps.setString(1, cuentaConductor.getCorreo());
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                System.out.println("bandera1");
+                return rs.getInt(1);
+            }
+            return -2;
+        } catch (SQLException e) {
+            return -2;
+        }
+    }
+    
     public void consultarViajes() throws SQLException {
         PreparedStatement ps = null;
         ResultSet rs = null;

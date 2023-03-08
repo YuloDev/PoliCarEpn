@@ -4,6 +4,7 @@
  */
 package vistas.viaje;
 
+import controladorBD.viaje.SqlViaje;
 import javax.swing.JOptionPane;
 
 import modelo.usuarios.Conductor;
@@ -32,8 +33,6 @@ public class JFCrearViaje extends javax.swing.JFrame {
 
         this.conductor = conductor;
         viaje = new Viaje();
-        listaViaje = new ListaViaje();
-        //perfilConductor = new U_JFPerfilConductor();
     }
 
     /**
@@ -45,7 +44,7 @@ public class JFCrearViaje extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblPrecio = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
         txtPartida = new javax.swing.JTextField();
         txtDestino = new javax.swing.JTextField();
         txtAsientos = new javax.swing.JTextField();
@@ -56,10 +55,12 @@ public class JFCrearViaje extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
         lblDestino = new javax.swing.JLabel();
         lblAsientosDisponibles = new javax.swing.JLabel();
+        lblPrecio1 = new javax.swing.JLabel();
+        txtFecha = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblPrecio.setText("Precio por Asiento:");
+        lblFecha.setText("Fecha y Hora");
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 2, 24)); // NOI18N
         jLabel1.setText("VIAJE");
@@ -84,6 +85,8 @@ public class JFCrearViaje extends javax.swing.JFrame {
 
         lblAsientosDisponibles.setText("Asientos Disponibles:");
 
+        lblPrecio1.setText("Precio por Asiento:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,7 +100,11 @@ public class JFCrearViaje extends javax.swing.JFrame {
                             .addComponent(lblDestino)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblPrecio)
+                                    .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(60, 60, 60)
+                                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(lblPrecio1)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
@@ -105,14 +112,15 @@ public class JFCrearViaje extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGap(82, 82, 82)
+                                    .addGap(98, 98, 98)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(txtPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(181, 181, 181)
-                                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(txtPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                            .addGap(63, 63, 63)
+                                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(102, 102, 102)))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(331, 331, 331)
                         .addComponent(jLabel1)))
@@ -137,13 +145,17 @@ public class JFCrearViaje extends javax.swing.JFrame {
                     .addComponent(txtAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPrecio)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPrecio1))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFecha)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
 
         pack();
@@ -152,44 +164,38 @@ public class JFCrearViaje extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
 
         this.setVisible(false);
-        //perfilConductor.setVisible(false);
         int opcion;// = JOptionPane.showMessageDialog(null, "V_JFViaje Cancelado");
         opcion = JOptionPane.showConfirmDialog(null, "Desea cancelar el Viaje", "Viaje", JOptionPane.YES_NO_OPTION);
         if (opcion == JOptionPane.YES_OPTION) {
-            //termina toda la ejecucion
-            //System.exit(0);
-            // perfilConductor.setVisible(true);
             JFConductor jFConductor = new JFConductor(conductor);
             jFConductor.setVisible(true);
-            
+
         } else {
             this.setVisible(true);
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {
-        
+
         //TODO
         String partida, destino, asientos, precio;
-        Fecha fecha = new Fecha();
+
         partida = txtPartida.getText();
         destino = txtDestino.getText();
         asientos = txtAsientos.getText();
         precio = txtPrecio.getText();
+        Fecha fecha = new Fecha(txtFecha.getText());
 
-        /////////////////////////////7
-        //new Usuario("r", "p", "12", 1212), new Vehiculo("dadf", "dad", "sdaf", 12, 5)
-        Usuario nuevoUsuario = new Usuario("Luis", "Narvaez", "0985381267", 201821107);
-        Vehiculo vehiculo = new Vehiculo("PCM1478", "Kia rio", "negro", 2018, 5);
-        Conductor cuentaConductor = null;
-        if (vehiculo.validarAño()) {
-            cuentaConductor = new Conductor("luis.narvaez@epn.edu.ec", "963mv",
-                    nuevoUsuario, vehiculo);
+        Viaje nuevoViaje = new Viaje(partida, destino, Integer.parseInt(asientos), Double.parseDouble(precio), conductor, fecha);
+        conductor.crearViaje(nuevoViaje);
+
+        SqlViaje sqlViaje = new SqlViaje();
+        if (sqlViaje.registrarViaje(nuevoViaje, Integer.parseInt(asientos), Double.parseDouble(precio), txtFecha.getText())) {
+            //System.out.println("Se registro el viaje");
+            this.setVisible(false);
+            JFConductor jFConductor = new JFConductor(conductor);
+            jFConductor.setVisible(true);
         }
-        ////////////////////////////77
-
-        Viaje nuevoViaje = new Viaje(partida, destino, Integer.parseInt(asientos), Double.parseDouble(precio), cuentaConductor, fecha);
-        listaViaje.añadirViaje(nuevoViaje);
     }
 
     public static void main(String args[]) {
@@ -233,10 +239,12 @@ public class JFCrearViaje extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblAsientosDisponibles;
     private javax.swing.JLabel lblDestino;
+    private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblPartida;
-    private javax.swing.JLabel lblPrecio;
+    private javax.swing.JLabel lblPrecio1;
     private javax.swing.JTextField txtAsientos;
     private javax.swing.JTextField txtDestino;
+    private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtPartida;
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
