@@ -158,12 +158,17 @@ public class SqlReservacion {
     }
 
     public boolean verificarTipoDePagoEnEfectivo(Reservacion reservacion) {
-        Viaje viaje = reservacion.getViaje();
-        Cuenta cuentaConductor = reservacion.getViaje().getCuenta();
         Cuenta cuentaPasajero = reservacion.getCuenta();
 
         int idCuentaPasajero = obtenerIDCuenta(cuentaPasajero);
-        int idViaje = obtenerIDViaje(cuentaConductor, viaje);
+        
+        int idViaje = 0;
+        for (int id : viajes.keySet()) {
+            Viaje viaje = viajes.get(id);
+            if (viaje.equals(reservacion.getViaje())) {
+                idViaje = id;
+            }
+        }
 
         PreparedStatement ps = null;
         ResultSet rs = null;
