@@ -33,6 +33,7 @@ public class SqlPago extends ConexionMySQL{
             con.close();
             return true;
         } catch (SQLException ex) {
+            System.out.println(ex.toString());
             con.close();
             return false;
         }
@@ -127,13 +128,14 @@ public class SqlPago extends ConexionMySQL{
         PreparedStatement ps = null;
         Connection con = conectar();
         factura.calcularTotal();
-        String sql = "INSERT INTO PAGO (IDFACTURA,VALORTOTAL,TIPOPAGO) VALUES (?,?,?);"; 
+        String sql = "INSERT INTO PAGO (IDFACTURA,VALORTOTAL,TIPOPAGO,ESTADODEPAGO) VALUES (?,?,?,?);"; 
         try {
             ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
             ps = (PreparedStatement) con.prepareStatement(sql);
             ps.setInt(1, obtenerUltimaF());
             ps.setFloat(2, (float)factura.valorTotal);
             ps.setString(3, tipoPago);
+            ps.setInt(4, 0);
             ps.execute();
             con.close();
             return true;

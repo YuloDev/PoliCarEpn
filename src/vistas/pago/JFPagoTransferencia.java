@@ -19,6 +19,7 @@ import modelo.usuarios.Usuario;
 import modelo.usuarios.Vehiculo;
 import modelo.viaje.Viaje;
 import static vistas.pago.JFPago.pasajero;
+import vistas.reservacion.JFListaReservacionPasajero;
 
 /**
  *
@@ -163,9 +164,9 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
     private void btnRegresarPTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarPTActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        jPago.setVisible(true);
         
-        
+        JFListaReservacionPasajero jFListaReservacionPasajero = new JFListaReservacionPasajero(pasajero);
+        jFListaReservacionPasajero.setVisible(true);
     }//GEN-LAST:event_btnRegresarPTActionPerformed
 
     /**
@@ -215,11 +216,8 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
         Reservacion reservacion = new Reservacion(nuevoViaje, cuentaPasajero, 4);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            try {
-                new JFPagoTransferencia(reservacion, pasajero).setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(JFPagoTransferencia.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            //new JFPagoTransferencia(reservacion, pasajero).setVisible(true);
+
         });
     }
 

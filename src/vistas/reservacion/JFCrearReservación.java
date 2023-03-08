@@ -14,6 +14,7 @@ import modelo.usuarios.Pasajero;
 import modelo.usuarios.Usuario;
 import modelo.usuarios.Vehiculo;
 import modelo.viaje.Asiento;
+import modelo.viaje.Libre;
 import modelo.viaje.Viaje;
 import vistas.pago.JFPago;
 import vistas.viaje.JFBuscarViaje;
@@ -26,6 +27,7 @@ public class JFCrearReservación extends javax.swing.JFrame {
 
     private Viaje viajeSeleccionado;
     private Pasajero pasajero;
+    private int idViaje;
 
     /**
      * Creates new form jfmCrearReservación
@@ -38,6 +40,7 @@ public class JFCrearReservación extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.viajeSeleccionado = viaje;
         this.pasajero = pasajero;
+        this.idViaje = idViaje;
         llenarDatos();
     }
 
@@ -55,7 +58,9 @@ public class JFCrearReservación extends javax.swing.JFrame {
         int numeroAsientos = 0;
         for (Asiento asiento : viajeSeleccionado.getListaDeAsientos()) {
             if (asiento != null) {
-                numeroAsientos++;
+                if (asiento.getEstado() instanceof Libre){
+                    numeroAsientos++;
+                }
             }
         }
         for (int i = 0; i < numeroAsientos; i++) {
@@ -342,7 +347,7 @@ public class JFCrearReservación extends javax.swing.JFrame {
                 /**
                  * ******************Borrar*********************+
                  */
-                new JFCrearReservación(nuevoViaje, cuentaPasajero).setVisible(true);
+                //new JFCrearReservación(nuevoViaje, cuentaPasajero).setVisible(true);
             }
         });
     }

@@ -31,6 +31,7 @@ public class JFPago extends javax.swing.JFrame {
     static Pasajero pasajero;
     Factura factura;
     SqlPago s = new SqlPago();
+    
     /**
      * Creates new form JFPago
      */
@@ -103,6 +104,7 @@ public class JFPago extends javax.swing.JFrame {
         pnlPago.add(lblValorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, -1, -1));
 
         txfValorTotal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txfValorTotal.setFocusable(false);
         pnlPago.add(txfValorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 120, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -131,6 +133,7 @@ public class JFPago extends javax.swing.JFrame {
         // Una vez que se crea el pago;
         SqlReservacion sqlReservacion = new SqlReservacion();
         sqlReservacion.registrarReservacion(reservacion);
+        pasajero.crearReservacion(reservacion);
         
         JFListaReservacionPasajero jFListaReservacionPasajero = null;
         String tipoPago = "transferencia";

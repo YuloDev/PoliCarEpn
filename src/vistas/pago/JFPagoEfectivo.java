@@ -62,6 +62,7 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
         txtMontoaCancelar = new javax.swing.JTextField();
         btnPagoRealizado = new javax.swing.JButton();
         btnRegresarPE = new javax.swing.JButton();
+        btnNoRealizado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,7 +73,7 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
 
         lblMontoACancelar.setText("Monto a Cancelar");
 
-        btnPagoRealizado.setText("Pago Realizado");
+        btnPagoRealizado.setText("Realizado");
         btnPagoRealizado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPagoRealizadoActionPerformed(evt);
@@ -86,6 +87,13 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
             }
         });
 
+        btnNoRealizado.setText("No realizado");
+        btnNoRealizado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNoRealizadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlPagoEfectivoLayout = new javax.swing.GroupLayout(pnlPagoEfectivo);
         pnlPagoEfectivo.setLayout(pnlPagoEfectivoLayout);
         pnlPagoEfectivoLayout.setHorizontalGroup(
@@ -94,19 +102,26 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
                 .addGap(154, 154, 154)
                 .addGroup(pnlPagoEfectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlPagoEfectivoLayout.createSequentialGroup()
-                        .addGroup(pnlPagoEfectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlPagoEfectivoLayout.createSequentialGroup()
-                                .addComponent(btnPagoRealizado, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(128, 128, 128)
-                                .addComponent(btnRegresarPE, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlPagoEfectivoLayout.createSequentialGroup()
-                                .addGap(136, 136, 136)
-                                .addComponent(lblPagoEfectivo)))
+                        .addGap(136, 136, 136)
+                        .addComponent(lblPagoEfectivo)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlPagoEfectivoLayout.createSequentialGroup()
-                        .addComponent(lblMontoACancelar)
-                        .addGap(140, 140, 140)
-                        .addComponent(txtMontoaCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPagoEfectivoLayout.createSequentialGroup()
+                        .addGroup(pnlPagoEfectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlPagoEfectivoLayout.createSequentialGroup()
+                                .addComponent(lblMontoACancelar)
+                                .addGap(140, 140, 140)
+                                .addComponent(txtMontoaCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPagoEfectivoLayout.createSequentialGroup()
+                                .addGroup(pnlPagoEfectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPagoEfectivoLayout.createSequentialGroup()
+                                        .addGap(54, 54, 54)
+                                        .addComponent(btnPagoRealizado, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(44, 44, 44)
+                                        .addComponent(btnNoRealizado, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPagoEfectivoLayout.createSequentialGroup()
+                                        .addGap(139, 139, 139)
+                                        .addComponent(btnRegresarPE, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(192, 192, 192))))
         );
         pnlPagoEfectivoLayout.setVerticalGroup(
@@ -118,11 +133,13 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
                 .addGroup(pnlPagoEfectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtMontoaCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblMontoACancelar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addGroup(pnlPagoEfectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPagoRealizado, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegresarPE, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(137, 137, 137))
+                    .addComponent(btnNoRealizado, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(69, 69, 69)
+                .addComponent(btnRegresarPE, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(133, 133, 133))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -147,7 +164,6 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
 
     private void btnPagoRealizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagoRealizadoActionPerformed
         try {
-            pagoEfectivo.setEstaPagado(true);
             if(pagoEfectivo.realizarPago()){
                 s.registrarFactura(factura);
                 JOptionPane.showMessageDialog(rootPane, "Pago Confirmado","Pago Efectivo",1);
@@ -166,8 +182,15 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
         this.setVisible(false);
         JFListaReservacionesConductor jFListaReservacionesConductor = new JFListaReservacionesConductor(reservacion.getViaje());
         jFListaReservacionesConductor.setVisible(true);
-        if(!pagoEfectivo.realizarPago()){
-            pagoEfectivo.setEstaPagado(false);
+    }//GEN-LAST:event_btnRegresarPEActionPerformed
+
+    private void btnNoRealizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoRealizadoActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        this.setVisible(false);
+        JFListaReservacionesConductor jFListaReservacionesConductor = new JFListaReservacionesConductor(reservacion.getViaje());
+        jFListaReservacionesConductor.setVisible(true);
+        if(!pagoEfectivo.isEstaPagado()){
             try {
                 s.eliminarPago();
             } catch (SQLException ex) {
@@ -175,7 +198,8 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
             }
             JOptionPane.showMessageDialog(rootPane, "Pago no confirmado","Pago Efectivo",2);
         }
-    }//GEN-LAST:event_btnRegresarPEActionPerformed
+        
+    }//GEN-LAST:event_btnNoRealizadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,6 +254,7 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnNoRealizado;
     private javax.swing.JButton btnPagoRealizado;
     private javax.swing.JButton btnRegresarPE;
     private javax.swing.JLabel lblMontoACancelar;

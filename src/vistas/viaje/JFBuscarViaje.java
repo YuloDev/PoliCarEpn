@@ -82,12 +82,14 @@ public class JFBuscarViaje extends javax.swing.JFrame {
             }
         });
 
+        txtPrecioAsiento.setText("1");
         txtPrecioAsiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPrecioAsientoActionPerformed(evt);
             }
         });
 
+        txtAsientoDisponible.setText("1");
         txtAsientoDisponible.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAsientoDisponibleActionPerformed(evt);

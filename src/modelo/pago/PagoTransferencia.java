@@ -26,7 +26,10 @@ public class PagoTransferencia extends Pago{
     }
     
     public boolean realizarPago(){
-        return billetera.aumentarSaldo(valorTotal);
+        if (billetera.aumentarSaldo(valorTotal)){
+            estaPagado = true;
+        }
+        return estaPagado;
     }
-  
+    
 }

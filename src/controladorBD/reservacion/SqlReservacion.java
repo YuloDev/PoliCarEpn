@@ -18,7 +18,9 @@ import modelo.reservacion.Reservacion;
 import modelo.usuarios.Conductor;
 import modelo.usuarios.Cuenta;
 import modelo.usuarios.Pasajero;
+import modelo.viaje.Asiento;
 import modelo.viaje.Viaje;
+import static vistas.usuarios.JFLogin.viajes;
 
 /**
  *
@@ -27,28 +29,80 @@ import modelo.viaje.Viaje;
 public class SqlReservacion {
 
     public boolean registrarReservacion(Reservacion reservacion) {
-        Viaje viaje = reservacion.getViaje();
-        Cuenta cuentaConductor = reservacion.getViaje().getCuenta();
         Cuenta cuentaPasajero = reservacion.getCuenta();
 
         int idCuentaPasajero = obtenerIDCuenta(cuentaPasajero);
-        int idViaje = obtenerIDViaje(cuentaConductor, viaje);
+
+        int idViaje = 0;
+        for (int id : viajes.keySet()) {
+            Viaje viaje = viajes.get(id);
+            if (viaje.equals(reservacion.getViaje())) {
+                idViaje = id;
+            }
+        }
+        int numeroDeAsientos = 0;
+        for (Asiento asiento : reservacion.getListaDeAsientos()) {
+            if (asiento != null) {
+                numeroDeAsientos++;
+            }
+        }
 
         PreparedStatement ps = null;
         ConexionMySQL con = new ConexionMySQL();
         Connection conexion = con.conectar();
-        String sql = "INSERT INTO RESERVACION (IDVIAJE,IDCUENTA,VALOR) "
-                + "VALUES (?,?,?);";
+        String sql = "INSERT INTO RESERVACION (idviaje, idcuenta, valor, numerodeasientos) "
+                + "VALUES (?,?,?,?);";
         try {
             ps = (PreparedStatement) conexion.prepareStatement(sql);
             ps.setInt(1, idViaje); //IDVIAJE
             ps.setInt(2, idCuentaPasajero); // IDCUENTA
             ps.setDouble(3, reservacion.getPrecio()); // VALOR
+            ps.setInt(4, numeroDeAsientos);
             ps.execute();
+            ocuparAsientos(idViaje, numeroDeAsientos);
             return true;
         } catch (SQLException e) {
             System.out.println(e.toString());
             return false;
+        }
+    }
+
+    private void ocuparAsientos(int idViaje, int numeroDeAsientos) {
+
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        ConexionMySQL con = new ConexionMySQL();
+        Connection conexion = con.conectar();
+        String sql = "SELECT IDASIENTO FROM ASIENTO WHERE IDVIAJE = ? AND ESTADO = 0";
+        try {
+            ps = (PreparedStatement) conexion.prepareStatement(sql);
+            ps.setInt(1, idViaje); //IDVIAJE
+            rs = ps.executeQuery();
+            while (numeroDeAsientos > 0) {
+                if (rs.next()) {
+                    System.out.println(rs.getInt(1));
+                    cambiarEstadoDeAsiento(rs.getInt(1), 1);
+                }
+                numeroDeAsientos--;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    private void cambiarEstadoDeAsiento(int idAsiento, int estado) {
+
+        PreparedStatement ps = null;
+        ConexionMySQL con = new ConexionMySQL();
+        Connection conexion = con.conectar();
+        String sql = "UPDATE ASIENTO SET ESTADO = ? WHERE IDASIENTO = ?";
+        try {
+            ps = (PreparedStatement) conexion.prepareStatement(sql);
+            ps.setInt(1, estado);
+            ps.setInt(2, idAsiento);
+            ps.execute();
+        } catch (SQLException e) {
+            System.out.println(e.toString());
         }
     }
 
@@ -76,6 +130,7 @@ public class SqlReservacion {
             }
             return -1;
         } catch (SQLException e) {
+            System.out.println(e.toString());
             return -1;
         }
     }
@@ -86,7 +141,7 @@ public class SqlReservacion {
         ConexionMySQL con = new ConexionMySQL();
         Connection conexion = con.conectar();
 
-        String sql = "SELECT IDCUENTA FROM CUENTA WHERE CORREO = ?;";
+        String sql = "SELECT IDCUENTA FROM CUENTA WHERE CORREO = ? AND TIPOCUENTA = 'Pasajero';";
 
         try {
             ps = (PreparedStatement) conexion.prepareStatement(sql);
@@ -97,6 +152,7 @@ public class SqlReservacion {
             }
             return -2;
         } catch (SQLException e) {
+            System.out.println(e.toString());
             return -2;
         }
     }
@@ -139,8 +195,8 @@ public class SqlReservacion {
 
     }
 
-    public HashMap<Integer,Reservacion> obtenerReservaciones(HashMap<Integer,Viaje> viajes, HashMap<Integer,Cuenta> cuentas) {
-        HashMap<Integer,Reservacion> reservaciones = new HashMap<Integer,Reservacion>();
+    public HashMap<Integer, Reservacion> obtenerReservaciones(HashMap<Integer, Viaje> viajes, HashMap<Integer, Cuenta> cuentas) {
+        HashMap<Integer, Reservacion> reservaciones = new HashMap<Integer, Reservacion>();
 
         ResultSet rs = null;
         com.mysql.jdbc.PreparedStatement ps = null;
@@ -152,12 +208,12 @@ public class SqlReservacion {
             ps = (com.mysql.jdbc.PreparedStatement) conexion.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                
+
                 Pasajero cuentaTemp = (Pasajero) cuentas.get(rs.getInt(3));
 
                 Reservacion reservacion = new Reservacion(viajes.get(rs.getInt(2)), cuentaTemp, rs.getInt(5));
 
-                reservaciones.put(rs.getInt(1),reservacion);
+                reservaciones.put(rs.getInt(1), reservacion);
 
                 cuentaTemp.crearReservacion(reservacion);
             }

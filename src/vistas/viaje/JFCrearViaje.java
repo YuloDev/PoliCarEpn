@@ -87,6 +87,9 @@ public class JFCrearViaje extends javax.swing.JFrame {
 
         lblPrecio1.setText("Precio por Asiento:");
 
+        txtFecha.setText("2000-00-00 00:00:00");
+        txtFecha.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(

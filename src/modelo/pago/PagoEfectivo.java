@@ -12,18 +12,15 @@ import modelo.pago.Factura;
  * @author Kevin
  */
 public class PagoEfectivo extends Pago{
-    private boolean estaPagado = false;
+    
     
     public PagoEfectivo(Factura factura) {
         super(factura);
     }
     
     public boolean realizarPago(){
+        estaPagado = true;
         return estaPagado;
     }
 
-    public void setEstaPagado(boolean estaPagado) {
-        this.estaPagado = estaPagado;
-    }   
-    
 }
