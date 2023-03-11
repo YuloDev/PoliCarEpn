@@ -43,7 +43,7 @@ public class JFContabilizadorRutas extends javax.swing.JFrame {
 
         lblDestino.setText("Ubicación Destino:");
 
-        lblTextInfo.setText("Escriba la Ruta que desee averiguar");
+        lblTextInfo.setText("Acontinuacion se muestra las rutas realizadas y con que frecuencia se las ha realziado");
 
         jButton1.setText("Buscar");
 
@@ -56,9 +56,7 @@ public class JFContabilizadorRutas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(108, 108, 108)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(lblTextInfo))
+                    .addComponent(lblTextInfo)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblPartida)
@@ -73,16 +71,16 @@ public class JFContabilizadorRutas extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(240, 240, 240)
                         .addComponent(lblTitulo)))
-                .addContainerGap(332, Short.MAX_VALUE))
+                .addContainerGap(186, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(lblTitulo)
-                .addGap(73, 73, 73)
+                .addGap(18, 18, 18)
                 .addComponent(lblTextInfo)
-                .addGap(63, 63, 63)
+                .addGap(118, 118, 118)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblPartida)
