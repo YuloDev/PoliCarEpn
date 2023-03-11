@@ -14,8 +14,8 @@ public class Viaje {
     public Asiento[] listaDeAsientos;
     private ListaReservacion reservaciones;
     private Usuario usuario;
-    private String ubicacionPartida;
-    private String ubicacionDestino;
+    public String ubicacionPartida;
+    public String ubicacionDestino;
     private Cuenta cuenta;
     private Fecha fecha;
 
