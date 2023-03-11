@@ -12,17 +12,18 @@ public class SqlComentario {
     public boolean registrarComentario(Comentario co) {
         PreparedStatement ps = null;
         Connection con = new ConexionMySQL().conectar();
-        String sql = "INSERT INTO comentario (idcalificacion, contenido) VALUES ((select max(idcalificacion) from calificacion), ?);";
+        String sql = "INSERT INTO comentario (idcalificacion, contenido) VALUES ((select max(idcalificacion) from calificacion), ? );";
         try {
             ps = (PreparedStatement) con.prepareStatement(sql);
             ps.setString(1, co.getContenido());
+            ps.execute();
             return true;
         } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
     }
 
-    //corregir
     public String [] mostrarComentarios(int codUnico) {
         PreparedStatement ps = null;
         ResultSet rs = null;

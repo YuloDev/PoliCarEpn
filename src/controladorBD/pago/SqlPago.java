@@ -16,9 +16,8 @@ import modelo.pago.Factura;
  * @author Kevin
  */
 public class SqlPago extends ConexionMySQL{
-    Factura factura = new Factura();
     
-     public boolean registrarFactura() throws SQLException{
+     public boolean registrarFactura(Factura factura) throws SQLException{
         PreparedStatement ps = null;
         Connection con = conectar();
         String sql = "INSERT INTO Factura (IDRESERVACION,VALORTOTAL,VALORIVA,VALORSERVICIO) VALUES (?,?,?,?);"; 
@@ -34,6 +33,7 @@ public class SqlPago extends ConexionMySQL{
             con.close();
             return true;
         } catch (SQLException ex) {
+            System.out.println(ex.toString());
             con.close();
             return false;
         }
@@ -57,7 +57,6 @@ public class SqlPago extends ConexionMySQL{
     }
     
     public Float obtenerSaldo(){
-        String idReservacion;
         PreparedStatement ps = null;
         ResultSet rs = null;
         java.sql.Connection con = conectar();
@@ -75,12 +74,27 @@ public class SqlPago extends ConexionMySQL{
     }
     
     public int obtenerUltimaF(){
-        String idReservacion;
         PreparedStatement ps = null;
         ResultSet rs = null;
         java.sql.Connection con = conectar();
 
         String sql = "SELECT IDFACTURA FROM FACTURA ORDER BY IDFACTURA DESC; ";
+        try {
+            ps = (PreparedStatement) con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+        } catch (SQLException e) {
+            return -1;
+        }
+    }
+    
+    public int obtenerUltimoP(){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        java.sql.Connection con = conectar();
+
+        String sql = "SELECT IDPAGO FROM pago ORDER BY IDPAGO DESC;";
         try {
             ps = (PreparedStatement) con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -110,17 +124,35 @@ public class SqlPago extends ConexionMySQL{
         }
     }
     
-    public boolean insertarPago(String tipoPago) throws SQLException{
+    public boolean insertarPago(Factura factura, String tipoPago) throws SQLException{
         PreparedStatement ps = null;
         Connection con = conectar();
         factura.calcularTotal();
-        String sql = "INSERT INTO PAGO (IDFACTURA,VALORTOTAL,TIPOPAGO) VALUES (?,?,?);"; 
+        String sql = "INSERT INTO PAGO (IDFACTURA,VALORTOTAL,TIPOPAGO,ESTADODEPAGO) VALUES (?,?,?,?);"; 
         try {
             ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
             ps = (PreparedStatement) con.prepareStatement(sql);
             ps.setInt(1, obtenerUltimaF());
             ps.setFloat(2, (float)factura.valorTotal);
             ps.setString(3, tipoPago);
+            ps.setInt(4, 0);
+            ps.execute();
+            con.close();
+            return true;
+        } catch (SQLException ex) {
+            con.close();
+            System.err.println(ex);
+            return false;
+        }
+    }
+    
+    public boolean eliminarPago() throws SQLException{
+        PreparedStatement ps = null;
+        Connection con = conectar();
+        String sql = "DELETE FROM PAGO WHERE IDPAGO =" + obtenerUltimoP();  
+        try {
+            ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
+            ps = (PreparedStatement) con.prepareStatement(sql);
             ps.execute();
             con.close();
             return true;

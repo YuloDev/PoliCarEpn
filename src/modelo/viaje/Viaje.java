@@ -13,9 +13,9 @@ import modelo.reservacion.ListaReservacion;
 public class Viaje {
     public Asiento[] listaDeAsientos;
     private ListaReservacion reservaciones;
-    private Usuario[] usuarios;
-    public String ubicacionPartida;
-    public String ubicacionDestino;
+    private Usuario usuario;
+    private String ubicacionPartida;
+    private String ubicacionDestino;
     private Cuenta cuenta;
     private Fecha fecha;
 
@@ -66,8 +66,8 @@ public class Viaje {
         return reservaciones;
     }
 
-    public Usuario[] getUsuarios() {
-        return usuarios;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
     public String getUbicacionPartida() {
@@ -80,11 +80,6 @@ public class Viaje {
 
     public Cuenta getCuenta() {
         return cuenta;
-    }
-
-
-    public ListaReservacion getReservaciones() {
-        return reservaciones;
     }
 
     public Fecha getFecha() {

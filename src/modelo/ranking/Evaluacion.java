@@ -23,7 +23,7 @@ public class Evaluacion {
         }
         promedio = promedio / i;
 
-        double promedioR = java.lang.Math.round(promedio * 100) / 100;
+        double promedioR = java.lang.Math.round(promedio * 100.0) / 100.0;
 
         return promedioR;
 

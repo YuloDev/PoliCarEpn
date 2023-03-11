@@ -13,12 +13,14 @@ import modelo.pago.Factura;
  */
 public class PagoEfectivo extends Pago{
     
+    
     public PagoEfectivo(Factura factura) {
         super(factura);
     }
     
     public boolean realizarPago(){
-        //validar del Frame 
-        return false;
+        estaPagado = true;
+        return estaPagado;
     }
+
 }

@@ -25,4 +25,8 @@ public class Fecha {
         return fechaYHora;
     }
     
+    public int obtenerAñoActual(){
+        return LocalDateTime.now().getYear();
+    }
+    
 }
