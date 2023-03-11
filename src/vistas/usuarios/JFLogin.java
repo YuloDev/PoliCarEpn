@@ -8,19 +8,15 @@ import controladorBD.reservacion.SqlReservacion;
 import controladorBD.usuarios.SqlCuenta;
 import controladorBD.usuarios.SqlUsuario;
 import controladorBD.usuarios.SqlVehiculo;
-import controladorBD.viaje.SqlAsiento;
 import controladorBD.viaje.SqlViaje;
-import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import modelo.reservacion.Reservacion;
 import modelo.usuarios.Conductor;
 import modelo.usuarios.Cuenta;
 import modelo.usuarios.Pasajero;
-import modelo.usuarios.RestriccionDominio;
 import modelo.usuarios.Usuario;
 import modelo.usuarios.Vehiculo;
-import modelo.viaje.Asiento;
 import modelo.viaje.Viaje;
 
 /**

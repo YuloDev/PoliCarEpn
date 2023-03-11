@@ -4,9 +4,8 @@
  */
 package modelo.pago;
 
-import modelo.pago.Pago;
-import modelo.pago.Factura;
-import modelo.pago.BilleteraPoliCar;
+import javax.swing.JOptionPane;
+import modelo.pago.*;
 import modelo.reservacion.ControladorTiempoDeReserva;
 
 /**
@@ -14,20 +13,25 @@ import modelo.reservacion.ControladorTiempoDeReserva;
  * @author Kevin
  */
 public class PagoTransferencia extends Pago{
-    
     public double valorTotal;
     public BilleteraPoliCar billetera = new BilleteraPoliCar();
+ 
     
-    public PagoTransferencia(Factura factura, long timpoeRestante) {
-        super(factura);
+    public PagoTransferencia(Factura factura, long timpoeRestante, Creditos creditos) {
+        super(factura, creditos);
         controlador = new ControladorTiempoDeReserva(factura.reservacion,20*60*1000);
         factura.calcularTotal();
-        this.valorTotal = super.factura.valorTotal;
+        this.valorTotal = factura.valorTotal;
     }
     
     public boolean realizarPago(){
-        if (billetera.aumentarSaldo(valorTotal)){
-            estaPagado = true;
+        double valorxPagar = super.creditos.getSaldo();
+        if(factura.valorTotal <= valorxPagar){
+            if (billetera.aumentarSaldo(valorxPagar)){
+                estaPagado = true;
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Saldo Insuficiente","Pago Transferencia",0);
         }
         return estaPagado;
     }

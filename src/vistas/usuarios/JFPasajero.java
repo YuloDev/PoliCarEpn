@@ -5,6 +5,7 @@
 package vistas.usuarios;
 
 import modelo.usuarios.Pasajero;
+import vistas.pago.JFCreditos;
 import vistas.reservacion.JFListaReservacionPasajero;
 import vistas.viaje.JFBuscarViaje;
 
@@ -14,15 +15,14 @@ import vistas.viaje.JFBuscarViaje;
  */
 public class JFPasajero extends javax.swing.JFrame {
     Pasajero pasajero;
+    JFCreditos jfc;
     /**
      * Creates new form JFPasajero
      */
     public JFPasajero(Pasajero pasajero) {
         initComponents();
         setLocationRelativeTo(null);
-        
         this.pasajero = pasajero;
-        
         txtNombre.setText(pasajero.getUsuario().getNombre());
         txtApellido.setText(pasajero.getUsuario().getApellido());
         txtCodigoUnico.setText(pasajero.getUsuario().getCodUnico()+"");
@@ -50,6 +50,7 @@ public class JFPasajero extends javax.swing.JFrame {
         lblTelefono = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
         lblCuentaPasajero = new javax.swing.JLabel();
+        btnVerCreditos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,6 +86,13 @@ public class JFPasajero extends javax.swing.JFrame {
         lblCuentaPasajero.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblCuentaPasajero.setText("Cuenta Pasajero");
 
+        btnVerCreditos.setText("Ver créditos");
+        btnVerCreditos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerCreditosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -92,11 +100,6 @@ public class JFPasajero extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(151, 151, 151)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblCuentaPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCerrarSesion)
-                        .addGap(30, 30, 30))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -117,7 +120,14 @@ public class JFPasajero extends javax.swing.JFrame {
                                 .addComponent(btnVerReservacion)
                                 .addGap(136, 136, 136)
                                 .addComponent(btnBuscarViaje)))
-                        .addContainerGap(164, Short.MAX_VALUE))))
+                        .addContainerGap(164, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblCuentaPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnVerCreditos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(30, 30, 30))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,7 +136,9 @@ public class JFPasajero extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnCerrarSesion)
                     .addComponent(lblCuentaPasajero))
-                .addGap(73, 73, 73)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVerCreditos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombre)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -146,7 +158,7 @@ public class JFPasajero extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVerReservacion)
                     .addComponent(btnBuscarViaje))
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addGap(121, 121, 121))
         );
 
         pack();
@@ -177,9 +189,49 @@ public class JFPasajero extends javax.swing.JFrame {
         jFBuscarViaje.setVisible(true);
     }//GEN-LAST:event_btnBuscarViajeActionPerformed
 
+    private void btnVerCreditosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerCreditosActionPerformed
+        // TODO add your handling code here:
+        jfc = new JFCreditos(pasajero);
+        this.setVisible(false);
+        jfc.setVisible(true);
+    }//GEN-LAST:event_btnVerCreditosActionPerformed
+
+    
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(JFLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(JFLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(JFLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JFLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new JFLogin().setVisible(true);
+            }
+        });
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarViaje;
     private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnVerCreditos;
     private javax.swing.JButton btnVerReservacion;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblCodigoUnico;

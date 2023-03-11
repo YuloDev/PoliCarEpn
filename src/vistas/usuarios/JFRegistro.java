@@ -202,7 +202,7 @@ public class JFRegistro extends javax.swing.JFrame {
         tipoCuenta = cmbTipoCuenta.getSelectedItem().toString();
         Cuenta cuentaPasajero = null;
         if(tipoCuenta.equals("Pasajero")){            
-            cuentaPasajero = new Pasajero(correo, contrasenia, nuevoUsuario);
+            cuentaPasajero = new Pasajero(correo, contrasenia, nuevoUsuario,0.0);
             SqlUsuario modSql = new SqlUsuario();
             try{
             if((modSql.registrarUsuario(nuevoUsuario))){

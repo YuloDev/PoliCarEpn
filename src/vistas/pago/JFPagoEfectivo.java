@@ -6,7 +6,6 @@ package vistas.pago;
 
 import controladorBD.pago.SqlPago;
 import java.sql.SQLException;
-import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -39,8 +38,8 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.reservacion = reservacion;
         factura = new Factura(reservacion);
-        pagoEfectivo = new PagoEfectivo(factura);
         this.pasajero = (Pasajero) reservacion.getCuenta();
+        pagoEfectivo = new PagoEfectivo(factura,pasajero.getCreditos());
         jPago = new JFPago(reservacion);
         this.pasajero = pasajero;
         factura.calcularTotal();
@@ -228,25 +227,6 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /**
-         * ******************Borrar*********************+
-         */
-        Usuario nuevoUsuario = new Usuario("Luis", "Narvaez", "0985381267", 201821107);
-        Vehiculo vehiculo = new Vehiculo("PCM1478", "Kia rio", "negro", 2018, 5);
-        Conductor cuentaConductor = null;
-        if (vehiculo.validarAño()) {
-            cuentaConductor = new Conductor("luis.narvaez@epn.edu.ec", "963mv",
-                    nuevoUsuario, vehiculo);
-        }
-        Viaje nuevoViaje = new Viaje("Quito", "Santa Rosa",
-                cuentaConductor.obtenerCantidadAsientos(), 0.625, cuentaConductor, new Fecha("2023-03-06 17:05:28"));
-        cuentaConductor.crearViaje(nuevoViaje);
-
-        Usuario nuevoUsuarioPasajero = new Usuario("O", "J", "0983973634", 202114325);
-        Pasajero cuentaPasajero = new Pasajero("martha.ruiz@epn.edu.ec", "1234", nuevoUsuarioPasajero);
-
-        Reservacion reservacion = new Reservacion(nuevoViaje, cuentaPasajero, 4);
-        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             //new JFPagoEfectivo(reservacion).setVisible(true);

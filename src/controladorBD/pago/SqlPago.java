@@ -17,7 +17,7 @@ import modelo.pago.Factura;
  */
 public class SqlPago extends ConexionMySQL{
     
-     public boolean registrarFactura(Factura factura) throws SQLException{
+    public boolean registrarFactura(Factura factura) throws SQLException{
         PreparedStatement ps = null;
         Connection con = conectar();
         String sql = "INSERT INTO Factura (IDRESERVACION,VALORTOTAL,VALORIVA,VALORSERVICIO) VALUES (?,?,?,?);"; 
@@ -150,6 +150,23 @@ public class SqlPago extends ConexionMySQL{
         PreparedStatement ps = null;
         Connection con = conectar();
         String sql = "DELETE FROM PAGO WHERE IDPAGO =" + obtenerUltimoP();  
+        try {
+            ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
+            ps = (PreparedStatement) con.prepareStatement(sql);
+            ps.execute();
+            con.close();
+            return true;
+        } catch (SQLException ex) {
+            con.close();
+            System.err.println(ex);
+            return false;
+        }
+    }
+    
+    public boolean creditos(double valor, String correo) throws SQLException{
+        PreparedStatement ps = null;
+        Connection con = conectar();
+        String sql = "UPDATE CUENTA SET CREDITOS = " + valor + " WHERE correo = '" + correo + "'"; 
         try {
             ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
             ps = (PreparedStatement) con.prepareStatement(sql);

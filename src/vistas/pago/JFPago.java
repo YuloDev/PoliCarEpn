@@ -11,13 +11,8 @@ import javax.swing.JOptionPane;
 import modelo.pago.*;
 import controladorBD.pago.SqlPago;
 import controladorBD.reservacion.SqlReservacion;
-import modelo.externo.Fecha;
 import modelo.reservacion.Reservacion;
-import modelo.usuarios.Conductor;
 import modelo.usuarios.Pasajero;
-import modelo.usuarios.Usuario;
-import modelo.usuarios.Vehiculo;
-import modelo.viaje.Viaje;
 import vistas.reservacion.JFCrearReservación;
 import vistas.reservacion.JFListaReservacionPasajero;
 
@@ -42,7 +37,7 @@ public class JFPago extends javax.swing.JFrame {
         this.reservacion = reservacion;
         factura = new Factura(reservacion);
         this.pasajero = (Pasajero) reservacion.getCuenta();
-        pagoTransferencia = new PagoTransferencia(factura, 20*60*1000);
+        pagoTransferencia = new PagoTransferencia(factura, 20*60*1000, pasajero.getCreditos());
         
         factura.calcularTotal();
         txfValorTotal.setText(factura.valorTotal+"");
@@ -204,25 +199,6 @@ public class JFPago extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(JFPago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /**
-         * ******************Borrar*********************+
-         */
-        Usuario nuevoUsuario = new Usuario("Luis", "Narvaez", "0985381267", 201821107);
-        Vehiculo vehiculo = new Vehiculo("PCM1478", "Kia rio", "negro", 2018, 5);
-        Conductor cuentaConductor = null;
-        if (vehiculo.validarAño()) {
-            cuentaConductor = new Conductor("luis.narvaez@epn.edu.ec", "963mv",
-                    nuevoUsuario, vehiculo);
-        }
-        Viaje nuevoViaje = new Viaje("Quito", "Santa Rosa",
-                cuentaConductor.obtenerCantidadAsientos(), 0.625, cuentaConductor, new Fecha("2023-03-06 17:05:28"));
-        cuentaConductor.crearViaje(nuevoViaje);
-
-        Usuario nuevoUsuarioPasajero = new Usuario("O", "J", "0983973634", 202114325);
-        Pasajero cuentaPasajero = new Pasajero("martha.ruiz@epn.edu.ec", "1234", nuevoUsuarioPasajero);
-
-        Reservacion reservacion = new Reservacion(nuevoViaje, cuentaPasajero, 4);
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {

@@ -4,27 +4,20 @@
  */
 package vistas.viaje;
 
-import controladorBD.viaje.SqlViaje;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
-import modelo.usuarios.Cuenta;
 import modelo.usuarios.Pasajero;
 import modelo.viaje.Asiento;
 import modelo.viaje.Libre;
-import modelo.viaje.ListaViaje;
 import vistas.usuarios.JFPasajero;
 import modelo.viaje.Viaje;
 import vistas.reservacion.JFCrearReservación;
-import vistas.reservacion.JFListaReservacionesConductor;
 import static vistas.usuarios.JFLogin.viajes;
 
 /**
  * @author Dana
  */
-import vistas.usuarios.JFLogin;
-import static vistas.usuarios.JFLogin.cuentas;
 
 public class JFBuscarViaje extends javax.swing.JFrame {
 

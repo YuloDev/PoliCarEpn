@@ -4,19 +4,21 @@
  */
 package modelo.pago;
 
-import controladorBD.pago.SqlPago;
-
 /**
  *
  * @author Kevin
  */
 public class BilleteraPoliCar {
-    SqlPago s =  new SqlPago();
     public double saldo;
 
     public BilleteraPoliCar() {
-        this.saldo = s.obtenerSaldo();
+        
     }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+    
     
     public boolean aumentarSaldo(double valor){
         double saldoActual = this.saldo;

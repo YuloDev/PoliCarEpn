@@ -5,19 +5,16 @@
 package vistas.pago;
 
 import controladorBD.pago.SqlPago;
+import controladorBD.usuarios.SqlCuenta;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import modelo.externo.Fecha;
+import modelo.pago.Creditos;
 import modelo.pago.Factura;
 import modelo.pago.PagoTransferencia;
 import modelo.reservacion.Reservacion;
-import modelo.usuarios.Conductor;
 import modelo.usuarios.Pasajero;
-import modelo.usuarios.Usuario;
-import modelo.usuarios.Vehiculo;
-import modelo.viaje.Viaje;
 import static vistas.pago.JFPago.pasajero;
 import vistas.reservacion.JFListaReservacionPasajero;
 
@@ -30,7 +27,8 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
     PagoTransferencia pagoTransferencia;
     Factura factura;
     JFFactura jfFactura;
-    SqlPago s = new SqlPago();
+    SqlPago sqlPago = new SqlPago();
+    Creditos creditos;
     /**
      * Creates new form JFPagoTransferencia
      */
@@ -38,9 +36,11 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         factura = new Factura(reservacion);
-        pagoTransferencia = new PagoTransferencia(factura, 20*60*1000);
+        pagoTransferencia = new PagoTransferencia(factura, 20*60*1000, pasajero.getCreditos());
+        pagoTransferencia.billetera.setSaldo(sqlPago.obtenerSaldo());
         jfFactura = new JFFactura(reservacion, pasajero);
         jPago = new JFPago(reservacion);
+        creditos = new Creditos(pasajero.getCreditos().getSaldo());
         factura.calcularTotal();
         txtMontoTotal.setText(factura.valorTotal+"");
     }
@@ -147,10 +147,13 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
 
     private void btnRealizarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarPagoActionPerformed
         // TODO add your handling code here:
+        double valor;
         if(pagoTransferencia.realizarPago()){
             try {
-                s.registrarFactura(factura);
-                s.insertarSaldo((float)pagoTransferencia.billetera.saldo);
+                sqlPago.registrarFactura(factura);
+                sqlPago.insertarSaldo((float)pagoTransferencia.billetera.saldo);
+                valor = creditos.disminuirSaldo(factura.valorTotal);
+                sqlPago.creditos(valor,pasajero.getCorreo());
             } catch (SQLException ex) {
                 Logger.getLogger(JFPagoTransferencia.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -196,24 +199,6 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /**
-         * ******************Borrar*********************+
-         */
-        Usuario nuevoUsuario = new Usuario("Luis", "Narvaez", "0985381267", 201821107);
-        Vehiculo vehiculo = new Vehiculo("PCM1478", "Kia rio", "negro", 2018, 5);
-        Conductor cuentaConductor = null;
-        if (vehiculo.validarAño()) {
-            cuentaConductor = new Conductor("luis.narvaez@epn.edu.ec", "963mv",
-                    nuevoUsuario, vehiculo);
-        }
-        Viaje nuevoViaje = new Viaje("Quito", "Santa Rosa",
-                cuentaConductor.obtenerCantidadAsientos(), 0.625, cuentaConductor, new Fecha("2023-03-06 17:05:28"));
-        cuentaConductor.crearViaje(nuevoViaje);
-
-        Usuario nuevoUsuarioPasajero = new Usuario("O", "J", "0983973634", 202114325);
-        Pasajero cuentaPasajero = new Pasajero("martha.ruiz@epn.edu.ec", "1234", nuevoUsuarioPasajero);
-
-        Reservacion reservacion = new Reservacion(nuevoViaje, cuentaPasajero, 4);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             //new JFPagoTransferencia(reservacion, pasajero).setVisible(true);

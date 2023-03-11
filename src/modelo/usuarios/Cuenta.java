@@ -57,7 +57,7 @@ public abstract class Cuenta {
     public ListaReservacion getListaReservacion() {
         return listaReservacion;
     }
-
+    
     public boolean validarCredenciales(String correo, String contraseña){
         boolean validador = false;
         if((this.correo.equals(correo)) && (this.contraseña.equals(contraseña))){

@@ -92,7 +92,7 @@ public class SqlCuenta extends controladorBD.conexion.ConexionMySQL {
                     Vehiculo vehiculoTemp = vehiculos.get(rs.getString(2));
                     cuentas.put(rs.getInt(1), new Conductor(rs.getString(4), rs.getString(5), usuarioTemp, vehiculoTemp));
                 } else {
-                    cuentas.put(rs.getInt(1), new Pasajero(rs.getString(4), rs.getString(5), usuarioTemp));
+                    cuentas.put(rs.getInt(1), new Pasajero(rs.getString(4), rs.getString(5), usuarioTemp, rs.getDouble(7)));
                 }
             }
             System.out.println("Instanciación de Cuentas");
@@ -102,4 +102,20 @@ public class SqlCuenta extends controladorBD.conexion.ConexionMySQL {
         }
     }
 
+    public Float obtenerCreditos(String correo){
+        com.mysql.jdbc.PreparedStatement ps = null;
+        ResultSet rs = null;
+        java.sql.Connection con = conectar();
+
+        String sql = "SELECT CREDITOS FROM CUENTA WHERE CORREO = '" + correo + "';";
+        try {
+            ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            rs.next();
+            System.out.println(rs.getFloat(1));
+            return rs.getFloat(1);
+        } catch (SQLException e) {
+            return 0.0f;
+        }
+    }
 }

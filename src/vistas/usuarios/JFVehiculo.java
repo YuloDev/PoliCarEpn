@@ -167,7 +167,7 @@ public class JFVehiculo extends javax.swing.JFrame{
         try{
             if(modSql.registrarVehiculo(vehiculo)){
                 Cuenta cuentaConductor = new Conductor(correo, contrasenia, nuevoUsuario, vehiculo);
-                Cuenta cuentaPasajero = new Pasajero(correo, contrasenia, nuevoUsuario);
+                Cuenta cuentaPasajero = new Pasajero(correo, contrasenia, nuevoUsuario,0.0);
                 SqlUsuario modSql2 = new SqlUsuario();
                 SqlUsuario modSql3 = new SqlUsuario();
                 try{
