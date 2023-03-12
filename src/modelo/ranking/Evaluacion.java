@@ -10,7 +10,9 @@ public class Evaluacion {
     private double promedio;
 
     public Evaluacion() {
+
         this.listaCalificaciones = new Calificacion[100];
+        this.listaCalificaciones = new Calificacion[36];
         this.promedio = 0;
     }
 

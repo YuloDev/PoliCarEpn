@@ -8,6 +8,7 @@ public class Penalizacion {
     private Fecha fecha; //fecha donde termina la penalizacion
     private Evaluacion evaluacion;
 
+
     public Penalizacion(Evaluacion evaluacion) {
         this.fecha = null;
         this.evaluacion = evaluacion;
@@ -46,5 +47,6 @@ public class Penalizacion {
     public void setFecha(Fecha fecha) {
         this.fecha = fecha;
     }
+
 
 }
