@@ -21,7 +21,7 @@ import vistas.usuarios.JFPasajero;
  * @author Cesar
  */
 public class JFListaReservacionPasajero extends javax.swing.JFrame {
-Pasajero pasajero;
+    Pasajero pasajero;
     ListaReservacion listaReservacion;
     /**
      * Creates new form jfmListaReservacionPasajero
@@ -166,6 +166,8 @@ Pasajero pasajero;
         // TODO add your handling code here:
         int filaSeleccionada = tblListaReservacionPasajero.rowAtPoint(evt.getPoint());
         this.setVisible(false);
+        
+        System.out.println(this.listaReservacion.getReservaciones()[filaSeleccionada].getCuenta());
         new JFVerReservacion(this.listaReservacion.getReservaciones()[filaSeleccionada]).setVisible(true);
         
     }//GEN-LAST:event_tblListaReservacionPasajeroMouseClicked

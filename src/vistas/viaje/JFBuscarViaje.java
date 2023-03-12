@@ -198,9 +198,7 @@ public class JFBuscarViaje extends javax.swing.JFrame {
         String[] fila = new String[4];
 
         System.out.println(viajes);
-        
-        
-        
+
         for (int idviaje : viajes.keySet()) {
             Viaje viaje = viajes.get(idviaje);
 
@@ -214,17 +212,20 @@ public class JFBuscarViaje extends javax.swing.JFrame {
                     }
                 }
             }
-            if (horaFechaExistente){
+            if (horaFechaExistente) {
                 continue;
             }
 
-            Asiento[] asientos = viaje.getListaDeAsientos();
+            Asiento[] asientos = viaje.getListaDeAsientos().getAsientos();
             double precioPorAsiento = asientos[0].getPrecio();
             int numeroDeAsientosDisponibles = 0;
             for (Asiento asiento : asientos) {
-                if (asiento.getEstado() instanceof Libre) {
-                    numeroDeAsientosDisponibles++;
+                if (asiento != null) {
+                    if (asiento.getEstado() instanceof Libre) {
+                        numeroDeAsientosDisponibles++;
+                    }
                 }
+
             }
 
             if (viaje.getUbicacionDestino().equals(destinoBuscar) && precioPorAsiento <= precioBuscar && asientosBuscar <= numeroDeAsientosDisponibles) {

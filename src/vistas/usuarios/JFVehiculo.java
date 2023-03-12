@@ -14,32 +14,30 @@ import modelo.usuarios.Usuario;
 import modelo.usuarios.Vehiculo;
 import vistas.usuarios.JFRegistro;
 
-
 /**
  *
  * @author Lenovo
  */
-public class JFVehiculo extends javax.swing.JFrame{
+public class JFVehiculo extends javax.swing.JFrame {
 
     /**
      * Creates new form JFVehiculo
      */
-    public static String placa ;
+    public static String placa;
     public static String modelo;
     public static String color;
     public static int anio;
-    public static int numeroAsientos;    
+    public static int numeroAsientos;
     public Vehiculo vehiculo;
     public static String correo;
     public static String contrasenia;
     public static Usuario nuevoUsuario;
-    
+
     public JFVehiculo() {
-        
+
         initComponents();
         setLocationRelativeTo(null);
 
-      
     }
 
     /**
@@ -146,66 +144,64 @@ public class JFVehiculo extends javax.swing.JFrame{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
+
     private void btnRegistrarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVehiculoActionPerformed
         placa = txtPlaca.getText();
         modelo = txtModelo.getText();
-        color = txtColor.getText();       
-        anio = Integer.parseInt(txtAnio.getText());        
+        color = txtColor.getText();
+        anio = Integer.parseInt(txtAnio.getText());
         numeroAsientos = Integer.parseInt(txtNumeroAsientos.getText());
         vehiculo = new Vehiculo(placa, modelo, color, anio, numeroAsientos);
         //JFRegistro jfregistro = new JFRegistro();
         contrasenia = JFRegistro.contrasenia;
-        
+
         correo = JFRegistro.correo;
-        
+
         nuevoUsuario = JFRegistro.nuevoUsuario;
-        
 
         SqlVehiculo modSql = new SqlVehiculo();
-        try{
-            if(modSql.registrarVehiculo(vehiculo)){
+        try {
+            if (modSql.registrarVehiculo(vehiculo)) {
                 Cuenta cuentaConductor = new Conductor(correo, contrasenia, nuevoUsuario, vehiculo);
-                Cuenta cuentaPasajero = new Pasajero(correo, contrasenia, nuevoUsuario,0.0);
+                Cuenta cuentaPasajero = new Pasajero(correo, contrasenia, nuevoUsuario, 0.0);
                 SqlUsuario modSql2 = new SqlUsuario();
                 SqlUsuario modSql3 = new SqlUsuario();
-                try{
-                    if((modSql2.registrarUsuario(nuevoUsuario)) ){
-                        if((modSql2.registrarConductor(nuevoUsuario,cuentaConductor, "Conductor", placa))){
-                            if((modSql2.registrarPasajero(nuevoUsuario,cuentaPasajero, "Pasajero"))){
-                                JOptionPane.showMessageDialog(null,"Vehiculo registrado exitosamente!" , "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                            }else{
+                try {
+                    if ((modSql2.registrarUsuario(nuevoUsuario))) {
+                        if ((modSql2.registrarConductor(nuevoUsuario, cuentaConductor, "Conductor", placa))) {
+                            if ((modSql2.registrarPasajero(nuevoUsuario, cuentaPasajero, "Pasajero"))) {
+                                JOptionPane.showMessageDialog(null, "Vehiculo registrado exitosamente!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                            } else {
                                 JOptionPane.showMessageDialog(null, "No se pudo registrar pasajero", "Error", JOptionPane.ERROR_MESSAGE);
                             }
-                        }else{
+                        } else {
                             JOptionPane.showMessageDialog(null, "No se pudo registrar conductor", "Error", JOptionPane.ERROR_MESSAGE);
                         }
-                    }else{
+                    } else {
                         JOptionPane.showMessageDialog(null, "No se pudo registrar usuario", "Error", JOptionPane.ERROR_MESSAGE);
-                    }            
-                }catch(Exception e){
+                    }
+                } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
-                }      
+                }
                 JOptionPane.showMessageDialog(null, "Conductor registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                JFConductor conductor = new JFConductor((Conductor) cuentaConductor);
-                conductor.setVisible(true);
+                JFLogin login = new JFLogin();
+                login.setVisible(true);
                 this.setVisible(false);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "No se pudo registrar el vehiculo", "Error", JOptionPane.ERROR_MESSAGE);
-            }            
-        }catch(Exception e){
+            }
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Credenciales incorrectas 2", "Error", JOptionPane.ERROR_MESSAGE);
-        }       
+        }
     }//GEN-LAST:event_btnRegistrarVehiculoActionPerformed
 
     private void txtAnioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAnioFocusLost
-        
+
         Vehiculo vehiculo = new Vehiculo("PCM1478", "Kia rio", "negro", 2018, 5);
-        if(vehiculo.validarAño()){
-            
-        }else{
-            JOptionPane.showMessageDialog(null, "Solo se puede ingresar vehiculos mayores al 2008 en adelante");            
+        if (vehiculo.validarAño()) {
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Solo se puede ingresar vehiculos mayores al 2008 en adelante");
             txtAnio.requestFocus();
         }
     }//GEN-LAST:event_txtAnioFocusLost

@@ -11,17 +11,12 @@ public class CalificacionExperiencia extends Calificacion {
         this.comentario = new Comentario();
     }
 
-    public void agregarComentario(String comentario) {
-        this.comentario.ingresar(comentario);
+    public void agregarComentario(String comentario, String tipo) {
+        this.comentario.ingresar(comentario, tipo);
     }
 
     public Comentario getComentario() {
         return comentario;
-    }
-
-    @Override
-    public String toString() {
-        return "CalificacionExperiencia{" + "comentario=" + comentario + '}';
     }
 
 }

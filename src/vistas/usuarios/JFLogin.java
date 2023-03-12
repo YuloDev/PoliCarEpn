@@ -4,6 +4,7 @@
  */
 package vistas.usuarios;
 
+import controladorBD.ranking.SqlCalificacion;
 import controladorBD.reservacion.SqlReservacion;
 import controladorBD.usuarios.SqlCuenta;
 import controladorBD.usuarios.SqlUsuario;
@@ -39,7 +40,9 @@ public class JFLogin extends javax.swing.JFrame {
     SqlCuenta sqlCuenta = new SqlCuenta();
     SqlViaje sqlViaje = new SqlViaje();
     SqlReservacion sqlReservacion = new SqlReservacion();
-
+    SqlCalificacion sqlCalificacion = new SqlCalificacion();
+    
+    
     /**
      * Creates new form JFLogin
      */
@@ -52,6 +55,9 @@ public class JFLogin extends javax.swing.JFrame {
         cuentas = sqlCuenta.obtenerCuentas(usuarios, vehiculos);
         viajes = sqlViaje.obtenerViajes(cuentas);
         reservaciones = sqlReservacion.obtenerReservaciones(viajes, cuentas);
+        
+        sqlCalificacion.obtenerCalificación(viajes, cuentas);
+        sqlCalificacion.obtenerPenalizacion(cuentas);
     }
 
     /**
@@ -208,41 +214,6 @@ public class JFLogin extends javax.swing.JFrame {
         JFRegistro jfregistro = new JFRegistro();
         jfregistro.setVisible(true);
     }//GEN-LAST:event_jButtonRegistrarseActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFLogin().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIniciarSesion;

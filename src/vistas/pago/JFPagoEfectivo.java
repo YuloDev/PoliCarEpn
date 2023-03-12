@@ -165,17 +165,12 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPagoRealizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagoRealizadoActionPerformed
-        try {
-            if (pagoEfectivo.realizarPago()) {
-                sqlPago.registrarFactura(factura);
-                sqlPago.cambiarEstadoDePago(factura, 1);
-                JOptionPane.showMessageDialog(rootPane, "Pago Confirmado", "Pago Efectivo", 1);
-                JFListaViajesDeConductor jFListaViajesDeConductor = new JFListaViajesDeConductor((Conductor) reservacion.getViaje().getCuenta());
-                jFListaViajesDeConductor.setVisible(true);
-                this.setVisible(false);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(JFPagoEfectivo.class.getName()).log(Level.SEVERE, null, ex);
+        if (pagoEfectivo.realizarPago()) {
+            sqlPago.cambiarEstadoDePago(factura, 1);
+            JOptionPane.showMessageDialog(rootPane, "Pago Confirmado", "Pago Efectivo", 1);
+            JFListaViajesDeConductor jFListaViajesDeConductor = new JFListaViajesDeConductor((Conductor) reservacion.getViaje().getCuenta());
+            jFListaViajesDeConductor.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_btnPagoRealizadoActionPerformed
 

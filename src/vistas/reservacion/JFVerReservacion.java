@@ -56,7 +56,7 @@ public class JFVerReservacion extends javax.swing.JFrame {
         txtApellidoConductor.setText(reservacionSeleccionada.getViaje().getCuenta().getUsuario().getApellido());
 
         int numeroAsientos = 0;
-        for (Asiento a : reservacionSeleccionada.getListaDeAsientos()) {
+        for (Asiento a : reservacionSeleccionada.getListaDeAsientos().getAsientos()) {
             if (a != null) {
                 numeroAsientos++;
             }
@@ -283,16 +283,16 @@ public class JFVerReservacion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void btnCalificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalificarActionPerformed
-        // TODO add your handling code here:
+        //TODO add your handling code here:
         //this.setVisible(false);
         //Sentencia para mostrar el panel de calificacion
-        new JFrameCalificacion(new Calificacion(this.reservacionSeleccionada.getViaje())).setVisible(true);
+        new JFrameCalificacion(this.reservacionSeleccionada.getViaje()).setVisible(true);
         
     }//GEN-LAST:event_btnCalificarActionPerformed
 
     private void txtNombreConductorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreConductorMouseClicked
-        // TODO add your handling code here:
-        new JFrameRanking(new Calificacion(this.reservacionSeleccionada.getViaje())).setVisible(true);
+        
+        new JFrameRanking(this.reservacionSeleccionada.getViaje().getCuenta().getUsuario().getCodUnico()).setVisible(true);
     }//GEN-LAST:event_txtNombreConductorMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

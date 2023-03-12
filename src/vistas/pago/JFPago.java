@@ -22,29 +22,30 @@ import vistas.usuarios.JFPasajero;
  * @author Kevin
  */
 public class JFPago extends javax.swing.JFrame {
+
     PagoTransferencia pagoTransferencia;
     Reservacion reservacion;
     static Pasajero pasajero;
     Factura factura;
     SqlPago sqlPago = new SqlPago();
-    
+
     /**
      * Creates new form JFPago
      */
     public JFPago(Reservacion reservacion) {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
         this.reservacion = reservacion;
-        
+
         this.factura = new Factura(reservacion);
         this.pasajero = (Pasajero) reservacion.getCuenta();
-        this.pagoTransferencia = new PagoTransferencia(factura, 20*60*1000, pasajero.getCreditos());
+        this.pagoTransferencia = new PagoTransferencia(factura, 20 * 60 * 1000, pasajero.getCreditos());
         this.factura.calcularTotal();
-        
-        txfValorTotal.setText(factura.valorTotal+"");
+
+        txfValorTotal.setText(factura.valorTotal + "");
     }
-   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -127,12 +128,13 @@ public class JFPago extends javax.swing.JFrame {
     private void BtnPagoTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPagoTransferenciaActionPerformed
         SqlReservacion sqlReservacion = new SqlReservacion();
         sqlReservacion.registrarReservacion(reservacion);
-        
+
         pasajero.crearReservacion(reservacion);
-        
+
         String tipoPago = "transferencia";
         System.out.println(tipoPago);
         try {
+            sqlPago.registrarFactura(factura);
             sqlPago.insertarPago(factura, tipoPago);
         } catch (SQLException ex) {
             Logger.getLogger(JFPago.class.getName()).log(Level.SEVERE, null, ex);
@@ -145,12 +147,13 @@ public class JFPago extends javax.swing.JFrame {
     private void BtnPagoEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPagoEfectivoActionPerformed
         SqlReservacion sqlReservacion = new SqlReservacion();
         sqlReservacion.registrarReservacion(reservacion);
-        
-        JOptionPane.showMessageDialog(rootPane,"Su pago será validado por el conductor","Pago Efectivo",1);
-        
+
+        JOptionPane.showMessageDialog(rootPane, "Su pago será validado por el conductor", "Pago Efectivo", 1);
+
         String tipoPago = "efectivo";
         System.out.println(tipoPago);
         try {
+            sqlPago.registrarFactura(factura);
             sqlPago.insertarPago(factura, tipoPago);
             this.setVisible(false);
             JFFactura jFactura = new JFFactura(reservacion, pasajero);
@@ -161,9 +164,9 @@ public class JFPago extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnPagoEfectivoActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        this.setVisible(false); 
+        this.setVisible(false);
         JFCrearReservación jFCrearReservación = new JFCrearReservación(reservacion.getViaje(), pasajero);
-        jFCrearReservación.setVisible(true); 
+        jFCrearReservación.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

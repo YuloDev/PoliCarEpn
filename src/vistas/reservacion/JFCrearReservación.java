@@ -17,6 +17,7 @@ import modelo.viaje.Asiento;
 import modelo.viaje.Libre;
 import modelo.viaje.Viaje;
 import vistas.pago.JFPago;
+import vistas.ranking.JFrameRanking;
 import vistas.viaje.JFBuscarViaje;
 
 /**
@@ -56,7 +57,7 @@ public class JFCrearReservación extends javax.swing.JFrame {
         txtApellidoConductor.setText(viajeSeleccionado.getCuenta().getUsuario().getApellido());
 
         int numeroAsientos = 0;
-        for (Asiento asiento : viajeSeleccionado.getListaDeAsientos()) {
+        for (Asiento asiento : viajeSeleccionado.getListaDeAsientos().getAsientos()) {
             if (asiento != null) {
                 if (asiento.getEstado() instanceof Libre) {
                     numeroAsientos++;
@@ -146,6 +147,11 @@ public class JFCrearReservación extends javax.swing.JFrame {
         txtFecha.setEditable(false);
 
         txtNombreConductor.setEditable(false);
+        txtNombreConductor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNombreConductorMouseClicked(evt);
+            }
+        });
 
         txtApellidoConductor.setEditable(false);
 
@@ -287,6 +293,11 @@ public class JFCrearReservación extends javax.swing.JFrame {
 
         jFBuscarViaje.setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtNombreConductorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreConductorMouseClicked
+        // TODO add your handling code here:
+        new JFrameRanking(this.viajeSeleccionado.getCuenta().getUsuario().getCodUnico()).setVisible(true);
+    }//GEN-LAST:event_txtNombreConductorMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

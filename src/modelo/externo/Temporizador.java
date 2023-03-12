@@ -7,7 +7,6 @@ package modelo.externo;
 import java.util.Timer;
 import java.util.TimerTask;
 import modelo.reservacion.ControladorTiempoDeReserva;
-import modelo.reservacion.ControladorTiempoDeReserva;
 
 /**
  *

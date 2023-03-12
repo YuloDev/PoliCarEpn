@@ -18,25 +18,19 @@ public class JFrameRanking extends javax.swing.JFrame {
     private Evaluacion evaluacion;
     private SqlCalificacion sqlCalificacion;
     
-    public JFrameRanking(Calificacion calificacion) {
+    public JFrameRanking(int codigoUnico) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.sqlCalificacion = new SqlCalificacion(calificacion);
-        this.evaluacion = this.sqlCalificacion.seleccionarCalificacion();
+        this.sqlCalificacion = new SqlCalificacion();
+        this.evaluacion = this.sqlCalificacion.seleccionarCalificacion(codigoUnico);
 
         this.jLabel2.setText((evaluacion.calcularCalificacionTotal()+"/5"));
-        String [] comentarios = new SqlComentario().mostrarComentarios(201821107);
+        String [] comentarios = new SqlComentario().mostrarComentarios(codigoUnico);
         
-        setComentario(comentarios[0], jTextArea1);
+        setComentario(comentarios[0], jTextArea3);
         setComentario(comentarios[1], jTextArea2);
-        setComentario(comentarios[2], jTextArea3);
+        setComentario(comentarios[2], jTextArea1);
         //set comentarios
-    }
-    
-    public JFrameRanking() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        
     }
     
     private void setComentario(String comentario, javax.swing.JTextArea jTextArea){

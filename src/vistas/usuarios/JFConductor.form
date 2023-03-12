@@ -42,7 +42,7 @@
                           </Group>
                           <Component id="btnCrearViaje" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                               <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
@@ -52,7 +52,11 @@
                               <Component id="txtCodigoUnico" min="-2" pref="194" max="-2" attributes="0"/>
                               <Component id="txtTelefono" min="-2" pref="194" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="btnVerViajes" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="btnRutas" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="btnVerViajes" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace pref="170" max="32767" attributes="0"/>
                   </Group>
@@ -92,6 +96,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnCrearViaje" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnVerViajes" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnRutas" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="141" max="32767" attributes="0"/>
           </Group>
@@ -105,6 +110,15 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNombre">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtNombreMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblApellido">
       <Properties>
@@ -112,6 +126,12 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtApellido">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCodigoUnico">
       <Properties>
@@ -119,6 +139,12 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCodigoUnico">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblTelefono">
       <Properties>
@@ -126,6 +152,12 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtTelefono">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnCrearViaje">
       <Properties>
@@ -158,6 +190,14 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Cuenta Conductor"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnRutas">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ver rutas frecuentes"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRutasActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

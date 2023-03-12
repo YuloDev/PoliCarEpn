@@ -39,7 +39,7 @@ public class JFFactura extends javax.swing.JFrame {
         txtNombre.setText(reservacion.getCuenta().getUsuario().getNombre());
         txtApellido.setText(reservacion.getCuenta().getUsuario().getApellido());
         int numeroDeAsientos = 0;
-        for (Asiento asiento : reservacion.getListaDeAsientos()){
+        for (Asiento asiento : reservacion.getListaDeAsientos().getAsientos()){
             if (asiento!=null){
                 numeroDeAsientos++;
             }

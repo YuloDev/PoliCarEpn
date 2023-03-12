@@ -6,6 +6,7 @@ package modelo.reservacion;
 
 import modelo.usuarios.Cuenta;
 import modelo.viaje.Asiento;
+import modelo.viaje.ListaAsiento;
 import modelo.viaje.Viaje;
 
 /**
@@ -15,32 +16,36 @@ import modelo.viaje.Viaje;
 public class Reservacion {
 
     private Viaje viaje;
-    private Asiento[] listaDeAsientos;
+    private ListaAsiento listaDeAsientos;
     private double precio;
     private Cuenta cuenta;
     private RestriccionFechaReservacion restriccion;
 
     public Reservacion(Viaje viaje, Cuenta cuenta, int numeroAsientosRequeridos) {
         this.viaje = viaje;
-
         this.restriccion = new RestriccionFechaReservacion(cuenta.getListaReservacion());
         if (restriccion.verificarRestriccion(this)) {
             return;
         }
-
-        this.listaDeAsientos = new Asiento[10];
-        Asiento[] asientosDelViaje = viaje.getListaDeAsientos();
+        this.listaDeAsientos = new ListaAsiento();
+        ListaAsiento listaAsientosDelViaje = viaje.getListaDeAsientos();
         int numeroAsientosDisponibles = 0;
-        for (Asiento asiento : asientosDelViaje) {
-            if (asiento.solicitar()) {
-                añadirAsiento(asiento);
-                numeroAsientosDisponibles++;
+        for (Asiento asiento : listaAsientosDelViaje.getAsientos()) {
+            if (asiento != null) {
+                if (asiento.solicitar()) {
+                    listaDeAsientos.añadirAsiento(asiento);
+                    numeroAsientosDisponibles++;
+                }
+                if (numeroAsientosDisponibles == numeroAsientosRequeridos) {
+                    break;
+                }
             }
-            if (numeroAsientosDisponibles == numeroAsientosRequeridos) break;
         }
-        if (numeroAsientosDisponibles!=numeroAsientosRequeridos) return;
-        
-        for (Asiento asiento : listaDeAsientos) {
+        if (numeroAsientosDisponibles != numeroAsientosRequeridos) {
+            return;
+        }
+
+        for (Asiento asiento : listaDeAsientos.getAsientos()) {
             if (asiento != null) {
                 asiento.actualizarEstado();
             }
@@ -54,45 +59,27 @@ public class Reservacion {
     public void cancelar() {
         cuenta.getListaReservacion().quitarReservacion(this);
         viaje.getListaReservacion().quitarReservacion(this);
-        for (Asiento asiento : listaDeAsientos) {
-            asiento.actualizarEstado();
+        for (Asiento asiento : listaDeAsientos.getAsientos()) {
+            if (asiento != null) {
+                asiento.actualizarEstado();
+            }
         }
     }
 
     public void calcularPrecioReservacion() {
         this.precio = 0;
-        for (Asiento asiento : listaDeAsientos) {
+        for (Asiento asiento : listaDeAsientos.getAsientos()) {
             if (asiento != null) {
                 this.precio += asiento.getPrecio();
             }
         }
     }
 
-    public void añadirAsiento(Asiento asiento) {
-        for (int i = 0; i < listaDeAsientos.length; i++) {
-            if (listaDeAsientos[i] == null) {
-                listaDeAsientos[i] = asiento;
-                return;
-            }
-        }
-        System.out.println("Máximo de asientos");
-    }
-
-    public void quitarAsiento(Asiento asiento) {
-        for (int i = 0; i < listaDeAsientos.length; i++) {
-            if (listaDeAsientos[i].equals(asiento)) {
-                listaDeAsientos[i] = null;
-                return;
-            }
-        }
-        System.out.println("La reservacion no se encuentra");
-    }
-
     public Viaje getViaje() {
         return viaje;
     }
 
-    public Asiento[] getListaDeAsientos() {
+    public ListaAsiento getListaDeAsientos() {
         return listaDeAsientos;
     }
 

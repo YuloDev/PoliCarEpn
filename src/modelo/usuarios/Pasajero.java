@@ -23,6 +23,7 @@ public class Pasajero extends Cuenta {
         reservacion.cancelar();
     }
 
+    @Override
     public void calificarViaje(Calificacion ... calificaciones) {
         //codigo calificar viaje
         Evaluacion evaluacionConductor = calificaciones[0].getViaje().getCuenta().getEvaluacion();

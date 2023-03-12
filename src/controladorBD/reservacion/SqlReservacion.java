@@ -9,9 +9,6 @@ import controladorBD.conexion.ConexionMySQL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import modelo.externo.Fecha;
 import modelo.reservacion.Reservacion;
@@ -41,7 +38,7 @@ public class SqlReservacion {
             }
         }
         int numeroDeAsientos = 0;
-        for (Asiento asiento : reservacion.getListaDeAsientos()) {
+        for (Asiento asiento : reservacion.getListaDeAsientos().getAsientos()) {
             if (asiento != null) {
                 numeroDeAsientos++;
             }
@@ -213,7 +210,6 @@ public class SqlReservacion {
                 idViaje = id;
             }
         }
-
         PreparedStatement ps = null;
         ResultSet rs = null;
         ConexionMySQL con = new ConexionMySQL();
@@ -233,16 +229,15 @@ public class SqlReservacion {
             ps.setInt(2, idCuentaPasajero); // IDCUENTA
             rs = ps.executeQuery();
             rs.next();
-            if (rs.getInt(1) == 0) {
-                return false;
+            if (rs.getInt(1) == 1) {
+                System.out.println("Tipo transferencia verificado");
+                return true;
             }
-            System.out.println("Tipo transferencia verificado");
-            return true;
+            return false;
         } catch (SQLException e) {
             System.out.println("Tipo transferencia  no verificado");
             return false;
         }
     }
-
 
 }

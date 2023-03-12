@@ -54,6 +54,9 @@ public class JFPasajero extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        txtTelefono.setEditable(false);
+        txtTelefono.setBackground(new java.awt.Color(255, 255, 255));
+
         btnVerReservacion.setText("Ver reservaciones");
         btnVerReservacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,9 +73,18 @@ public class JFPasajero extends javax.swing.JFrame {
 
         lblNombre.setText("Nombre");
 
+        txtNombre.setEditable(false);
+        txtNombre.setBackground(new java.awt.Color(255, 255, 255));
+
         lblApellido.setText("Apellido");
 
+        txtApellido.setEditable(false);
+        txtApellido.setBackground(new java.awt.Color(255, 255, 255));
+
         lblCodigoUnico.setText("Código Único");
+
+        txtCodigoUnico.setEditable(false);
+        txtCodigoUnico.setBackground(new java.awt.Color(255, 255, 255));
 
         lblTelefono.setText("Teléfono");
 

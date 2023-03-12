@@ -1,7 +1,12 @@
 
 package modelo.usuarios;
 
+import modelo.ranking.Calificacion;
+import modelo.ranking.CalificacionConductor;
+import modelo.ranking.CalificacionExperiencia;
+import modelo.ranking.CalificacionVehiculo;
 import modelo.ranking.Evaluacion;
+import modelo.ranking.Penalizacion;
 import modelo.reservacion.ListaReservacion;
 import modelo.viaje.ListaViaje;
 
@@ -15,6 +20,7 @@ public abstract class Cuenta {
     protected Vehiculo vehiculo;
     protected ListaViaje listaViaje;
     protected ListaReservacion listaReservacion;
+    protected Penalizacion penalizacion;
     
     
     public Cuenta(String correo, String contraseña, Usuario usuario) {
@@ -22,8 +28,9 @@ public abstract class Cuenta {
        this.contraseña = contraseña;
        this.usuario=usuario;
        this.evaluacion = new Evaluacion();
-       listaViaje = new ListaViaje();
-       listaReservacion = new ListaReservacion();
+       this.listaViaje = new ListaViaje();
+       this.listaReservacion = new ListaReservacion();
+       this.penalizacion = new Penalizacion(evaluacion);
     }
 
     public String getCorreo() {
@@ -57,6 +64,10 @@ public abstract class Cuenta {
     public ListaReservacion getListaReservacion() {
         return listaReservacion;
     }
+
+    public Penalizacion getPenalizacion() {
+        return penalizacion;
+    }    
     
     public boolean validarCredenciales(String correo, String contraseña){
         boolean validador = false;
@@ -73,6 +84,10 @@ public abstract class Cuenta {
     @Override
     public String toString() {
         return "Cuenta{" + "correo=" + correo + ", contraseña=" + contraseña + ", usuario=" + usuario + '}';
+    }
+
+    public void calificarViaje(Calificacion ... calificaciones) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

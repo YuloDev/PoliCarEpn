@@ -4,7 +4,13 @@
  */
 package vistas.usuarios;
 
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
+import modelo.ranking.Calificacion;
 import modelo.usuarios.Conductor;
+import vistas.ranking.JFrameCalificacion;
+import vistas.ranking.JFrameRanking;
+import vistas.viaje.JFContabilizadorRutas;
 import vistas.viaje.JFCrearViaje;
 import vistas.viaje.JFListaViajesDeConductor;
 
@@ -13,19 +19,21 @@ import vistas.viaje.JFListaViajesDeConductor;
  * @author Lenovo
  */
 public class JFConductor extends javax.swing.JFrame {
+
     Conductor conductor;
+
     /**
      * Creates new form JFCuentaConductor
      */
     public JFConductor(Conductor conductor) {
         initComponents();
         setLocationRelativeTo(null);
-        
+
         this.conductor = conductor;
-        
+
         txtNombre.setText(conductor.getUsuario().getNombre());
         txtApellido.setText(conductor.getUsuario().getApellido());
-        txtCodigoUnico.setText(conductor.getUsuario().getCodUnico()+"");
+        txtCodigoUnico.setText(conductor.getUsuario().getCodUnico() + "");
         txtTelefono.setText(conductor.getUsuario().getTelefono());
     }
 
@@ -50,16 +58,34 @@ public class JFConductor extends javax.swing.JFrame {
         btnVerViajes = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
         lblCuentaConductor = new javax.swing.JLabel();
+        btnRutas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblNombre.setText("Nombre");
 
+        txtNombre.setEditable(false);
+        txtNombre.setBackground(new java.awt.Color(255, 255, 255));
+        txtNombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNombreMouseClicked(evt);
+            }
+        });
+
         lblApellido.setText("Apellido");
+
+        txtApellido.setEditable(false);
+        txtApellido.setBackground(new java.awt.Color(255, 255, 255));
 
         lblCodigoUnico.setText("Código Único");
 
+        txtCodigoUnico.setEditable(false);
+        txtCodigoUnico.setBackground(new java.awt.Color(255, 255, 255));
+
         lblTelefono.setText("Teléfono");
+
+        txtTelefono.setEditable(false);
+        txtTelefono.setBackground(new java.awt.Color(255, 255, 255));
 
         btnCrearViaje.setText("Crear viaje");
         btnCrearViaje.addActionListener(new java.awt.event.ActionListener() {
@@ -85,6 +111,13 @@ public class JFConductor extends javax.swing.JFrame {
         lblCuentaConductor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblCuentaConductor.setText("Cuenta Conductor");
 
+        btnRutas.setText("Ver rutas frecuentes");
+        btnRutas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRutasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,7 +138,7 @@ public class JFConductor extends javax.swing.JFrame {
                                 .addComponent(lblCodigoUnico)
                                 .addComponent(lblTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnCrearViaje))
-                        .addGap(131, 131, 131)
+                        .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -113,7 +146,10 @@ public class JFConductor extends javax.swing.JFrame {
                                     .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(txtCodigoUnico, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnVerViajes))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnRutas)
+                                .addGap(33, 33, 33)
+                                .addComponent(btnVerViajes)))
                         .addContainerGap(170, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -142,7 +178,8 @@ public class JFConductor extends javax.swing.JFrame {
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCrearViaje)
-                    .addComponent(btnVerViajes))
+                    .addComponent(btnVerViajes)
+                    .addComponent(btnRutas))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
 
@@ -150,35 +187,50 @@ public class JFConductor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearViajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearViajeActionPerformed
-        // TODO add your handling code here:
+
+        if (conductor.getPenalizacion().verificarPenalizacion()) {
+            DateTimeFormatter formatterLS = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            JOptionPane.showMessageDialog(null, "Conductor penalizado hasta: " + conductor.getPenalizacion().getFecha().getFechaYHora().format(formatterLS), "Aviso", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         setVisible(false);
-        
         JFCrearViaje jFCrearViaje = new JFCrearViaje(conductor);
-        
         jFCrearViaje.setVisible(true);
     }//GEN-LAST:event_btnCrearViajeActionPerformed
 
     private void btnVerViajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerViajesActionPerformed
         // TODO add your handling code here:
         setVisible(false);
-        
+
         JFListaViajesDeConductor jFListaViajesDeConductor = new JFListaViajesDeConductor(conductor);
-        
+
         jFListaViajesDeConductor.setVisible(true);
     }//GEN-LAST:event_btnVerViajesActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        // TODO add your handling code here:
         setVisible(false);
-        
+
         JFLogin jFLogin = new JFLogin();
         jFLogin.setVisible(true);
-        
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnRutasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRutasActionPerformed
+        setVisible(false);
+
+        JFContabilizadorRutas jFContabilizadorRutas = new JFContabilizadorRutas(conductor);
+        jFContabilizadorRutas.setVisible(true);
+    }//GEN-LAST:event_btnRutasActionPerformed
+
+    private void txtNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreMouseClicked
+        // TODO add your handling code here:
+        new JFrameRanking(conductor.getUsuario().getCodUnico()).setVisible(true);
+    }//GEN-LAST:event_txtNombreMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnCrearViaje;
+    private javax.swing.JButton btnRutas;
     private javax.swing.JButton btnVerViajes;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblCodigoUnico;

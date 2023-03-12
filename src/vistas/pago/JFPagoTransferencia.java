@@ -153,7 +153,6 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
         double valor;
         if(pagoTransferencia.realizarPago()){
             try {
-                sqlPago.registrarFactura(factura);
                 sqlPago.insertarSaldo((float)pagoTransferencia.billetera.saldo);
                 valor = creditos.disminuirSaldo(factura.valorTotal);
                 sqlPago.actualizarCreditos(valor,pasajero.getCorreo());
