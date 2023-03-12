@@ -4,10 +4,13 @@ package vistas.ranking;
 import javax.swing.Timer;
 import controladorBD.ranking.SqlCalificacion;
 import controladorBD.ranking.SqlComentario;
+import controladorBD.ranking.SqlPenalizacion;
 import modelo.ranking.Calificacion;
 import modelo.ranking.CalificacionConductor;
 import modelo.ranking.CalificacionExperiencia;
 import modelo.ranking.CalificacionVehiculo;
+import modelo.ranking.Penalizacion;
+import modelo.viaje.Viaje;
 
 
 public class JFrameCalificacion extends javax.swing.JFrame {
@@ -15,23 +18,18 @@ public class JFrameCalificacion extends javax.swing.JFrame {
     /**
      * Creates new form vistaCalificacion
      */
-    private Calificacion calificacion;
+    private Viaje viaje;
     
-    public JFrameCalificacion(Calificacion calificacion) {
+    public JFrameCalificacion(Viaje viaje) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.calificacion = calificacion;
+        this.viaje = viaje;
         
         this.PanelCalificacionVehiculo.setVisible(false);
         this.PanelCalificacionExperiencia.setVisible(false);
         this.PanelAgradecimiento.setVisible(false);  
     }
     
-    //borrar
-    public JFrameCalificacion() {
-        initComponents();
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,13 +53,14 @@ public class JFrameCalificacion extends javax.swing.JFrame {
         jButtonCalificacionExperiencia = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaCalificacionExperiencia = new javax.swing.JTextArea();
+        jComboBoxTipo = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
         PanelAgradecimiento = new javax.swing.JPanel();
         jLabelAgradecimiento = new javax.swing.JLabel();
         jLabelAgradecimiento1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         PanelCalificacionConductor.setBackground(new java.awt.Color(255, 255, 255));
         PanelCalificacionConductor.setForeground(new java.awt.Color(255, 255, 255));
@@ -195,14 +194,24 @@ public class JFrameCalificacion extends javax.swing.JFrame {
         jTextAreaCalificacionExperiencia.setForeground(new java.awt.Color(43, 63, 94));
         jTextAreaCalificacionExperiencia.setLineWrap(true);
         jTextAreaCalificacionExperiencia.setRows(5);
-        jTextAreaCalificacionExperiencia.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingrese sus comentarios!", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(43, 63, 94))); // NOI18N
+        jTextAreaCalificacionExperiencia.setText("Ingrese su comentario!");
+        jTextAreaCalificacionExperiencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(43, 63, 94)));
         jScrollPane1.setViewportView(jTextAreaCalificacionExperiencia);
+
+        jComboBoxTipo.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBoxTipo.setForeground(new java.awt.Color(43, 63, 94));
+        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bueno", "Malo" }));
+        jComboBoxTipo.setBorder(null);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(43, 63, 94));
+        jLabel1.setText("¿Cómo la definiría?");
 
         javax.swing.GroupLayout PanelCalificacionExperienciaLayout = new javax.swing.GroupLayout(PanelCalificacionExperiencia);
         PanelCalificacionExperiencia.setLayout(PanelCalificacionExperienciaLayout);
         PanelCalificacionExperienciaLayout.setHorizontalGroup(
             PanelCalificacionExperienciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCalificacionExperienciaLayout.createSequentialGroup()
+            .addGroup(PanelCalificacionExperienciaLayout.createSequentialGroup()
                 .addContainerGap(239, Short.MAX_VALUE)
                 .addGroup(PanelCalificacionExperienciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCalificacionExperienciaLayout.createSequentialGroup()
@@ -212,9 +221,13 @@ public class JFrameCalificacion extends javax.swing.JFrame {
                         .addComponent(jComboBoxCalificacionExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(263, 263, 263))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCalificacionExperienciaLayout.createSequentialGroup()
-                        .addGroup(PanelCalificacionExperienciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(PanelCalificacionExperienciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelCalificacionExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabelCalificacionExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PanelCalificacionExperienciaLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(224, 224, 224))))
         );
         PanelCalificacionExperienciaLayout.setVerticalGroup(
@@ -225,8 +238,12 @@ public class JFrameCalificacion extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addComponent(jComboBoxCalificacionExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addGroup(PanelCalificacionExperienciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(jButtonCalificacionExperiencia)
                 .addGap(85, 85, 85))
         );
@@ -295,71 +312,48 @@ public class JFrameCalificacion extends javax.swing.JFrame {
     private void jButtonCalificacionConductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalificacionConductorActionPerformed
         this.PanelCalificacionConductor.setVisible(false);
         this.PanelCalificacionVehiculo.setVisible(true);
-        CalificacionConductor cC = new CalificacionConductor((this.calificacion.getViaje()));
+        CalificacionConductor cC = new CalificacionConductor((this.viaje));
         cC.ingresar(jComboBoxCalificacionConductor.getSelectedIndex()+1);
-        SqlCalificacion sqlCalificacion = new SqlCalificacion(cC);
-        sqlCalificacion.ingresarCalificacion(0);
+        SqlCalificacion sqlCalificacion = new SqlCalificacion();
+        sqlCalificacion.ingresarCalificacion(cC,0);
         
+        this.viaje.getCuenta().getEvaluacion().añadirCalificacion(cC);
     }//GEN-LAST:event_jButtonCalificacionConductorActionPerformed
-
     private void jButtonCalificacionVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalificacionVehiculoActionPerformed
         this.PanelCalificacionVehiculo.setVisible(false);
         this.PanelCalificacionExperiencia.setVisible(true);
-        CalificacionVehiculo ch = new CalificacionVehiculo(this.calificacion.getViaje());
+        CalificacionVehiculo ch = new CalificacionVehiculo(this.viaje);
         ch.ingresar(jComboBoxCalificacionVehiculo.getSelectedIndex()+1);
-        SqlCalificacion sqlCalificacion = new SqlCalificacion(ch);
-        sqlCalificacion.ingresarCalificacion(1);
+        SqlCalificacion sqlCalificacion = new SqlCalificacion();
+        sqlCalificacion.ingresarCalificacion(ch, 1);
+        
+        this.viaje.getCuenta().getEvaluacion().añadirCalificacion(ch);
     }//GEN-LAST:event_jButtonCalificacionVehiculoActionPerformed
 
     private void jButtonCalificacionExperienciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalificacionExperienciaActionPerformed
         this.PanelCalificacionExperiencia.setVisible(false);
         this.PanelAgradecimiento.setVisible(true);
 
-        CalificacionExperiencia cE = new CalificacionExperiencia(this.calificacion.getViaje());
+        CalificacionExperiencia cE = new CalificacionExperiencia(viaje);
         cE.ingresar(jComboBoxCalificacionExperiencia.getSelectedIndex()+1);
-        cE.agregarComentario(jTextAreaCalificacionExperiencia.getText());
-        SqlCalificacion sqlCalificacion = new SqlCalificacion(cE);
-        sqlCalificacion.ingresarCalificacion(2);
+        cE.agregarComentario(jTextAreaCalificacionExperiencia.getText(), String.valueOf(jComboBoxTipo.getSelectedItem()));
+        SqlCalificacion sqlCalificacion = new SqlCalificacion();
+        sqlCalificacion.ingresarCalificacion(cE, 2);
         new SqlComentario().registrarComentario(cE.getComentario());
+        
+        this.viaje.getCuenta().getEvaluacion().añadirCalificacion(cE);
+        
+        Penalizacion penalizacion = this.viaje.getCuenta().getPenalizacion();
+        penalizacion.generarPenalizacion();
+        
+        if (penalizacion.verificarPenalizacion()){
+            //Registrar
+            SqlPenalizacion sqlPenalizacion = new SqlPenalizacion();
+            sqlPenalizacion.registrarPenalizacion( this.viaje.getCuenta(),penalizacion.getFecha());
+        }
         
         new Timer(1_000, (e) -> { this.setVisible(false); this.dispose(); }).start();
     }//GEN-LAST:event_jButtonCalificacionExperienciaActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFrameCalificacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFrameCalificacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFrameCalificacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFrameCalificacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFrameCalificacion().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelAgradecimiento;
@@ -372,6 +366,8 @@ public class JFrameCalificacion extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxCalificacionConductor;
     private javax.swing.JComboBox<String> jComboBoxCalificacionExperiencia;
     private javax.swing.JComboBox<String> jComboBoxCalificacionVehiculo;
+    private javax.swing.JComboBox<String> jComboBoxTipo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelAgradecimiento;
     private javax.swing.JLabel jLabelAgradecimiento1;
     private javax.swing.JLabel jLabelCalificacionConductor;

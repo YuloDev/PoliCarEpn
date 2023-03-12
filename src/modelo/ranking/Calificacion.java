@@ -32,4 +32,14 @@ public class Calificacion {
         return puntaje;
     }
 
+    //quitar
+    
+    @Override
+    public String toString() {
+        return "Calificacion{" + "puntaje=" + puntaje + ", fecha=" + fecha + '}';
+    }
+    
+    
+    
+
 }

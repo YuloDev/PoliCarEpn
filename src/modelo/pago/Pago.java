@@ -16,9 +16,11 @@ public abstract class Pago {
     Factura factura;
     protected ControladorTiempoDeReserva controlador;
     protected boolean estaPagado;
+    protected Creditos creditos;
 
-    public Pago(Factura factura) {
+    public Pago(Factura factura, Creditos creditos) {
         this.factura = factura;
+        this.creditos = creditos;
     }
 
     // método polimorfico implementado en los hijos

@@ -47,7 +47,7 @@ public class SqlUsuario extends controladorBD.conexion.ConexionMySQL {
         PreparedStatement ps = null;
         Connection con = conectar();
 
-        String sql = "INSERT INTO cuenta (codigounico, correo, contrasenia, tipocuenta) VALUES (?,?,?,?);";
+        String sql = "INSERT INTO cuenta (codigounico, correo, contrasenia, tipocuenta, creditos) VALUES (?,?,?,?);";
 
         try {
             ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
@@ -57,7 +57,7 @@ public class SqlUsuario extends controladorBD.conexion.ConexionMySQL {
             ps.setString(2, cuenta.getCorreo());
             ps.setString(3, cuenta.getContraseña());
             ps.setString(4, tipoCuenta);
-
+            ps.setDouble(5, 0.0);
             ps.execute();
             return true;
         } catch (SQLException ex) {
@@ -79,7 +79,6 @@ public class SqlUsuario extends controladorBD.conexion.ConexionMySQL {
             ps.setString(3, cuenta.getCorreo());
             ps.setString(4, cuenta.getContraseña());
             ps.setString(5, tipoCuenta);
-
             ps.execute();
             return true;
         } catch (SQLException ex) {
@@ -109,8 +108,8 @@ public class SqlUsuario extends controladorBD.conexion.ConexionMySQL {
         }
     }
 
-    public HashMap<Integer,Usuario> obtenerUsuarios() {
-        HashMap<Integer,Usuario> usuarios = new HashMap<Integer,Usuario>();
+    public HashMap<Integer, Usuario> obtenerUsuarios() {
+        HashMap<Integer, Usuario> usuarios = new HashMap<Integer, Usuario>();
 
         ResultSet rs = null;
         com.mysql.jdbc.PreparedStatement ps = null;

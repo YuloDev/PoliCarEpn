@@ -11,43 +11,41 @@ import javax.swing.JOptionPane;
 import modelo.pago.*;
 import controladorBD.pago.SqlPago;
 import controladorBD.reservacion.SqlReservacion;
-import modelo.externo.Fecha;
 import modelo.reservacion.Reservacion;
-import modelo.usuarios.Conductor;
 import modelo.usuarios.Pasajero;
-import modelo.usuarios.Usuario;
-import modelo.usuarios.Vehiculo;
-import modelo.viaje.Viaje;
 import vistas.reservacion.JFCrearReservación;
 import vistas.reservacion.JFListaReservacionPasajero;
+import vistas.usuarios.JFPasajero;
 
 /**
  *
  * @author Kevin
  */
 public class JFPago extends javax.swing.JFrame {
+
     PagoTransferencia pagoTransferencia;
     Reservacion reservacion;
     static Pasajero pasajero;
     Factura factura;
-    SqlPago s = new SqlPago();
-    
+    SqlPago sqlPago = new SqlPago();
+
     /**
      * Creates new form JFPago
      */
     public JFPago(Reservacion reservacion) {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
         this.reservacion = reservacion;
-        factura = new Factura(reservacion);
+
+        this.factura = new Factura(reservacion);
         this.pasajero = (Pasajero) reservacion.getCuenta();
-        pagoTransferencia = new PagoTransferencia(factura, 20*60*1000);
-        
-        factura.calcularTotal();
-        txfValorTotal.setText(factura.valorTotal+"");
+        this.pagoTransferencia = new PagoTransferencia(factura, 20 * 60 * 1000, pasajero.getCreditos());
+        this.factura.calcularTotal();
+
+        txfValorTotal.setText(factura.valorTotal + "");
     }
-   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -103,8 +101,8 @@ public class JFPago extends javax.swing.JFrame {
         lblValorTotal.setText("Valor total");
         pnlPago.add(lblValorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, -1, -1));
 
+        txfValorTotal.setEditable(false);
         txfValorTotal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txfValorTotal.setFocusable(false);
         pnlPago.add(txfValorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 120, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -128,41 +126,37 @@ public class JFPago extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnPagoTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPagoTransferenciaActionPerformed
-        // TODO add your handling code here:
-        
-        // Una vez que se crea el pago;
         SqlReservacion sqlReservacion = new SqlReservacion();
         sqlReservacion.registrarReservacion(reservacion);
+
         pasajero.crearReservacion(reservacion);
-        
-        JFListaReservacionPasajero jFListaReservacionPasajero = null;
+
         String tipoPago = "transferencia";
         System.out.println(tipoPago);
         try {
-            s.insertarPago(factura, tipoPago);
-            jFListaReservacionPasajero = new JFListaReservacionPasajero(pasajero);
+            sqlPago.registrarFactura(factura);
+            sqlPago.insertarPago(factura, tipoPago);
         } catch (SQLException ex) {
             Logger.getLogger(JFPago.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setVisible(false);
-        jFListaReservacionPasajero.setVisible(true);
-        
+        JFPasajero jFPasajero = new JFPasajero(pasajero);
+        jFPasajero.setVisible(true);
     }//GEN-LAST:event_BtnPagoTransferenciaActionPerformed
 
     private void BtnPagoEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPagoEfectivoActionPerformed
-        // TODO add your handling code here:
-        
         SqlReservacion sqlReservacion = new SqlReservacion();
         sqlReservacion.registrarReservacion(reservacion);
-        
-        JOptionPane.showMessageDialog(rootPane,"Su pago será validado por el conductor","Pago Efectivo",1);
+
+        JOptionPane.showMessageDialog(rootPane, "Su pago será validado por el conductor", "Pago Efectivo", 1);
+
         String tipoPago = "efectivo";
         System.out.println(tipoPago);
         try {
-            s.insertarPago(factura, tipoPago);
+            sqlPago.registrarFactura(factura);
+            sqlPago.insertarPago(factura, tipoPago);
             this.setVisible(false);
-            JFFactura jFactura = null;
-            jFactura = new JFFactura(reservacion, pasajero);
+            JFFactura jFactura = new JFFactura(reservacion, pasajero);
             jFactura.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(JFPago.class.getName()).log(Level.SEVERE, null, ex);
@@ -170,65 +164,10 @@ public class JFPago extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnPagoEfectivoActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false); 
-       
+        this.setVisible(false);
         JFCrearReservación jFCrearReservación = new JFCrearReservación(reservacion.getViaje(), pasajero);
-        
-        jFCrearReservación.setVisible(true); 
+        jFCrearReservación.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFPago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFPago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFPago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFPago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /**
-         * ******************Borrar*********************+
-         */
-        Usuario nuevoUsuario = new Usuario("Luis", "Narvaez", "0985381267", 201821107);
-        Vehiculo vehiculo = new Vehiculo("PCM1478", "Kia rio", "negro", 2018, 5);
-        Conductor cuentaConductor = null;
-        if (vehiculo.validarAño()) {
-            cuentaConductor = new Conductor("luis.narvaez@epn.edu.ec", "963mv",
-                    nuevoUsuario, vehiculo);
-        }
-        Viaje nuevoViaje = new Viaje("Quito", "Santa Rosa",
-                cuentaConductor.obtenerCantidadAsientos(), 0.625, cuentaConductor, new Fecha("2023-03-06 17:05:28"));
-        cuentaConductor.crearViaje(nuevoViaje);
-
-        Usuario nuevoUsuarioPasajero = new Usuario("O", "J", "0983973634", 202114325);
-        Pasajero cuentaPasajero = new Pasajero("martha.ruiz@epn.edu.ec", "1234", nuevoUsuarioPasajero);
-
-        Reservacion reservacion = new Reservacion(nuevoViaje, cuentaPasajero, 4);
-        
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            //new JFPago(reservacion).setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtnPagoEfectivo;

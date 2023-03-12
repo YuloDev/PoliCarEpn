@@ -33,11 +33,11 @@ public class JFRegistro extends javax.swing.JFrame {
     public static String contrasenia;
     public static String tipoCuenta;
     public static Usuario nuevoUsuario;
-    
+
     public JFRegistro() {
-        initComponents();   
+        initComponents();
         setLocationRelativeTo(null);
-        
+
     }
 
     /**
@@ -188,10 +188,10 @@ public class JFRegistro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
-        
+
         correo = txtCorreo.getText();
         contrasenia = new String(psswdContraseniaR.getPassword());
         nombre = txtNombre.getText();
@@ -201,26 +201,29 @@ public class JFRegistro extends javax.swing.JFrame {
         nuevoUsuario = new Usuario(nombre, apellido, telefono, codigoUnico);
         tipoCuenta = cmbTipoCuenta.getSelectedItem().toString();
         Cuenta cuentaPasajero = null;
-        if(tipoCuenta.equals("Pasajero")){            
-            cuentaPasajero = new Pasajero(correo, contrasenia, nuevoUsuario);
+        if (tipoCuenta.equals("Pasajero")) {
+            cuentaPasajero = new Pasajero(correo, contrasenia, nuevoUsuario, 0.0);
             SqlUsuario modSql = new SqlUsuario();
-            try{
-            if((modSql.registrarUsuario(nuevoUsuario))){
-                if((modSql.registrarPasajero(nuevoUsuario,cuentaPasajero, tipoCuenta))){
-                    JOptionPane.showMessageDialog(null, "Pasajero registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                }else{
+            try {
+                if ((modSql.registrarUsuario(nuevoUsuario))) {
+                    if ((modSql.registrarPasajero(nuevoUsuario, cuentaPasajero, tipoCuenta))) {
+                        JOptionPane.showMessageDialog(null, "Pasajero registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                        JFLogin login = new JFLogin();
+                        login.setVisible(true);
+                        this.setVisible(false);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se pudo registrar pasajero", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
                     JOptionPane.showMessageDialog(null, "No se pudo registrar pasajero", "Error", JOptionPane.ERROR_MESSAGE);
-                }                
-            }else{
-                JOptionPane.showMessageDialog(null, "No se pudo registrar pasajero", "Error", JOptionPane.ERROR_MESSAGE);
-            }            
-            }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }else {            
+        } else {
             JFVehiculo jfvehiculo = new JFVehiculo();
             jfvehiculo.setVisible(true);
-            this.setVisible(false);                           
+            this.setVisible(false);
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 

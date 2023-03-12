@@ -109,6 +109,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtMontoTotal">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnRealizarPago">
           <Properties>

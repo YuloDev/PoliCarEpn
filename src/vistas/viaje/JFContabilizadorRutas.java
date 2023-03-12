@@ -23,12 +23,13 @@ public class JFContabilizadorRutas extends javax.swing.JFrame {
     Conductor conductor;
     ListaViaje listaViaje;
 
-    public JFContabilizadorRutas(Conductor conducor) {//Conductor conductor,ListaViaje listaViaje
+    public JFContabilizadorRutas(Conductor conductor) {
         initComponents();
+        setLocationRelativeTo(null);
 
         this.conductor = conductor;
 
-        listaViaje = conductor.getListaViaje();
+        listaViaje = this.conductor.getListaViaje();
 
         ContabilizadorDeRutas contabilizadorDeRutas = new ContabilizadorDeRutas(listaViaje);
 
@@ -45,52 +46,10 @@ public class JFContabilizadorRutas extends javax.swing.JFrame {
         for (int i = 0; i < arreglo.length; i++) {
 
             if (arreglo[i][0] != null && arreglo[i][1] != null && arreglo[i][2] != null) {
-
                 fila[0] = arreglo[i][0]; fila[1] = arreglo[i][1]; fila[2] = arreglo[i][2];
-
                 model.addRow(fila);
             }
-
         }
-
-    }
-
-    public JFContabilizadorRutas() {//este solo esta para probar nada mas ojo solo son para pruebas
-        initComponents();
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Partida");
-        model.addColumn("Destino");
-        model.addColumn("Frecuencia");
-
-        arreglo[0][0] = "epn";
-        arreglo[0][1] = "guayllabamba";
-        arreglo[0][2] = "10";
-        arreglo[1][0] = "Valle";
-        arreglo[1][1] = "Portal";
-        arreglo[1][2] = "5";
-        arreglo[2][0] = "Foch";
-        arreglo[2][1] = "Rio Coca";
-        arreglo[2][2] = "8";
-        arreglo[3][0] = "Santa Clara";
-        arreglo[3][1] = "Floresta";
-        arreglo[3][2] = "20";
-        arreglo[4][0] = "Quicentro norte";
-        arreglo[4][1] = "Plaza Toros";
-        arreglo[4][2] = "18";
-
-        tblFrecuenciaRutas.setModel(model);
-        String[] fila = new String[3];
-        for (int i = 0; i < arreglo.length; i++) {
-
-            if (arreglo[i][0] != null && arreglo[i][1] != null && arreglo[i][2] != null) {
-
-                fila[0] = arreglo[i][0]; fila[1] = arreglo[i][1]; fila[2] = arreglo[i][2];
-
-                model.addRow(fila);
-            }
-
-        }
-
     }
 
     /**
@@ -110,10 +69,10 @@ public class JFContabilizadorRutas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblTitulo.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblTitulo.setText("Frecuencia de Rutas");
 
-        lblTextInfo.setText("Acontinuacion se muestra las rutas realizadas y con que frecuencia se las ha realziado");
+        lblTextInfo.setText("A continuación, se muestra las rutas realizadas y con que frecuencia se las ha realziado: ");
 
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -153,84 +112,41 @@ public class JFContabilizadorRutas extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(348, 348, 348)
-                                .addComponent(lblTitulo))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(342, 342, 342)
-                                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lblTextInfo)))
-                        .addGap(0, 282, Short.MAX_VALUE)))
+                        .addContainerGap()
+                        .addComponent(lblTextInfo)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(320, 320, 320))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(250, 250, 250)
+                .addComponent(lblTitulo)
+                .addContainerGap(277, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(28, 28, 28)
                 .addComponent(lblTitulo)
                 .addGap(18, 18, 18)
                 .addComponent(lblTextInfo)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
                 .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
-
-        // TODO add your handling code here:
         setVisible(false);
-
         JFConductor jFConductor = new JFConductor(conductor);
-
         jFConductor.setVisible(true);
-
-
     }//GEN-LAST:event_btnRegresarActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFContabilizadorRutas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFContabilizadorRutas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFContabilizadorRutas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFContabilizadorRutas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFContabilizadorRutas().setVisible(true); //este se debe comentar si ya no se vana a hacer pruebas individuales
-            }
-        });
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegresar;

@@ -13,9 +13,8 @@ import modelo.pago.Factura;
  */
 public class PagoEfectivo extends Pago{
     
-    
-    public PagoEfectivo(Factura factura) {
-        super(factura);
+    public PagoEfectivo(Factura factura, Creditos creditos) {
+        super(factura,creditos);
     }
     
     public boolean realizarPago(){

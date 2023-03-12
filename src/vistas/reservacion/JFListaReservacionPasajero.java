@@ -21,7 +21,7 @@ import vistas.usuarios.JFPasajero;
  * @author Cesar
  */
 public class JFListaReservacionPasajero extends javax.swing.JFrame {
-Pasajero pasajero;
+    Pasajero pasajero;
     ListaReservacion listaReservacion;
     /**
      * Creates new form jfmListaReservacionPasajero
@@ -166,6 +166,8 @@ Pasajero pasajero;
         // TODO add your handling code here:
         int filaSeleccionada = tblListaReservacionPasajero.rowAtPoint(evt.getPoint());
         this.setVisible(false);
+        
+        System.out.println(this.listaReservacion.getReservaciones()[filaSeleccionada].getCuenta());
         new JFVerReservacion(this.listaReservacion.getReservaciones()[filaSeleccionada]).setVisible(true);
         
     }//GEN-LAST:event_tblListaReservacionPasajeroMouseClicked
@@ -177,64 +179,6 @@ Pasajero pasajero;
         jFPasajero.setVisible(true);
 
     }//GEN-LAST:event_volverActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFListaReservacionPasajero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFListaReservacionPasajero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFListaReservacionPasajero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFListaReservacionPasajero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                /**
-                 * ******************Borrar*********************+
-                 */
-                Usuario nuevoUsuario = new Usuario("Luis", "Narvaez", "0985381267", 201821107);
-                Vehiculo vehiculo = new Vehiculo("PCM1478", "Kia rio", "negro", 2018, 5);
-                Conductor cuentaConductor = null;
-                if (vehiculo.validarAño()) {
-                    cuentaConductor = new Conductor("luis.narvaez@epn.edu.ec", "963mv",
-                            nuevoUsuario, vehiculo);
-                }
-                Viaje nuevoViaje = new Viaje("Quito", "Santa Rosa",
-                        cuentaConductor.obtenerCantidadAsientos(), 2.3, cuentaConductor, new Fecha("2023-03-06 17:05:28"));
-                cuentaConductor.crearViaje(nuevoViaje);
-
-                Usuario nuevoUsuarioPasajero = new Usuario("O", "J", "0983973634", 202114325);
-                Pasajero cuentaPasajero = new Pasajero("martha.ruiz@epn.edu.ec", "1234", nuevoUsuarioPasajero);
-
-                Reservacion reservacion = new Reservacion(nuevoViaje, cuentaPasajero, 4);
-                cuentaPasajero.crearReservacion(reservacion);
-                /**
-                 * ******************Borrar*********************+
-                 */
-                new JFListaReservacionPasajero(cuentaPasajero).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

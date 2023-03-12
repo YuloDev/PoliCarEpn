@@ -4,28 +4,21 @@
  */
 package vistas.viaje;
 
-import controladorBD.viaje.SqlViaje;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
-import modelo.usuarios.Cuenta;
+import modelo.reservacion.Reservacion;
 import modelo.usuarios.Pasajero;
 import modelo.viaje.Asiento;
 import modelo.viaje.Libre;
-import modelo.viaje.ListaViaje;
 import vistas.usuarios.JFPasajero;
 import modelo.viaje.Viaje;
 import vistas.reservacion.JFCrearReservación;
-import vistas.reservacion.JFListaReservacionesConductor;
 import static vistas.usuarios.JFLogin.viajes;
 
 /**
  * @author Dana
  */
-import vistas.usuarios.JFLogin;
-import static vistas.usuarios.JFLogin.cuentas;
-
 public class JFBuscarViaje extends javax.swing.JFrame {
 
     Pasajero pasajero;
@@ -76,25 +69,9 @@ public class JFBuscarViaje extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Asientos minimos disponibles:");
 
-        txtDestino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDestinoActionPerformed(evt);
-            }
-        });
-
         txtPrecioAsiento.setText("1");
-        txtPrecioAsiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPrecioAsientoActionPerformed(evt);
-            }
-        });
 
         txtAsientoDisponible.setText("1");
-        txtAsientoDisponible.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAsientoDisponibleActionPerformed(evt);
-            }
-        });
 
         btnVolver.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnVolver.setText("Volver");
@@ -194,18 +171,6 @@ public class JFBuscarViaje extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDestinoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDestinoActionPerformed
-
-    private void txtPrecioAsientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioAsientoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPrecioAsientoActionPerformed
-
-    private void txtAsientoDisponibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAsientoDisponibleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAsientoDisponibleActionPerformed
-
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
 
@@ -233,15 +198,34 @@ public class JFBuscarViaje extends javax.swing.JFrame {
         String[] fila = new String[4];
 
         System.out.println(viajes);
+
         for (int idviaje : viajes.keySet()) {
             Viaje viaje = viajes.get(idviaje);
-            Asiento[] asientos = viaje.getListaDeAsientos();
+
+            //No se muestran los viajes con fecha exactamente igual a la dek viaje de alguna reservacion
+            boolean horaFechaExistente = false;
+            Reservacion[] reservacionesPasajero = this.pasajero.getListaReservacion().getReservaciones();
+            for (int i = 0; i < reservacionesPasajero.length; i++) {
+                if (reservacionesPasajero[i] != null) {
+                    if (viaje.getFecha().getFechaYHora().equals(reservacionesPasajero[i].getViaje().getFecha().getFechaYHora())) {
+                        horaFechaExistente = true;
+                    }
+                }
+            }
+            if (horaFechaExistente) {
+                continue;
+            }
+
+            Asiento[] asientos = viaje.getListaDeAsientos().getAsientos();
             double precioPorAsiento = asientos[0].getPrecio();
             int numeroDeAsientosDisponibles = 0;
             for (Asiento asiento : asientos) {
-                if (asiento.getEstado() instanceof Libre) {
-                    numeroDeAsientosDisponibles++;
+                if (asiento != null) {
+                    if (asiento.getEstado() instanceof Libre) {
+                        numeroDeAsientosDisponibles++;
+                    }
                 }
+
             }
 
             if (viaje.getUbicacionDestino().equals(destinoBuscar) && precioPorAsiento <= precioBuscar && asientosBuscar <= numeroDeAsientosDisponibles) {
@@ -268,43 +252,6 @@ public class JFBuscarViaje extends javax.swing.JFrame {
         JFCrearReservación.setVisible(true);
     }//GEN-LAST:event_tblViajesMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFBuscarViaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFBuscarViaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFBuscarViaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFBuscarViaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new JFBuscarViaje().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFiltrar;

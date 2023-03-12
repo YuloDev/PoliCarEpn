@@ -39,10 +39,8 @@ public class Factura {
         this.valorTotal = Math.round(this.valorTotal*100.0)/100.0;
     }
 
-    @Override
-    public String toString() {
-        return "Factura{" + "valorTotal=" + valorTotal + ", valorIva=" + valorIva 
-                + ", valorServicio=" + valorServicio + ", valorViaje=" + valorViaje + '}';
+    public Reservacion getReservacion() {
+        return reservacion;
     }
     
 }

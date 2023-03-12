@@ -9,9 +9,6 @@ import controladorBD.conexion.ConexionMySQL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import modelo.externo.Fecha;
 import modelo.reservacion.Reservacion;
@@ -41,7 +38,7 @@ public class SqlReservacion {
             }
         }
         int numeroDeAsientos = 0;
-        for (Asiento asiento : reservacion.getListaDeAsientos()) {
+        for (Asiento asiento : reservacion.getListaDeAsientos().getAsientos()) {
             if (asiento != null) {
                 numeroDeAsientos++;
             }
@@ -106,35 +103,6 @@ public class SqlReservacion {
         }
     }
 
-    private int obtenerIDViaje(Cuenta cuentaConductor, Viaje viaje) {
-
-        int idCuentaConductor = obtenerIDCuenta(cuentaConductor);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String fechaViaje = viaje.getFecha().getFechaYHora().format(formatter);
-
-        ResultSet rs = null;
-        PreparedStatement ps = null;
-        ConexionMySQL con = new ConexionMySQL();
-        Connection conexion = con.conectar();
-
-        String sql = "SELECT IDVIAJE FROM VIAJE WHERE IDCUENTA = ? AND FECHA = ?;";
-
-        try {
-            ps = (PreparedStatement) conexion.prepareStatement(sql);
-            ps.setInt(1, idCuentaConductor);
-            ps.setString(2, fechaViaje);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
-            return -1;
-        } catch (SQLException e) {
-            System.out.println(e.toString());
-            return -1;
-        }
-    }
-
     private int obtenerIDCuenta(Cuenta cuentaPasajero) {
         ResultSet rs = null;
         PreparedStatement ps = null;
@@ -157,11 +125,11 @@ public class SqlReservacion {
         }
     }
 
-    public boolean verificarTipoDePagoEnEfectivo(Reservacion reservacion) {
+    public boolean verificarPagoEnEfectivoNoRealizado(Reservacion reservacion) {
         Cuenta cuentaPasajero = reservacion.getCuenta();
 
         int idCuentaPasajero = obtenerIDCuenta(cuentaPasajero);
-        
+
         int idViaje = 0;
         for (int id : viajes.keySet()) {
             Viaje viaje = viajes.get(id);
@@ -174,13 +142,14 @@ public class SqlReservacion {
         ResultSet rs = null;
         ConexionMySQL con = new ConexionMySQL();
         Connection conexion = con.conectar();
-        String sql = "SELECT count(*) FROM "
-                + "RESERVACION R JOIN FACTURA F "
+        String sql = "SELECT count(*) FROM RESERVACION R JOIN FACTURA F "
                 + "ON R.IDRESERVACION = F.IDRESERVACION "
-                + "JOIN PAGO PAGO "
-                + "ON F.IDFACTURA = PAGO.IDFACTURA "
-                + "WHERE PAGO.TIPOPAGO = 'efectivo' "
-                + "AND R.IDVIAJE = ? AND R.IDCUENTA = ?;";
+                + "JOIN PAGO P "
+                + "ON F.IDFACTURA = P.IDFACTURA "
+                + "WHERE P.TIPOPAGO = 'efectivo' "
+                + "AND R.IDVIAJE = ? "
+                + "AND R.IDCUENTA = ? "
+                + "AND P.ESTADODEPAGO = 0;";
 
         try {
             ps = (PreparedStatement) conexion.prepareStatement(sql);
@@ -191,13 +160,12 @@ public class SqlReservacion {
             if (rs.getInt(1) == 0) {
                 return false;
             }
-            System.out.println("Si");
+            System.out.println("Tipo efectivo verificado");
             return true;
         } catch (SQLException e) {
-            System.out.println("1");
+            System.out.println("Tipo efectivo no verificado");
             return false;
         }
-
     }
 
     public HashMap<Integer, Reservacion> obtenerReservaciones(HashMap<Integer, Viaje> viajes, HashMap<Integer, Cuenta> cuentas) {
@@ -221,11 +189,54 @@ public class SqlReservacion {
                 reservaciones.put(rs.getInt(1), reservacion);
 
                 cuentaTemp.crearReservacion(reservacion);
+                System.out.println("");
             }
             System.out.println("Instanciación de Reservaciones");
             return reservaciones;
         } catch (SQLException e) {
             return null;
+        }
+    }
+
+    public boolean verificarPagoTransferenciaNoRealizado(Reservacion reservacion) {
+        Cuenta cuentaPasajero = reservacion.getCuenta();
+
+        int idCuentaPasajero = obtenerIDCuenta(cuentaPasajero);
+
+        int idViaje = 0;
+        for (int id : viajes.keySet()) {
+            Viaje viaje = viajes.get(id);
+            if (viaje.equals(reservacion.getViaje())) {
+                idViaje = id;
+            }
+        }
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ConexionMySQL con = new ConexionMySQL();
+        Connection conexion = con.conectar();
+        String sql = "SELECT count(*) FROM RESERVACION R JOIN FACTURA F "
+                + "ON R.IDRESERVACION = F.IDRESERVACION "
+                + "JOIN PAGO P "
+                + "ON F.IDFACTURA = P.IDFACTURA "
+                + "WHERE P.TIPOPAGO = 'transferencia' "
+                + "AND R.IDVIAJE = ? "
+                + "AND R.IDCUENTA = ? "
+                + "AND P.ESTADODEPAGO = 0;";
+
+        try {
+            ps = (PreparedStatement) conexion.prepareStatement(sql);
+            ps.setInt(1, idViaje); //IDVIAJE
+            ps.setInt(2, idCuentaPasajero); // IDCUENTA
+            rs = ps.executeQuery();
+            rs.next();
+            if (rs.getInt(1) == 1) {
+                System.out.println("Tipo transferencia verificado");
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            System.out.println("Tipo transferencia  no verificado");
+            return false;
         }
     }
 

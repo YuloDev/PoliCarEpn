@@ -8,16 +8,11 @@ import controladorBD.reservacion.SqlReservacion;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import modelo.externo.Fecha;
 import modelo.reservacion.ListaReservacion;
 import modelo.reservacion.Reservacion;
 import modelo.usuarios.Conductor;
-import modelo.usuarios.Pasajero;
-import modelo.usuarios.Usuario;
-import modelo.usuarios.Vehiculo;
 import modelo.viaje.Viaje;
 import vistas.pago.JFPagoEfectivo;
-import static vistas.usuarios.JFLogin.reservaciones;
 import vistas.viaje.JFListaViajesDeConductor;
 
 /**
@@ -58,8 +53,7 @@ public class JFListaReservacionesConductor extends javax.swing.JFrame {
 
         for (Reservacion reservacion : listaReservacion.getReservaciones()) {
             if (reservacion != null) {
-                if (sqlReservacion.verificarTipoDePagoEnEfectivo(reservacion)) {
-                    
+                if (sqlReservacion.verificarPagoEnEfectivoNoRealizado(reservacion)) {
                     listaReservacionesEnEfectivo.add(reservacion);
                     
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -94,7 +88,7 @@ public class JFListaReservacionesConductor extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Serif", 1, 24)); // NOI18N
-        jLabel1.setText("Lista de Reservaciones del Viaje (Pago en efectivo)");
+        jLabel1.setText("Reservaciones con pagos en efectivo");
 
         tblListaReservacionConductor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,14 +126,13 @@ public class JFListaReservacionesConductor extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnVolver)
-                                .addGap(336, 336, 336))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(99, 99, 99))))))
+                        .addGap(0, 339, Short.MAX_VALUE)
+                        .addComponent(btnVolver)
+                        .addGap(336, 336, 336))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(177, 177, 177)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,82 +171,17 @@ public class JFListaReservacionesConductor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblListaReservacionConductorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaReservacionConductorMouseClicked
-        // TODO add your handling code here:
         setVisible(false);
-        
         int filaSeleccionada = tblListaReservacionConductor.rowAtPoint(evt.getPoint());
-        
         JFPagoEfectivo jFPagoEfectivo = new JFPagoEfectivo(listaReservacionesEnEfectivo.get(filaSeleccionada));
-                
         jFPagoEfectivo.setVisible(true);
     }//GEN-LAST:event_tblListaReservacionConductorMouseClicked
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        // TODO add your handling code here:
         setVisible(false);
-        
         JFListaViajesDeConductor jFListaViajesDeConductor = new JFListaViajesDeConductor((Conductor)viaje.getCuenta());
-        
         jFListaViajesDeConductor.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFListaReservacionesConductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFListaReservacionesConductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFListaReservacionesConductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFListaReservacionesConductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                /**
-                 * ******************Borrar*********************+
-                 */
-                Usuario nuevoUsuario = new Usuario("Luis", "Narvaez", "0985381267", 201821107);
-                Vehiculo vehiculo = new Vehiculo("PCM1478", "Kia rio", "negro", 2018, 5);
-                Conductor cuentaConductor = null;
-                if (vehiculo.validarAño()) {
-                    cuentaConductor = new Conductor("luis.narvaez@epn.edu.ec", "963mv",
-                            nuevoUsuario, vehiculo);
-                }
-                Viaje nuevoViaje = new Viaje("Quito", "Santa Rosa",
-                        cuentaConductor.obtenerCantidadAsientos(), 2.3, cuentaConductor, new Fecha("2023-03-06 17:05:28"));
-                cuentaConductor.crearViaje(nuevoViaje);
-
-                Usuario nuevoUsuarioPasajero = new Usuario("O", "J", "0983973634", 202114325);
-                Pasajero cuentaPasajero = new Pasajero("martha.ruiz@epn.edu.ec", "1234", nuevoUsuarioPasajero);
-
-                Reservacion reservacion = new Reservacion(nuevoViaje, cuentaPasajero, 4);
-                cuentaPasajero.crearReservacion(reservacion);
-                /**
-                 * ******************Borrar*********************+
-                 */
-                new JFListaReservacionesConductor(nuevoViaje).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVolver;

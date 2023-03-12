@@ -4,16 +4,10 @@
  */
 package vistas.pago;
 
-import modelo.externo.Fecha;
 import modelo.pago.Factura;
 import modelo.reservacion.Reservacion;
-import modelo.usuarios.Conductor;
 import modelo.usuarios.Pasajero;
-import modelo.usuarios.Usuario;
-import modelo.usuarios.Vehiculo;
 import modelo.viaje.Asiento;
-import modelo.viaje.Viaje;
-import static vistas.pago.JFPago.pasajero;
 import vistas.reservacion.JFListaReservacionPasajero;
 import vistas.usuarios.JFPasajero;
 
@@ -32,20 +26,20 @@ public class JFFactura extends javax.swing.JFrame {
     public JFFactura(Reservacion reservacion, Pasajero pasajero){
         initComponents();
         this.setLocationRelativeTo(null);
+        
         this.pasajero = pasajero;
-        lrp = new JFListaReservacionPasajero(pasajero);
-        factura = new Factura(reservacion);
-        factura.calcularTotal();    
+        this.lrp = new JFListaReservacionPasajero(pasajero);
+        this.factura = new Factura(reservacion);
+        this.factura.calcularTotal();    
         mostrarDatos(reservacion);
     }
 
     private void mostrarDatos(Reservacion reservacion){
         // EXTRAER LOS DATOS DEL USUARIO DE LA RESERVACIÓN-------------
-        
         txtNombre.setText(reservacion.getCuenta().getUsuario().getNombre());
         txtApellido.setText(reservacion.getCuenta().getUsuario().getApellido());
         int numeroDeAsientos = 0;
-        for (Asiento asiento : reservacion.getListaDeAsientos()){
+        for (Asiento asiento : reservacion.getListaDeAsientos().getAsientos()){
             if (asiento!=null){
                 numeroDeAsientos++;
             }
@@ -92,7 +86,11 @@ public class JFFactura extends javax.swing.JFrame {
 
         lblCorreo.setText("Correo");
 
+        txtValorIva.setEditable(false);
+
         lblAsientos.setText("Asientos");
+
+        txtValorTotal.setEditable(false);
 
         lblValorServicio.setText("Valor Servicio");
 
@@ -108,16 +106,27 @@ public class JFFactura extends javax.swing.JFrame {
 
         lblValorTotal.setText("Total");
 
+        txtNombre.setEditable(false);
+
+        txtApellido.setEditable(false);
+
         lblFactura.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblFactura.setText("Factura");
 
+        txtCodUnico.setEditable(false);
+
         lblNombre.setText("Nombre");
+
+        txtCorreo.setEditable(false);
 
         lblApellido.setText("Apellido");
 
+        txtAsientos.setEditable(false);
         txtAsientos.setToolTipText("");
 
         lblCodUnico.setText("Código Unico");
+
+        txtValorServicio.setEditable(false);
 
         javax.swing.GroupLayout pnlFacturaLayout = new javax.swing.GroupLayout(pnlFactura);
         pnlFactura.setLayout(pnlFacturaLayout);
@@ -220,67 +229,11 @@ public class JFFactura extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
-        
-        
-        
         JFPasajero jFPasajero = new JFPasajero(pasajero);
-        
         jFPasajero.setVisible(true);
     }//GEN-LAST:event_btnContinuarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFFactura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFFactura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFFactura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFFactura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /**
-         * ******************Borrar*********************+
-         */
-        Usuario nuevoUsuario = new Usuario("Luis", "Narvaez", "0985381267", 201821107);
-        Vehiculo vehiculo = new Vehiculo("PCM1478", "Kia rio", "negro", 2018, 5);
-        Conductor cuentaConductor = null;
-        if (vehiculo.validarAño()) {
-            cuentaConductor = new Conductor("luis.narvaez@epn.edu.ec", "963mv",
-                    nuevoUsuario, vehiculo);
-        }
-        Viaje nuevoViaje = new Viaje("Quito", "Santa Rosa",
-                cuentaConductor.obtenerCantidadAsientos(), 0.625, cuentaConductor, new Fecha("2023-03-06 17:05:28"));
-        cuentaConductor.crearViaje(nuevoViaje);
-
-        Usuario nuevoUsuarioPasajero = new Usuario("O", "J", "0983973634", 202114325);
-        Pasajero cuentaPasajero = new Pasajero("martha.ruiz@epn.edu.ec", "1234", nuevoUsuarioPasajero);
-
-        Reservacion reservacion = new Reservacion(nuevoViaje, cuentaPasajero, 4);
-        
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            //new JFFactura(reservacion,pasajero).setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnContinuar;

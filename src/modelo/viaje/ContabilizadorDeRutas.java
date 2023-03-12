@@ -27,7 +27,7 @@ public class ContabilizadorDeRutas {
     public String[][] mostrarRutasRepetidas() {//String partida, String destino
         for (int i = 0; i < viajes.length; i++) {
             if (viajes[i] != null) {
-                rutas[i] = viajes[i].ubicacionPartida + "-" + viajes[i].ubicacionDestino;
+                rutas[i] = viajes[i].getUbicacionPartida() + "-" + viajes[i].getUbicacionDestino();
             }
         }
 
@@ -35,9 +35,9 @@ public class ContabilizadorDeRutas {
         for (int i = 0; i < viajes.length; i++) {
             if (viajes[i] != null) {
                 //System.out.println("Partida: " + viajes[i].ubicacionPartida + " Destino: " + viajes[i].ubicacionDestino + " Frecuencia " + getRutasRepetidas(viajes[i].ubicacionPartida,viajes[i].ubicacionDestino));
-                arreglo[i][0] = viajes[i].ubicacionPartida;
-                arreglo[i][1] = viajes[i].ubicacionDestino;
-                arreglo[i][2] = String.valueOf(getRutasRepetidas(viajes[i].ubicacionPartida, viajes[i].ubicacionDestino));
+                arreglo[i][0] = viajes[i].getUbicacionPartida();
+                arreglo[i][1] = viajes[i].getUbicacionDestino();
+                arreglo[i][2] = String.valueOf(getRutasRepetidas(viajes[i].getUbicacionPartida(), viajes[i].getUbicacionDestino()));
             }
         }
 
