@@ -24,7 +24,6 @@ public class JFCreditos extends javax.swing.JFrame {
     Pasajero pasajero;
     SqlPago s;
     JFPasajero jfp;
-    SqlCuenta sc;
     
     /**
      * Creates new form JFCreditos
@@ -36,8 +35,7 @@ public class JFCreditos extends javax.swing.JFrame {
         s = new SqlPago();
         this.creditos = pasajero.getCreditos();
         this.pasajero = pasajero;
-        sc = new SqlCuenta();
-        txtSaldoDisponible.setText(sc.obtenerCreditos(pasajero.getCorreo())+"");
+        txtSaldoDisponible.setText(s.obtenerCreditos(pasajero.getCorreo())+"");
     }
 
     /**

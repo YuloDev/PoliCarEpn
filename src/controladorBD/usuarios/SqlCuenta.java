@@ -101,21 +101,4 @@ public class SqlCuenta extends controladorBD.conexion.ConexionMySQL {
             return null;
         }
     }
-
-    public Float obtenerCreditos(String correo){
-        com.mysql.jdbc.PreparedStatement ps = null;
-        ResultSet rs = null;
-        java.sql.Connection con = conectar();
-
-        String sql = "SELECT CREDITOS FROM CUENTA WHERE CORREO = '" + correo + "';";
-        try {
-            ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            rs.next();
-            System.out.println(rs.getFloat(1));
-            return rs.getFloat(1);
-        } catch (SQLException e) {
-            return 0.0f;
-        }
-    }
 }
