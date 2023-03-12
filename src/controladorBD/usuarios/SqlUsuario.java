@@ -47,7 +47,7 @@ public class SqlUsuario extends controladorBD.conexion.ConexionMySQL {
         PreparedStatement ps = null;
         Connection con = conectar();
 
-        String sql = "INSERT INTO cuenta (codigounico, correo, contrasenia, tipocuenta, creditos) VALUES (?,?,?,?);";
+        String sql = "INSERT INTO cuenta (codigounico, correo, contrasenia, tipocuenta, creditos) VALUES (?,?,?,?,?);";
 
         try {
             ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);

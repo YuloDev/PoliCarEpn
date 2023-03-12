@@ -37,6 +37,13 @@ public class JFRegistro extends javax.swing.JFrame {
     public JFRegistro() {
         initComponents();
         setLocationRelativeTo(null);
+        this.cmbTipoCuenta.setEnabled(false);
+        this.btnRegistrar.setEnabled(false);
+        this.txtCodigoUnico.setEnabled(false);
+        this.txtTelefono.setEnabled(false);
+        this.txtCorreo.setEnabled(false);
+        this.psswdContraseniaR.setEnabled(false);
+
 
     }
 
@@ -98,12 +105,22 @@ public class JFRegistro extends javax.swing.JFrame {
 
         lblTelefono.setText("Teléfono");
 
+        txtCodigoUnico.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCodigoUnicoFocusLost(evt);
+            }
+        });
         txtCodigoUnico.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCodigoUnicoKeyTyped(evt);
             }
         });
 
+        txtTelefono.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTelefonoFocusLost(evt);
+            }
+        });
         txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtTelefonoKeyTyped(evt);
@@ -284,7 +301,7 @@ public class JFRegistro extends javax.swing.JFrame {
         // TODO add your handling code here:
         RestriccionDominio restriccionDominio = new RestriccionDominio();
         if (restriccionDominio.validarDominio(txtCorreo.getText()) == true) {
-
+            this.psswdContraseniaR.setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(rootPane, "El correo ingresado no es valido, debe tener el formato: nombre.apellido@epn.edu.ec");
             txtCorreo.requestFocus();
@@ -311,6 +328,7 @@ public class JFRegistro extends javax.swing.JFrame {
             evt.consume();
             JOptionPane.showMessageDialog(rootPane, "Solo se permiten letras");
         }
+        txtCodigoUnico.setEnabled(true);
         habilitarRegistro();    
     }//GEN-LAST:event_txtApellidoKeyTyped
 
@@ -322,10 +340,12 @@ public class JFRegistro extends javax.swing.JFrame {
             evt.consume();
             JOptionPane.showMessageDialog(rootPane, "Solo se permiten números con una longitud de nueve dígitos");
         }
-        if(txtCodigoUnico.getText().length()>=9){
+        if(txtCodigoUnico.getText().length()==9){
                 evt.consume();
                 getToolkit().beep();
-        }
+                this.txtTelefono.setEnabled(true);
+        }        
+
         habilitarRegistro();    
     }//GEN-LAST:event_txtCodigoUnicoKeyTyped
 
@@ -337,10 +357,11 @@ public class JFRegistro extends javax.swing.JFrame {
             evt.consume();
             JOptionPane.showMessageDialog(rootPane, "Solo se permiten Numeros");
         }
-        if(txtTelefono.getText().length()>=10){
-                evt.consume();
-                getToolkit().beep();
-        }
+        if(txtTelefono.getText().length()==10){
+            evt.consume();
+            getToolkit().beep();
+            this.txtCorreo.setEnabled(true);
+        }        
         habilitarRegistro();    
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
@@ -360,8 +381,17 @@ public class JFRegistro extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Elija un tipo de cuenta");
         }
-        habilitarRegistro();    
+        habilitarRegistro(); 
+        btnRegistrar.setVisible(true);
     }//GEN-LAST:event_cmbTipoCuentaActionPerformed
+
+    private void txtCodigoUnicoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoUnicoFocusLost
+          
+    }//GEN-LAST:event_txtCodigoUnicoFocusLost
+
+    private void txtTelefonoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefonoFocusLost
+
+    }//GEN-LAST:event_txtTelefonoFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

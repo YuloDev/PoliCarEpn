@@ -37,6 +37,7 @@ public class JFVehiculo extends javax.swing.JFrame {
 
         initComponents();
         setLocationRelativeTo(null);
+        this.btnRegistrarVehiculo.setEnabled(false);
 
     }
 
@@ -76,6 +77,12 @@ public class JFVehiculo extends javax.swing.JFrame {
         txtAnio.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtAnioFocusLost(evt);
+            }
+        });
+
+        txtNumeroAsientos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumeroAsientosKeyTyped(evt);
             }
         });
 
@@ -144,6 +151,15 @@ public class JFVehiculo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void habilitarRegistro(){
+        if(!txtPlaca.getText().isEmpty() && !txtModelo.getText().isEmpty()
+                && !txtColor.getText().isEmpty() 
+                && !txtAnio.getText().isEmpty() 
+                && !txtNumeroAsientos.getText().isEmpty()){
+            btnRegistrarVehiculo.setEnabled(true);
+        }
+    }
+    
 
     private void btnRegistrarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVehiculoActionPerformed
         placa = txtPlaca.getText();
@@ -205,6 +221,25 @@ public class JFVehiculo extends javax.swing.JFrame {
             txtAnio.requestFocus();
         }
     }//GEN-LAST:event_txtAnioFocusLost
+
+    private void txtNumeroAsientosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroAsientosKeyTyped
+          
+        /*
+        char validacion1=evt.getKeyChar();
+        if(Character.isLetter(validacion1)){
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "Solo se permiten Numeros");
+        }     
+        
+        if(Integer.parseInt(txtNumeroAsientos.getText())<=0){
+            JOptionPane.showMessageDialog(null, "Solo se puede ingresar enteros positivos");
+        }else{
+            habilitarRegistro();
+        }
+        */
+        
+    }//GEN-LAST:event_txtNumeroAsientosKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrarVehiculo;
