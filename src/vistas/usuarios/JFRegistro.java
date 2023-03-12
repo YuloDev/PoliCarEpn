@@ -76,6 +76,18 @@ public class JFRegistro extends javax.swing.JFrame {
 
         lblContrasenia.setText("Contraseña");
 
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
+
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
+            }
+        });
+
         txtCorreo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCorreoFocusLost(evt);
@@ -86,8 +98,25 @@ public class JFRegistro extends javax.swing.JFrame {
 
         lblTelefono.setText("Teléfono");
 
+        txtCodigoUnico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoUnicoKeyTyped(evt);
+            }
+        });
+
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
+
         cmbTipoCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pasajero", "Conductor" }));
         cmbTipoCuenta.setSelectedIndex(-1);
+        cmbTipoCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoCuentaActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Tipo de cuenta");
 
@@ -101,6 +130,11 @@ public class JFRegistro extends javax.swing.JFrame {
         psswdContraseniaR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 psswdContraseniaRActionPerformed(evt);
+            }
+        });
+        psswdContraseniaR.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                psswdContraseniaRKeyTyped(evt);
             }
         });
 
@@ -187,7 +221,15 @@ public class JFRegistro extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public void habilitarRegistro(){
+        if(!txtNombre.getText().isEmpty() && !txtApellido.getText().isEmpty()
+                && !txtTelefono.getText().isEmpty() 
+                && !txtCorreo.getText().isEmpty() 
+                && !psswdContraseniaR.getText().isEmpty()&& !txtCodigoUnico.getText().isEmpty()){
+            cmbTipoCuenta.setEnabled(true);
+        }
+    }
+    
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
@@ -249,6 +291,77 @@ public class JFRegistro extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_txtCorreoFocusLost
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        // TODO add your handling code here:
+        char validacion1 = evt.getKeyChar();
+        if(Character.isDigit(validacion1)){
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "Solo se permiten letras");
+        }
+        habilitarRegistro();    
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        // TODO add your handling code here:
+        char validacion1 = evt.getKeyChar();
+        if(Character.isDigit(validacion1)){
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "Solo se permiten letras");
+        }
+        habilitarRegistro();    
+    }//GEN-LAST:event_txtApellidoKeyTyped
+
+    private void txtCodigoUnicoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoUnicoKeyTyped
+        // TODO add your handling code here:
+             char validacion1 = evt.getKeyChar();
+        if(Character.isLetter(validacion1)){
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "Solo se permiten números con una longitud de nueve dígitos");
+        }
+        if(txtCodigoUnico.getText().length()>=9){
+                evt.consume();
+                getToolkit().beep();
+        }
+        habilitarRegistro();    
+    }//GEN-LAST:event_txtCodigoUnicoKeyTyped
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        // TODO add your handling code here:
+            char validacion1=evt.getKeyChar();
+        if(Character.isLetter(validacion1)){
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "Solo se permiten Numeros");
+        }
+        if(txtTelefono.getText().length()>=10){
+                evt.consume();
+                getToolkit().beep();
+        }
+        habilitarRegistro();    
+    }//GEN-LAST:event_txtTelefonoKeyTyped
+
+    private void psswdContraseniaRKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_psswdContraseniaRKeyTyped
+        // TODO add your handling code here:
+        habilitarRegistro();
+    }//GEN-LAST:event_psswdContraseniaRKeyTyped
+
+    private void cmbTipoCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoCuentaActionPerformed
+        // TODO add your handling code here:
+            String tipoEmpleado = cmbTipoCuenta.getSelectedItem().toString();
+        if ("Conductor".equals(tipoEmpleado)) {
+            cmbTipoCuenta.setEnabled(false);
+            btnRegistrar.setEnabled(true);
+        } else if ("Pasajero".equals(tipoEmpleado)) {
+            btnRegistrar.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Elija un tipo de cuenta");
+        }
+        habilitarRegistro();    
+    }//GEN-LAST:event_cmbTipoCuentaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
