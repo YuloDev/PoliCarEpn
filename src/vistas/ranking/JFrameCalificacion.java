@@ -55,13 +55,14 @@ public class JFrameCalificacion extends javax.swing.JFrame {
         jButtonCalificacionExperiencia = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaCalificacionExperiencia = new javax.swing.JTextArea();
+        jComboBoxTipo = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
         PanelAgradecimiento = new javax.swing.JPanel();
         jLabelAgradecimiento = new javax.swing.JLabel();
         jLabelAgradecimiento1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         PanelCalificacionConductor.setBackground(new java.awt.Color(255, 255, 255));
         PanelCalificacionConductor.setForeground(new java.awt.Color(255, 255, 255));
@@ -195,14 +196,24 @@ public class JFrameCalificacion extends javax.swing.JFrame {
         jTextAreaCalificacionExperiencia.setForeground(new java.awt.Color(43, 63, 94));
         jTextAreaCalificacionExperiencia.setLineWrap(true);
         jTextAreaCalificacionExperiencia.setRows(5);
-        jTextAreaCalificacionExperiencia.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingrese sus comentarios!", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(43, 63, 94))); // NOI18N
+        jTextAreaCalificacionExperiencia.setText("Ingrese su comentario!");
+        jTextAreaCalificacionExperiencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(43, 63, 94)));
         jScrollPane1.setViewportView(jTextAreaCalificacionExperiencia);
+
+        jComboBoxTipo.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBoxTipo.setForeground(new java.awt.Color(43, 63, 94));
+        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bueno", "Malo" }));
+        jComboBoxTipo.setBorder(null);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(43, 63, 94));
+        jLabel1.setText("¿Cómo la definiría?");
 
         javax.swing.GroupLayout PanelCalificacionExperienciaLayout = new javax.swing.GroupLayout(PanelCalificacionExperiencia);
         PanelCalificacionExperiencia.setLayout(PanelCalificacionExperienciaLayout);
         PanelCalificacionExperienciaLayout.setHorizontalGroup(
             PanelCalificacionExperienciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCalificacionExperienciaLayout.createSequentialGroup()
+            .addGroup(PanelCalificacionExperienciaLayout.createSequentialGroup()
                 .addContainerGap(239, Short.MAX_VALUE)
                 .addGroup(PanelCalificacionExperienciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCalificacionExperienciaLayout.createSequentialGroup()
@@ -212,9 +223,13 @@ public class JFrameCalificacion extends javax.swing.JFrame {
                         .addComponent(jComboBoxCalificacionExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(263, 263, 263))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCalificacionExperienciaLayout.createSequentialGroup()
-                        .addGroup(PanelCalificacionExperienciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(PanelCalificacionExperienciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelCalificacionExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabelCalificacionExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PanelCalificacionExperienciaLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(224, 224, 224))))
         );
         PanelCalificacionExperienciaLayout.setVerticalGroup(
@@ -225,8 +240,12 @@ public class JFrameCalificacion extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addComponent(jComboBoxCalificacionExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addGroup(PanelCalificacionExperienciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(jButtonCalificacionExperiencia)
                 .addGap(85, 85, 85))
         );
@@ -317,7 +336,7 @@ public class JFrameCalificacion extends javax.swing.JFrame {
 
         CalificacionExperiencia cE = new CalificacionExperiencia(this.calificacion.getViaje());
         cE.ingresar(jComboBoxCalificacionExperiencia.getSelectedIndex()+1);
-        cE.agregarComentario(jTextAreaCalificacionExperiencia.getText());
+        cE.agregarComentario(jTextAreaCalificacionExperiencia.getText(), String.valueOf(jComboBoxTipo.getSelectedItem()));
         SqlCalificacion sqlCalificacion = new SqlCalificacion(cE);
         sqlCalificacion.ingresarCalificacion(2);
         new SqlComentario().registrarComentario(cE.getComentario());
@@ -372,6 +391,8 @@ public class JFrameCalificacion extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxCalificacionConductor;
     private javax.swing.JComboBox<String> jComboBoxCalificacionExperiencia;
     private javax.swing.JComboBox<String> jComboBoxCalificacionVehiculo;
+    private javax.swing.JComboBox<String> jComboBoxTipo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelAgradecimiento;
     private javax.swing.JLabel jLabelAgradecimiento1;
     private javax.swing.JLabel jLabelCalificacionConductor;
