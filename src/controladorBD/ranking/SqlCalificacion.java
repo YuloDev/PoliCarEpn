@@ -14,11 +14,8 @@ import modelo.ranking.CalificacionConductor;
 import modelo.ranking.CalificacionExperiencia;
 import modelo.ranking.CalificacionVehiculo;
 import modelo.ranking.Evaluacion;
-import modelo.usuarios.Conductor;
+import modelo.reservacion.Reservacion;
 import modelo.usuarios.Cuenta;
-import modelo.usuarios.Pasajero;
-import modelo.usuarios.Usuario;
-import modelo.usuarios.Vehiculo;
 import modelo.viaje.Viaje;
 
 public class SqlCalificacion {
@@ -40,6 +37,43 @@ public class SqlCalificacion {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public void actualizarEstadoCalificacion(Reservacion reservacion) {
+        PreparedStatement ps = null;
+        Connection con = new ConexionMySQL().conectar();
+        String sql = "update reservacion set evaluado = 1 where idviaje = ? and idcuenta = (select idcuenta from cuenta where codigounico = ?);";
+        try {
+            ps = (PreparedStatement) con.prepareStatement(sql);
+            ps.setInt(1, obtenerIDViaje(new Calificacion(reservacion.getViaje())));
+            ps.setInt(2, reservacion.getCuenta().getUsuario().getCodUnico());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean existeCalificacion(Reservacion reservacion) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = new ConexionMySQL().conectar();
+        String sql = "select evaluado from reservacion where idviaje = ? and idcuenta = (select idcuenta from cuenta where codigounico = ?);";
+        try {
+            ps = (PreparedStatement) con.prepareStatement(sql);
+            ps.setInt(1, obtenerIDViaje(new Calificacion(reservacion.getViaje())));
+            ps.setInt(2, reservacion.getCuenta().getUsuario().getCodUnico());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                if (rs.getInt("evaluado") == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public Evaluacion seleccionarCalificacion(int codigoUnico) {

@@ -96,6 +96,11 @@ public class JFLogin extends javax.swing.JFrame {
         jLabel1.setText("Tipo de cuenta");
 
         cmbTipoCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pasajero", "Conductor" }));
+        cmbTipoCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoCuentaActionPerformed(evt);
+            }
+        });
 
         jButtonRegistrarse.setText("Registrate");
         jButtonRegistrarse.addActionListener(new java.awt.event.ActionListener() {
@@ -198,7 +203,7 @@ public class JFLogin extends javax.swing.JFrame {
                     bandera=true;
                     break;
                 } else {
-                    JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
+                    //JOptionPane.showMessageDialog(null, "Credenciales incorrectas1", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
             }
@@ -214,6 +219,10 @@ public class JFLogin extends javax.swing.JFrame {
         JFRegistro jfregistro = new JFRegistro();
         jfregistro.setVisible(true);
     }//GEN-LAST:event_jButtonRegistrarseActionPerformed
+
+    private void cmbTipoCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoCuentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbTipoCuentaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIniciarSesion;

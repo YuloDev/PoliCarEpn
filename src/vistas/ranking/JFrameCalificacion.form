@@ -403,12 +403,6 @@
         </Container>
         <Component class="javax.swing.JComboBox" name="jComboBoxTipo">
           <Properties>
-<<<<<<< HEAD
-=======
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
->>>>>>> origin/master
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="5e" green="3f" red="2b" type="rgb"/>
             </Property>

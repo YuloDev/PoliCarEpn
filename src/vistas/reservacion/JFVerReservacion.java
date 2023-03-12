@@ -4,11 +4,13 @@
  */
 package vistas.reservacion;
 
+import controladorBD.ranking.SqlCalificacion;
 import controladorBD.reservacion.SqlReservacion;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.ranking.Calificacion;
 import modelo.reservacion.Reservacion;
 import modelo.usuarios.Pasajero;
@@ -284,10 +286,13 @@ public class JFVerReservacion extends javax.swing.JFrame {
 
     private void btnCalificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalificarActionPerformed
         //TODO add your handling code here:
-        //this.setVisible(false);
-        //Sentencia para mostrar el panel de calificacion
-        new JFrameCalificacion(this.reservacionSeleccionada.getViaje()).setVisible(true);
-        
+        SqlCalificacion sqlCalificacion = new SqlCalificacion();
+        if (!sqlCalificacion.existeCalificacion(reservacionSeleccionada)) {
+            new JFrameCalificacion(this.reservacionSeleccionada.getViaje()).setVisible(true);
+            sqlCalificacion.actualizarEstadoCalificacion(reservacionSeleccionada);
+        }else{
+            JOptionPane.showMessageDialog(this, "Este viaje ya ha sido calificado!");
+        } 
     }//GEN-LAST:event_btnCalificarActionPerformed
 
     private void txtNombreConductorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreConductorMouseClicked
