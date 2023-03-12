@@ -4,6 +4,12 @@
  */
 package vistas.viaje;
 
+import javax.swing.table.DefaultTableModel;
+import vistas.usuarios.JFConductor;
+import modelo.usuarios.Conductor;
+import modelo.viaje.ListaViaje;
+import modelo.viaje.ContabilizadorDeRutas;
+
 /**
  *
  * @author stalinnarvaezmolina
@@ -13,8 +19,78 @@ public class JFContabilizadorRutas extends javax.swing.JFrame {
     /**
      * Creates new form JFContabilizadorRutas
      */
-    public JFContabilizadorRutas() {
+    public String[][] arreglo = new String[20][3];
+    Conductor conductor;
+    ListaViaje listaViaje;
+
+    public JFContabilizadorRutas(Conductor conducor) {//Conductor conductor,ListaViaje listaViaje
         initComponents();
+
+        this.conductor = conductor;
+
+        listaViaje = conductor.getListaViaje();
+
+        ContabilizadorDeRutas contabilizadorDeRutas = new ContabilizadorDeRutas(listaViaje);
+
+        arreglo = contabilizadorDeRutas.mostrarRutasRepetidas();
+
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Partida");
+        model.addColumn("Destino");
+        model.addColumn("Frecuencia");
+
+        tblFrecuenciaRutas.setModel(model);
+
+        String[] fila = new String[3];
+        for (int i = 0; i < arreglo.length; i++) {
+
+            if (arreglo[i][0] != null && arreglo[i][1] != null && arreglo[i][2] != null) {
+
+                fila[0] = arreglo[i][0]; fila[1] = arreglo[i][1]; fila[2] = arreglo[i][2];
+
+                model.addRow(fila);
+            }
+
+        }
+
+    }
+
+    public JFContabilizadorRutas() {//este solo esta para probar nada mas ojo solo son para pruebas
+        initComponents();
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Partida");
+        model.addColumn("Destino");
+        model.addColumn("Frecuencia");
+
+        arreglo[0][0] = "epn";
+        arreglo[0][1] = "guayllabamba";
+        arreglo[0][2] = "10";
+        arreglo[1][0] = "Valle";
+        arreglo[1][1] = "Portal";
+        arreglo[1][2] = "5";
+        arreglo[2][0] = "Foch";
+        arreglo[2][1] = "Rio Coca";
+        arreglo[2][2] = "8";
+        arreglo[3][0] = "Santa Clara";
+        arreglo[3][1] = "Floresta";
+        arreglo[3][2] = "20";
+        arreglo[4][0] = "Quicentro norte";
+        arreglo[4][1] = "Plaza Toros";
+        arreglo[4][2] = "18";
+
+        tblFrecuenciaRutas.setModel(model);
+        String[] fila = new String[3];
+        for (int i = 0; i < arreglo.length; i++) {
+
+            if (arreglo[i][0] != null && arreglo[i][1] != null && arreglo[i][2] != null) {
+
+                fila[0] = arreglo[i][0]; fila[1] = arreglo[i][1]; fila[2] = arreglo[i][2];
+
+                model.addRow(fila);
+            }
+
+        }
+
     }
 
     /**
@@ -40,6 +116,11 @@ public class JFContabilizadorRutas extends javax.swing.JFrame {
         lblTextInfo.setText("Acontinuacion se muestra las rutas realizadas y con que frecuencia se las ha realziado");
 
         btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         tblFrecuenciaRutas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -102,6 +183,19 @@ public class JFContabilizadorRutas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+
+        // TODO add your handling code here:
+        setVisible(false);
+
+        JFConductor jFConductor = new JFConductor(conductor);
+
+        jFConductor.setVisible(true);
+
+
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -132,9 +226,10 @@ public class JFContabilizadorRutas extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFContabilizadorRutas().setVisible(true);
+                new JFContabilizadorRutas().setVisible(true); //este se debe comentar si ya no se vana a hacer pruebas individuales
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
