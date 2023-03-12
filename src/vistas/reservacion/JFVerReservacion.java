@@ -4,19 +4,15 @@
  */
 package vistas.reservacion;
 
+import controladorBD.reservacion.SqlReservacion;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import modelo.externo.Fecha;
 import modelo.ranking.Calificacion;
 import modelo.reservacion.Reservacion;
-import modelo.usuarios.Conductor;
 import modelo.usuarios.Pasajero;
-import modelo.usuarios.Usuario;
-import modelo.usuarios.Vehiculo;
 import modelo.viaje.Asiento;
-import modelo.viaje.Viaje;
 import vistas.pago.JFPagoTransferencia;
 import vistas.ranking.JFrameCalificacion;
 import vistas.ranking.JFrameRanking;
@@ -28,6 +24,7 @@ import vistas.ranking.JFrameRanking;
 public class JFVerReservacion extends javax.swing.JFrame {
 
     private Reservacion reservacionSeleccionada;
+    private SqlReservacion sqlReservacion = new SqlReservacion();
 
     /**
      * Creates new form jfmVerResrvacion
@@ -42,8 +39,10 @@ public class JFVerReservacion extends javax.swing.JFrame {
         this.reservacionSeleccionada = reservacion;
         llenarDatos();
         
-        
-        //TODO set_Visible false para pagar su ya esta pagado o si es en efectivo
+        btnPagar.setEnabled(false);
+        if (sqlReservacion.verificarPagoTransferenciaNoRealizado(reservacion)){
+            btnPagar.setEnabled(true);
+        }
     }
 
     private void llenarDatos() {
@@ -265,19 +264,14 @@ public class JFVerReservacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
-        //Sentencia para mostrar el panel anterior
-        
         JFListaReservacionPasajero jFListaReservacionPasajero = new JFListaReservacionPasajero( (Pasajero) reservacionSeleccionada.getCuenta());
-        
         jFListaReservacionPasajero.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        //Sentencia para mostrar el panel de pago
         
         JFPagoTransferencia jFPagoTransferencia = null;
         try {
@@ -285,7 +279,6 @@ public class JFVerReservacion extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(JFVerReservacion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         jFPagoTransferencia.setVisible(true);
     }//GEN-LAST:event_btnPagarActionPerformed
 
@@ -301,38 +294,6 @@ public class JFVerReservacion extends javax.swing.JFrame {
         // TODO add your handling code here:
         new JFrameRanking(new Calificacion(this.reservacionSeleccionada.getViaje())).setVisible(true);
     }//GEN-LAST:event_txtNombreConductorMouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFVerReservacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFVerReservacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFVerReservacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFVerReservacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalificar;

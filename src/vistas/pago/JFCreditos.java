@@ -58,7 +58,6 @@ public class JFCreditos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(767, 575));
 
         btnRecargar.setText("Recargar");
         btnRecargar.addActionListener(new java.awt.event.ActionListener() {
@@ -157,7 +156,7 @@ public class JFCreditos extends javax.swing.JFrame {
         if(valor >= 1 ){
             try {
                 valor = creditos.recargarSaldo(valor);
-                s.creditos(valor,pasajero.getCorreo());
+                s.actualizarCreditos(valor,pasajero.getCorreo());
                 txtSaldoDisponible.setText(valor+"");
                 txtValorRecargar.setText(null);
                 jfp = new JFPasajero(pasajero);
@@ -176,35 +175,6 @@ public class JFCreditos extends javax.swing.JFrame {
         this.setVisible(false);
         jfp.setVisible(true);
     }//GEN-LAST:event_btnRegresarCActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFCreditos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFCreditos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFCreditos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFCreditos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRecargar;

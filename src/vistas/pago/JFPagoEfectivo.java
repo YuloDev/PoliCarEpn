@@ -26,26 +26,27 @@ import vistas.viaje.JFListaViajesDeConductor;
  * @author Kevin
  */
 public class JFPagoEfectivo extends javax.swing.JFrame {
+
     PagoEfectivo pagoEfectivo;
     Factura factura;
     JFPago jPago;
     static Pasajero pasajero;
-    SqlPago s = new SqlPago();
+    SqlPago sqlPago = new SqlPago();
     Reservacion reservacion;
 
-    public JFPagoEfectivo(Reservacion reservacion){
+    public JFPagoEfectivo(Reservacion reservacion) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.reservacion = reservacion;
-        factura = new Factura(reservacion);
+        this.factura = new Factura(reservacion);
         this.pasajero = (Pasajero) reservacion.getCuenta();
-        pagoEfectivo = new PagoEfectivo(factura,pasajero.getCreditos());
-        jPago = new JFPago(reservacion);
+        this.pagoEfectivo = new PagoEfectivo(factura, pasajero.getCreditos());
+        this.jPago = new JFPago(reservacion);
         this.pasajero = pasajero;
         factura.calcularTotal();
-        txtMontoaCancelar.setText(factura.valorTotal+"");
+        txtMontoaCancelar.setText(factura.valorTotal + "");
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,6 +72,8 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
         lblPagoEfectivo.setText("Pago Efectivo");
 
         lblMontoACancelar.setText("Monto a Cancelar");
+
+        txtMontoaCancelar.setEditable(false);
 
         btnPagoRealizado.setText("Realizado");
         btnPagoRealizado.addActionListener(new java.awt.event.ActionListener() {
@@ -163,11 +166,11 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
 
     private void btnPagoRealizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagoRealizadoActionPerformed
         try {
-            if(pagoEfectivo.realizarPago()){
-                s.registrarFactura(factura);
-                JOptionPane.showMessageDialog(rootPane, "Pago Confirmado","Pago Efectivo",1);
-                // MOSTRAR LISTA DE VIAJES
-                JFListaViajesDeConductor jFListaViajesDeConductor = new JFListaViajesDeConductor((Conductor)reservacion.getViaje().getCuenta());
+            if (pagoEfectivo.realizarPago()) {
+                sqlPago.registrarFactura(factura);
+                sqlPago.cambiarEstadoDePago(factura, 1);
+                JOptionPane.showMessageDialog(rootPane, "Pago Confirmado", "Pago Efectivo", 1);
+                JFListaViajesDeConductor jFListaViajesDeConductor = new JFListaViajesDeConductor((Conductor) reservacion.getViaje().getCuenta());
                 jFListaViajesDeConductor.setVisible(true);
                 this.setVisible(false);
             }
@@ -184,54 +187,14 @@ public class JFPagoEfectivo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarPEActionPerformed
 
     private void btnNoRealizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoRealizadoActionPerformed
-        // TODO add your handling code here:
-        // TODO add your handling code here:
+        if (!pagoEfectivo.isEstaPagado()) {
+            sqlPago.cambiarEstadoDePago(factura, 2);
+            JOptionPane.showMessageDialog(rootPane, "Pago no confirmado", "Pago Efectivo", 2);
+        }
         this.setVisible(false);
         JFListaReservacionesConductor jFListaReservacionesConductor = new JFListaReservacionesConductor(reservacion.getViaje());
         jFListaReservacionesConductor.setVisible(true);
-        if(!pagoEfectivo.isEstaPagado()){
-            try {
-                s.eliminarPago();
-            } catch (SQLException ex) {
-                Logger.getLogger(JFPagoEfectivo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            JOptionPane.showMessageDialog(rootPane, "Pago no confirmado","Pago Efectivo",2);
-        }
-        
     }//GEN-LAST:event_btnNoRealizadoActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFPagoEfectivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFPagoEfectivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFPagoEfectivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFPagoEfectivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            //new JFPagoEfectivo(reservacion).setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNoRealizado;

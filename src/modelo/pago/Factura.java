@@ -38,4 +38,9 @@ public class Factura {
         this.valorTotal = this.valorViaje+this.valorIva+this.valorServicio;
         this.valorTotal = Math.round(this.valorTotal*100.0)/100.0;
     }
+
+    public Reservacion getReservacion() {
+        return reservacion;
+    }
+    
 }

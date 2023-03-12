@@ -14,7 +14,7 @@ import modelo.ranking.CalificacionExperiencia;
 import modelo.ranking.CalificacionVehiculo;
 import modelo.reservacion.Reservacion;
 import modelo.viaje.Viaje;
-import vistas.usuarios.JFInicio;
+import vistas.usuarios.JFLogin;
 
 
 public class PoliCar {
@@ -25,11 +25,9 @@ public class PoliCar {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFInicio().setVisible(true);
+                new JFLogin().setVisible(true);
             }
         });
-        
-        
         
         
         /*

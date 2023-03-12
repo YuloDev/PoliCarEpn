@@ -35,6 +35,7 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
     public JFPagoTransferencia(Reservacion reservacion, Pasajero pasajero) throws SQLException {
         initComponents();
         this.setLocationRelativeTo(null);
+        
         factura = new Factura(reservacion);
         pagoTransferencia = new PagoTransferencia(factura, 20*60*1000, pasajero.getCreditos());
         pagoTransferencia.billetera.setSaldo(sqlPago.obtenerSaldo());
@@ -66,6 +67,8 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
         pnlPagoTransferencia.setBorder(javax.swing.BorderFactory.createTitledBorder("Pago Transferencia"));
 
         lblMontoTotal.setText("Monto Total");
+
+        txtMontoTotal.setEditable(false);
 
         btnRealizarPago.setText("Realizar Pago");
         btnRealizarPago.addActionListener(new java.awt.event.ActionListener() {
@@ -153,7 +156,8 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
                 sqlPago.registrarFactura(factura);
                 sqlPago.insertarSaldo((float)pagoTransferencia.billetera.saldo);
                 valor = creditos.disminuirSaldo(factura.valorTotal);
-                sqlPago.creditos(valor,pasajero.getCorreo());
+                sqlPago.actualizarCreditos(valor,pasajero.getCorreo());
+                sqlPago.cambiarEstadoDePago(factura,1);
             } catch (SQLException ex) {
                 Logger.getLogger(JFPagoTransferencia.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -171,40 +175,6 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
         JFListaReservacionPasajero jFListaReservacionPasajero = new JFListaReservacionPasajero(pasajero);
         jFListaReservacionPasajero.setVisible(true);
     }//GEN-LAST:event_btnRegresarPTActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFPagoTransferencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFPagoTransferencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFPagoTransferencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFPagoTransferencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            //new JFPagoTransferencia(reservacion, pasajero).setVisible(true);
-
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRealizarPago;

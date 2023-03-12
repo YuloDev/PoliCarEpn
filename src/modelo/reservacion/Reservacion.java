@@ -18,37 +18,37 @@ public class Reservacion {
     private Asiento[] listaDeAsientos;
     private double precio;
     private Cuenta cuenta;
+    private RestriccionFechaReservacion restriccion;
 
-    public Reservacion(Viaje viaje, Cuenta cuenta, int numeroAsientos) {
+    public Reservacion(Viaje viaje, Cuenta cuenta, int numeroAsientosRequeridos) {
         this.viaje = viaje;
-        this.listaDeAsientos = new Asiento[10];
-        if (!buscarAsientosDisponibles(viaje, numeroAsientos)) {
+
+        this.restriccion = new RestriccionFechaReservacion(cuenta.getListaReservacion());
+        if (restriccion.verificarRestriccion(this)) {
             return;
         }
-        for (Asiento asiento : listaDeAsientos) {
-            if (asiento!=null){
-                asiento.actualizarEstado();
-            }
-        }
-        this.cuenta = cuenta;
-        calcularPrecioReservacion();
-        calcularPrecioReservacion();
-        viaje.getListaReservacion().añadirReservacion(this);
-    }
 
-    private boolean buscarAsientosDisponibles(Viaje viaje, int numeroAsientos) {
+        this.listaDeAsientos = new Asiento[10];
         Asiento[] asientosDelViaje = viaje.getListaDeAsientos();
-        int i = 0;
+        int numeroAsientosDisponibles = 0;
         for (Asiento asiento : asientosDelViaje) {
             if (asiento.solicitar()) {
                 añadirAsiento(asiento);
-                i++;
+                numeroAsientosDisponibles++;
             }
-            if (i==numeroAsientos){
-                return true;
+            if (numeroAsientosDisponibles == numeroAsientosRequeridos) break;
+        }
+        if (numeroAsientosDisponibles!=numeroAsientosRequeridos) return;
+        
+        for (Asiento asiento : listaDeAsientos) {
+            if (asiento != null) {
+                asiento.actualizarEstado();
             }
         }
-        return false;
+
+        this.cuenta = cuenta;
+        calcularPrecioReservacion();
+        viaje.getListaReservacion().añadirReservacion(this);
     }
 
     public void cancelar() {
@@ -62,7 +62,7 @@ public class Reservacion {
     public void calcularPrecioReservacion() {
         this.precio = 0;
         for (Asiento asiento : listaDeAsientos) {
-            if (asiento!=null){
+            if (asiento != null) {
                 this.precio += asiento.getPrecio();
             }
         }
@@ -70,7 +70,7 @@ public class Reservacion {
 
     public void añadirAsiento(Asiento asiento) {
         for (int i = 0; i < listaDeAsientos.length; i++) {
-            if (listaDeAsientos[i]==null) {
+            if (listaDeAsientos[i] == null) {
                 listaDeAsientos[i] = asiento;
                 return;
             }
@@ -108,6 +108,5 @@ public class Reservacion {
     public String toString() {
         return "Reservacion{" + "viaje=" + viaje + ", listaDeAsientos=" + listaDeAsientos + ", precio=" + precio + ", cuenta=" + cuenta + '}';
     }
-    
-    
+
 }

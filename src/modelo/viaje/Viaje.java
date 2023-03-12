@@ -34,10 +34,6 @@ public class Viaje {
         this.fecha  = fecha;
     }
 
-    public Viaje() {
-
-    }
-
     public void añadirAsiento(Asiento asiento) {
         for (int i = 0; i < listaDeAsientos.length; i++) {
             if (listaDeAsientos[i] == null) {

@@ -45,12 +45,12 @@ public class JFCrearReservación extends javax.swing.JFrame {
     }
 
     private void llenarDatos() {
-        txtUbicaciónPartida.setText(viajeSeleccionado.getUbicacionPartida());
-        txtUbicaciónDestino.setText(viajeSeleccionado.getUbicacionDestino());
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String fechaHora = viajeSeleccionado.getFecha().getFechaYHora().format(formatter);
 
+        txtUbicaciónPartida.setText(viajeSeleccionado.getUbicacionPartida());
+        txtUbicaciónDestino.setText(viajeSeleccionado.getUbicacionDestino());
         txtFecha.setText(fechaHora);
         txtNombreConductor.setText(viajeSeleccionado.getCuenta().getUsuario().getNombre());
         txtApellidoConductor.setText(viajeSeleccionado.getCuenta().getUsuario().getApellido());
@@ -58,7 +58,7 @@ public class JFCrearReservación extends javax.swing.JFrame {
         int numeroAsientos = 0;
         for (Asiento asiento : viajeSeleccionado.getListaDeAsientos()) {
             if (asiento != null) {
-                if (asiento.getEstado() instanceof Libre){
+                if (asiento.getEstado() instanceof Libre) {
                     numeroAsientos++;
                 }
             }
@@ -273,62 +273,21 @@ public class JFCrearReservación extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        // TODO add your handling code here:
-        //System.out.println(cmbNumeroAsientos.getSelectedIndex()+1);
         this.setVisible(false);
         Reservacion reservacion = new Reservacion(viajeSeleccionado, pasajero, cmbNumeroAsientos.getSelectedIndex() + 1);
-        
-        
         JFPago jFPago = new JFPago(reservacion);
-
         jFPago.setVisible(true);
-        
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-         
+
         JFBuscarViaje jFBuscarViaje = new JFBuscarViaje(pasajero);
-        
+
         jFBuscarViaje.setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFCrearReservación.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFCrearReservación.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFCrearReservación.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFCrearReservación.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new JFCrearReservación(nuevoViaje, cuentaPasajero).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
