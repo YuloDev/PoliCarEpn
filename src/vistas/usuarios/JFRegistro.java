@@ -302,6 +302,7 @@ public class JFRegistro extends javax.swing.JFrame {
         RestriccionDominio restriccionDominio = new RestriccionDominio();
         if (restriccionDominio.validarDominio(txtCorreo.getText()) == true) {
             this.psswdContraseniaR.setEnabled(true);
+            this.psswdContraseniaR.requestFocus();
         } else {
             JOptionPane.showMessageDialog(rootPane, "El correo ingresado no es valido, debe tener el formato: nombre.apellido@epn.edu.ec");
             txtCorreo.requestFocus();
@@ -329,6 +330,7 @@ public class JFRegistro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Solo se permiten letras");
         }
         txtCodigoUnico.setEnabled(true);
+        //txtCodigoUnico.requestFocus();
         habilitarRegistro();    
     }//GEN-LAST:event_txtApellidoKeyTyped
 
@@ -344,6 +346,8 @@ public class JFRegistro extends javax.swing.JFrame {
                 evt.consume();
                 getToolkit().beep();
                 this.txtTelefono.setEnabled(true);
+                this.txtTelefono.requestFocus();
+
         }        
 
         habilitarRegistro();    
@@ -361,6 +365,7 @@ public class JFRegistro extends javax.swing.JFrame {
             evt.consume();
             getToolkit().beep();
             this.txtCorreo.setEnabled(true);
+            this.txtCorreo.requestFocus();
         }        
         habilitarRegistro();    
     }//GEN-LAST:event_txtTelefonoKeyTyped

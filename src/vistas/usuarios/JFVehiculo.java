@@ -37,7 +37,7 @@ public class JFVehiculo extends javax.swing.JFrame {
 
         initComponents();
         setLocationRelativeTo(null);
-        this.btnRegistrarVehiculo.setEnabled(false);
+        //this.btnRegistrarVehiculo.setEnabled(false);
 
     }
 
@@ -80,6 +80,21 @@ public class JFVehiculo extends javax.swing.JFrame {
             }
         });
 
+        txtNumeroAsientos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNumeroAsientosFocusLost(evt);
+            }
+        });
+        txtNumeroAsientos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNumeroAsientosMouseClicked(evt);
+            }
+        });
+        txtNumeroAsientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroAsientosActionPerformed(evt);
+            }
+        });
         txtNumeroAsientos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNumeroAsientosKeyTyped(evt);
@@ -87,6 +102,11 @@ public class JFVehiculo extends javax.swing.JFrame {
         });
 
         btnRegistrarVehiculo.setText("Registrar Vehículo");
+        btnRegistrarVehiculo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegistrarVehiculoMouseClicked(evt);
+            }
+        });
         btnRegistrarVehiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarVehiculoActionPerformed(evt);
@@ -102,19 +122,20 @@ public class JFVehiculo extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(185, 185, 185)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lblPlaca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-                                .addComponent(lblColor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(lblAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNumeroAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblPlaca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                                    .addComponent(lblColor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(lblNumeroAsientos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(93, 93, 93)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtPlaca, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                            .addComponent(txtAnio)
+                            .addComponent(txtPlaca)
                             .addComponent(txtModelo)
                             .addComponent(txtColor)
-                            .addComponent(txtAnio)
-                            .addComponent(txtNumeroAsientos)))
+                            .addComponent(txtNumeroAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(275, 275, 275)
                         .addComponent(btnRegistrarVehiculo)))
@@ -143,14 +164,15 @@ public class JFVehiculo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumeroAsientos)
                     .addComponent(txtNumeroAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(117, 117, 117)
+                .addGap(120, 120, 120)
                 .addComponent(btnRegistrarVehiculo)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
     public void habilitarRegistro(){
         if(!txtPlaca.getText().isEmpty() && !txtModelo.getText().isEmpty()
                 && !txtColor.getText().isEmpty() 
@@ -159,7 +181,7 @@ public class JFVehiculo extends javax.swing.JFrame {
             btnRegistrarVehiculo.setEnabled(true);
         }
     }
-    
+    */
 
     private void btnRegistrarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVehiculoActionPerformed
         placa = txtPlaca.getText();
@@ -167,13 +189,22 @@ public class JFVehiculo extends javax.swing.JFrame {
         color = txtColor.getText();
         anio = Integer.parseInt(txtAnio.getText());
         numeroAsientos = Integer.parseInt(txtNumeroAsientos.getText());
-        vehiculo = new Vehiculo(placa, modelo, color, anio, numeroAsientos);
+
+        if(numeroAsientos <= 0){
+            JOptionPane.showMessageDialog(rootPane, "Solo se puede ingresar enteros positivos");
+            txtNumeroAsientos.requestFocus();
+        }else{
+            vehiculo = new Vehiculo(placa, modelo, color, anio, numeroAsientos);
+        
+        
         //JFRegistro jfregistro = new JFRegistro();
         contrasenia = JFRegistro.contrasenia;
 
         correo = JFRegistro.correo;
 
         nuevoUsuario = JFRegistro.nuevoUsuario;
+
+        
 
         SqlVehiculo modSql = new SqlVehiculo();
         try {
@@ -207,13 +238,17 @@ public class JFVehiculo extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No se pudo registrar el vehiculo", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Credenciales incorrectas 2", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en el registro", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        }
+
+
+        
+        
+        
     }//GEN-LAST:event_btnRegistrarVehiculoActionPerformed
 
     private void txtAnioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAnioFocusLost
-
-        Vehiculo vehiculo = new Vehiculo("PCM1478", "Kia rio", "negro", 2018, 5);
         if (vehiculo.validarAño()) {
 
         } else {
@@ -223,23 +258,31 @@ public class JFVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAnioFocusLost
 
     private void txtNumeroAsientosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroAsientosKeyTyped
-          
-        /*
         char validacion1=evt.getKeyChar();
         if(Character.isLetter(validacion1)){
             getToolkit().beep();
             evt.consume();
             JOptionPane.showMessageDialog(rootPane, "Solo se permiten Numeros");
-        }     
-        
-        if(Integer.parseInt(txtNumeroAsientos.getText())<=0){
-            JOptionPane.showMessageDialog(null, "Solo se puede ingresar enteros positivos");
-        }else{
-            habilitarRegistro();
-        }
-        */
-        
+        }       
     }//GEN-LAST:event_txtNumeroAsientosKeyTyped
+
+    private void txtNumeroAsientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNumeroAsientosMouseClicked
+        
+        
+    }//GEN-LAST:event_txtNumeroAsientosMouseClicked
+
+    private void txtNumeroAsientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroAsientosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumeroAsientosActionPerformed
+
+    private void btnRegistrarVehiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarVehiculoMouseClicked
+        
+    }//GEN-LAST:event_btnRegistrarVehiculoMouseClicked
+
+    private void txtNumeroAsientosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumeroAsientosFocusLost
+        
+        
+    }//GEN-LAST:event_txtNumeroAsientosFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrarVehiculo;
