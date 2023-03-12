@@ -15,27 +15,27 @@ public class Factura {
     public double valorTotal;
     public double valorIva;
     public double valorServicio;
-    public double valorViaje;
+    public double valorReservacion;
 
     public Factura(Reservacion reservacion) {
-        this.valorViaje = reservacion.getPrecio();
+        this.valorReservacion = reservacion.getPrecio();
         this.reservacion = reservacion;
     }
     
     private void calcularIva(){
-        this.valorIva = this.valorViaje * 0.12;
+        this.valorIva = this.valorReservacion * 0.12;
         this.valorIva = Math.round(this.valorIva*100.0)/100.0;
     }
     
     private void calcularValorServicio(){
-        this.valorServicio = this.valorViaje*0.1;
+        this.valorServicio = this.valorReservacion*0.1;
         this.valorServicio = Math.round(this.valorServicio*100.0)/100.0;
     }
     
     public void calcularTotal(){
         calcularIva();
         calcularValorServicio();
-        this.valorTotal = this.valorViaje+this.valorIva+this.valorServicio;
+        this.valorTotal = this.valorReservacion+this.valorIva+this.valorServicio;
         this.valorTotal = Math.round(this.valorTotal*100.0)/100.0;
     }
 

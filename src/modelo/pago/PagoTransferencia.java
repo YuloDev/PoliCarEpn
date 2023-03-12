@@ -4,7 +4,6 @@
  */
 package modelo.pago;
 
-import javax.swing.JOptionPane;
 import modelo.pago.*;
 import modelo.reservacion.ControladorTiempoDeReserva;
 
@@ -30,8 +29,6 @@ public class PagoTransferencia extends Pago{
             if (billetera.aumentarSaldo(valorxPagar)){
                 estaPagado = true;
             }
-        }else{
-            JOptionPane.showMessageDialog(null, "Saldo Insuficiente","Pago Transferencia",0);
         }
         return estaPagado;
     }

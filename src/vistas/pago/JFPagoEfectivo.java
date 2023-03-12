@@ -5,19 +5,12 @@
 package vistas.pago;
 
 import controladorBD.pago.SqlPago;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import modelo.externo.Fecha;
 import modelo.pago.Factura;
 import modelo.pago.PagoEfectivo;
 import modelo.reservacion.Reservacion;
 import modelo.usuarios.Conductor;
 import modelo.usuarios.Pasajero;
-import modelo.usuarios.Usuario;
-import modelo.usuarios.Vehiculo;
-import modelo.viaje.Viaje;
 import vistas.reservacion.JFListaReservacionesConductor;
 import vistas.viaje.JFListaViajesDeConductor;
 
@@ -26,7 +19,6 @@ import vistas.viaje.JFListaViajesDeConductor;
  * @author Kevin
  */
 public class JFPagoEfectivo extends javax.swing.JFrame {
-
     PagoEfectivo pagoEfectivo;
     Factura factura;
     JFPago jPago;

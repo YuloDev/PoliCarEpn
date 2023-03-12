@@ -35,7 +35,5 @@ public abstract class Pago {
     public boolean isEstaPagado() {
         return estaPagado;
     }
-    
-    
 
 }

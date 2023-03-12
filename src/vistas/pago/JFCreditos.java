@@ -9,6 +9,7 @@ import controladorBD.usuarios.SqlCuenta;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import modelo.pago.Creditos;
 import modelo.usuarios.Pasajero;
@@ -75,9 +76,16 @@ public class JFCreditos extends javax.swing.JFrame {
 
         lblSaldoDisponible.setText("Créditos Disponible");
 
+        txtSaldoDisponible.setEditable(false);
         txtSaldoDisponible.setFocusable(false);
 
         lblValorRecargar.setText("Valor a recargar");
+
+        txtValorRecargar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtValorRecargarKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -85,23 +93,21 @@ public class JFCreditos extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(176, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblValorRecargar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(175, 175, 175))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblSaldoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(140, 140, 140)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtValorRecargar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSaldoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(176, 176, 176))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(215, 215, 215)
-                .addComponent(btnRecargar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76)
-                .addComponent(btnRegresarC, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(144, 144, 144)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSaldoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtValorRecargar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(207, 207, 207))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnRecargar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSaldoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(76, 76, 76)
+                        .addComponent(btnRegresarC, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(252, 252, 252))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,20 +158,24 @@ public class JFCreditos extends javax.swing.JFrame {
 
     private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed
         // TODO add your handling code here:
-        double valor = Double.parseDouble(txtValorRecargar.getText());
-        if(valor >= 1 ){
-            try {
-                valor = creditos.recargarSaldo(valor);
-                s.actualizarCreditos(valor,pasajero.getCorreo());
-                txtSaldoDisponible.setText(valor+"");
-                txtValorRecargar.setText(null);
-                jfp = new JFPasajero(pasajero);
-            } catch (SQLException ex) {
-                Logger.getLogger(JFCreditos.class.getName()).log(Level.SEVERE, null, ex);            
+        if(txtValorRecargar.getText().equalsIgnoreCase(null)){
+            double valor = Double.parseDouble(txtValorRecargar.getText());
+            if( valor >= 1 && valor <= 50){
+                try {
+                    valor = creditos.recargarSaldo(valor);
+                    s.actualizarCreditos(valor,pasajero.getCorreo());
+                    txtSaldoDisponible.setText(valor+"");
+                    txtValorRecargar.setText(null);
+                    jfp = new JFPasajero(pasajero);
+                } catch (SQLException ex) {
+                    Logger.getLogger(JFCreditos.class.getName()).log(Level.SEVERE, null, ex);            
+                }
+                JOptionPane.showMessageDialog(rootPane, "Creditos recargados con éxito","Créditos",1);    
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "El valor de la recarga debe ser entre $1 y $50","Creditos",0);
             }
-            JOptionPane.showMessageDialog(rootPane, "Creditos recargados con éxito","Créditos",1);
         }else{
-            JOptionPane.showMessageDialog(rootPane, "El valor minimo a recargar es $1","Creditos",0);
+            JOptionPane.showMessageDialog(rootPane, "El valor de la recarga debe ser entre $1 y $50","Creditos",0);
         }
     }//GEN-LAST:event_btnRecargarActionPerformed
 
@@ -175,6 +185,15 @@ public class JFCreditos extends javax.swing.JFrame {
         this.setVisible(false);
         jfp.setVisible(true);
     }//GEN-LAST:event_btnRegresarCActionPerformed
+
+    private void txtValorRecargarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorRecargarKeyTyped
+        // TODO add your handling code here:
+        char character = evt.getKeyChar();
+        String text = txtValorRecargar.getText() + character;
+        if (!Pattern.matches("[0-9]{0,2}(\\.[0-9]*)?", text)) {
+            evt.consume(); 
+        }  
+    }//GEN-LAST:event_txtValorRecargarKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRecargar;

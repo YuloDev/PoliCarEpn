@@ -43,13 +43,14 @@ public class SqlPago extends ConexionMySQL {
         }
     }
 
+    // obtener última Reservación
     public int obtenerUltimaR() {
         String idReservacion;
         PreparedStatement ps = null;
         ResultSet rs = null;
         java.sql.Connection con = conectar();
 
-        String sql = "SELECT IDRESERVACION FROM RESERVACION ORDER BY IDRESERVACION DESC; ";
+        String sql = "SELECT IDRESERVACION FROM RESERVACION ORDER BY IDRESERVACION DESC;";
         try {
             ps = (PreparedStatement) con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -59,7 +60,8 @@ public class SqlPago extends ConexionMySQL {
             return -1;
         }
     }
-
+    
+    // obtener saldo de la billeteraPOLICAR
     public Float obtenerSaldo() {
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -77,6 +79,7 @@ public class SqlPago extends ConexionMySQL {
         }
     }
 
+    // obtener última Factura
     public int obtenerUltimaF() {
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -93,6 +96,7 @@ public class SqlPago extends ConexionMySQL {
         }
     }
 
+        // obtener último Pago
     public int obtenerUltimoP() {
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -109,6 +113,7 @@ public class SqlPago extends ConexionMySQL {
         }
     }
 
+    // insertar saldo en la billeteraPOLICAR
     public boolean insertarSaldo(float saldo) throws SQLException {
         PreparedStatement ps = null;
         Connection con = conectar();
@@ -150,24 +155,25 @@ public class SqlPago extends ConexionMySQL {
         }
     }
 
-    public boolean eliminarPago(Factura factura) throws SQLException {
-        int idPago = obtenerIDPago(factura);
-        PreparedStatement ps = null;
-        Connection con = conectar();
-        String sql = "DELETE FROM PAGO WHERE IDPAGO =" + idPago;
-        try {
-            ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
-            ps = (PreparedStatement) con.prepareStatement(sql);
-            ps.execute();
-            con.close();
-            return true;
-        } catch (SQLException ex) {
-            con.close();
-            System.err.println(ex);
-            return false;
-        }
-    }
+//    public boolean eliminarPago(Factura factura) throws SQLException {
+//        int idPago = obtenerIDPago(factura);
+//        PreparedStatement ps = null;
+//        Connection con = conectar();
+//        String sql = "DELETE FROM PAGO WHERE IDPAGO =" + idPago;
+//        try {
+//            ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(sql);
+//            ps = (PreparedStatement) con.prepareStatement(sql);
+//            ps.execute();
+//            con.close();
+//            return true;
+//        } catch (SQLException ex) {
+//            con.close();
+//            System.err.println(ex);
+//            return false;
+//        }
+//    }
 
+    // Actualizar los créditos del PASAJERO
     public boolean actualizarCreditos(double valor, String correo) throws SQLException {
         PreparedStatement ps = null;
         Connection con = conectar();

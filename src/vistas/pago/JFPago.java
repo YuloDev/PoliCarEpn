@@ -14,7 +14,6 @@ import controladorBD.reservacion.SqlReservacion;
 import modelo.reservacion.Reservacion;
 import modelo.usuarios.Pasajero;
 import vistas.reservacion.JFCrearReservación;
-import vistas.reservacion.JFListaReservacionPasajero;
 import vistas.usuarios.JFPasajero;
 
 /**

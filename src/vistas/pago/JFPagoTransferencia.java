@@ -5,7 +5,6 @@
 package vistas.pago;
 
 import controladorBD.pago.SqlPago;
-import controladorBD.usuarios.SqlCuenta;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +34,6 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
     public JFPagoTransferencia(Reservacion reservacion, Pasajero pasajero) throws SQLException {
         initComponents();
         this.setLocationRelativeTo(null);
-        
         factura = new Factura(reservacion);
         pagoTransferencia = new PagoTransferencia(factura, 20*60*1000, pasajero.getCreditos());
         pagoTransferencia.billetera.setSaldo(sqlPago.obtenerSaldo());
@@ -163,7 +161,7 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
             jfFactura.setVisible(true);
             this.setVisible(false);
         }else{
-            JOptionPane.showMessageDialog(rootPane, "Pago no realizado","Pago Transferencia",0);
+            JOptionPane.showMessageDialog(rootPane, "Pago no realizado, saldo insuficiente","Pago Transferencia",0);
         }
     }//GEN-LAST:event_btnRealizarPagoActionPerformed
 

@@ -13,12 +13,11 @@ public class BilleteraPoliCar {
 
     public BilleteraPoliCar() {
         
-    }
-
+    }   
+    
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
-    
     
     public boolean aumentarSaldo(double valor){
         double saldoActual = this.saldo;
