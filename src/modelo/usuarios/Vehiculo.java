@@ -16,7 +16,6 @@ public class Vehiculo {
     private String color;
     private int año;
     private int numeroAsientos;
-    Viaje[] viajes;
     
     public Vehiculo(String placa, String modelo, String color, int año, int numeroAsientos) {
         this.placa = placa;
