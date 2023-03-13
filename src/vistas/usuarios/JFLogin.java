@@ -205,14 +205,14 @@ public class JFLogin extends javax.swing.JFrame {
                     bandera=true;
                     break;
                 } else {
-                    JOptionPane.showMessageDialog(null, "Credenciales incorrectas1", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
                     bandera = true;
                 }
                 break;
             }
         }
         if (!bandera){
-            JOptionPane.showMessageDialog(null, "NO existe cuenta", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No existe la cuenta", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
