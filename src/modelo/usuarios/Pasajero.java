@@ -7,8 +7,6 @@ import modelo.ranking.Evaluacion;
 import modelo.reservacion.Reservacion;
 
 public class Pasajero extends Cuenta {
-
-    private Creditos creditos;
     
     public Pasajero(String correo, String contraseña, Usuario usuario, double valorInicial) {
         super(correo, contraseña, usuario);
