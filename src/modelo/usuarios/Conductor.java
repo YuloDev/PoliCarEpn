@@ -36,5 +36,4 @@ public class Conductor extends Cuenta {
 
         return usuario.toString() + "\nConductor " + "\n" + vehiculo.mostrarInfo();
     }
-
 }
