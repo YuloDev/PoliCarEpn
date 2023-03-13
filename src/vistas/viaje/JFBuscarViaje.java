@@ -7,6 +7,7 @@ package vistas.viaje;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.reservacion.Reservacion;
 import modelo.usuarios.Pasajero;
@@ -185,7 +186,30 @@ public class JFBuscarViaje extends javax.swing.JFrame {
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
 
         destinoBuscar = txtDestino.getText();
-        precioBuscar = Double.parseDouble(txtPrecioAsiento.getText());
+        String precio = txtPrecioAsiento.getText();
+        String asientos = txtAsientoDisponible.getText();
+
+        String regex = "^[0-9]{1,2}(\\.[0-9]{1,2})?$"; // Expresión regular para validar el formato precio
+        String regex2 = "^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]{1,30}$"; // Expresión regular para validar el formato
+        String regex3 = "^[1-4]$"; // Expresión regular para validar el formato asientos
+        
+        if (destinoBuscar.isEmpty() || !destinoBuscar.matches(regex2)) {
+            JOptionPane.showMessageDialog(null, "El destino debe tener entre 1 y 30 caracteres y contener solo letras y espacios");
+            return;
+        }
+
+        if (!precio.matches(regex)) {
+            JOptionPane.showMessageDialog(null, "El formato del precio debe ser: una o dos dígitos . uno o dos dígitos");
+            return;
+        }
+
+        precioBuscar = Double.parseDouble(precio);
+
+        if (!asientos.matches(regex3)) {
+            JOptionPane.showMessageDialog(null, "La cantidad de asientos debe ser un dígito entre 1 y 4");
+            return;
+        }
+
         asientosBuscar = Integer.parseInt(txtAsientoDisponible.getText());
 
         DefaultTableModel model = new DefaultTableModel();
