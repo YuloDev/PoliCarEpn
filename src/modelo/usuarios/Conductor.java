@@ -26,10 +26,6 @@ public class Conductor extends Cuenta {
             }
         }
     }
-    
-    public int obtenerCantidadAsientos() {
-        return vehiculo.getNumeroAsientos();
-    }
 
     @Override
     public String toString() {
