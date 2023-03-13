@@ -11,6 +11,7 @@ import java.util.Arrays;
 import modelo.reservacion.ListaReservacion;
 
 public class Viaje {
+
     private ListaAsiento listaDeAsientos;
     private ListaReservacion reservaciones;
     private Usuario usuario;
@@ -19,19 +20,24 @@ public class Viaje {
     private Cuenta cuenta;
     private Fecha fecha;
 
-
-
     public Viaje(String ubicacionPartida, String ubicacionDestino, int numAsientos, double precioUnitarioAsiento, Cuenta cuenta, Fecha fecha) {
         listaDeAsientos = new ListaAsiento();
         this.ubicacionPartida = ubicacionPartida;
         this.ubicacionDestino = ubicacionDestino;
         this.cuenta = cuenta;
         this.fecha = fecha;
-        for (int i = 0; i<numAsientos; i++) {
+        iniciarViaje(numAsientos,precioUnitarioAsiento,fecha);
+        this.reservaciones = new ListaReservacion();
+        this.fecha = fecha;
+    }
+
+    public void iniciarViaje(int numAsientos,double precioUnitarioAsiento,Fecha fecha) {
+           for (int i = 0; i < numAsientos; i++) {
             listaDeAsientos.añadirAsiento(new Asiento(precioUnitarioAsiento));
         }
         this.reservaciones = new ListaReservacion();
-        this.fecha  = fecha;
+        this.fecha = fecha;
+
     }
 
     public ListaAsiento getListaDeAsientos() {
@@ -61,14 +67,13 @@ public class Viaje {
     public Fecha getFecha() {
         return fecha;
     }
-   
-    
+
     @Override
     public String toString() {
-        return "Viaje{" +
-                "asientos=" + listaDeAsientos.getAsientos() +
-                ", ubicacionPartida='" + ubicacionPartida + '\'' +
-                ", ubicacionDestino='" + ubicacionDestino + '\'' +
-                '}';
+        return "Viaje{"
+                + "asientos=" + listaDeAsientos.getAsientos()
+                + ", ubicacionPartida='" + ubicacionPartida + '\''
+                + ", ubicacionDestino='" + ubicacionDestino + '\''
+                + '}';
     }
 }
