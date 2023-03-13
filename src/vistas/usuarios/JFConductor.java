@@ -210,7 +210,8 @@ public class JFConductor extends javax.swing.JFrame {
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         setVisible(false);
-
+        
+        conductor.getUsuario().cerrarSesion();
         JFLogin jFLogin = new JFLogin();
         jFLogin.setVisible(true);
     }//GEN-LAST:event_btnCerrarSesionActionPerformed

@@ -21,7 +21,7 @@ public abstract class Cuenta {
     protected ListaViaje listaViaje;
     protected ListaReservacion listaReservacion;
     protected Penalizacion penalizacion;
-    
+
     
     public Cuenta(String correo, String contraseña, Usuario usuario) {
        this.correo = correo;
@@ -76,7 +76,6 @@ public abstract class Cuenta {
             validador = true;
         }else{
             validador = false;
-            //System.out.println("Incorrecto");
         }
         return validador;
     }

@@ -6,6 +6,8 @@ package modelo.usuarios;
 
 import modelo.usuarios.Cuenta;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
+import javax.swing.plaf.RootPaneUI;
 
 public class Usuario {
     protected String nombre;
@@ -20,10 +22,7 @@ public class Usuario {
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
-        this.codUnico = codUnico;
-        //this.correo = correo;
-       // this.contraseña = contraseña;
-        
+        this.codUnico = codUnico;     
     }
 
     public String getNombre() {
@@ -65,8 +64,8 @@ public class Usuario {
     }
     
     
-    public void cerrarSesion(String correo, String contraseña){
-        System.out.println("Adios");
+    public void cerrarSesion(){
+        JOptionPane.showMessageDialog(null, "Adios", "Aviso", JOptionPane.INFORMATION_MESSAGE);
     }
     
     @Override
