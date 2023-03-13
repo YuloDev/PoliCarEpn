@@ -187,7 +187,7 @@ public class JFBuscarViaje extends javax.swing.JFrame {
 
         destinoBuscar = txtDestino.getText();
         String precio = txtPrecioAsiento.getText();
-        String asientos = txtAsientoDisponible.getText();
+        String asientosV = txtAsientoDisponible.getText();
 
         String regex = "^[0-9]{1,2}(\\.[0-9]{1,2})?$"; // Expresión regular para validar el formato precio
         String regex2 = "^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]{1,30}$"; // Expresión regular para validar el formato
@@ -205,7 +205,7 @@ public class JFBuscarViaje extends javax.swing.JFrame {
 
         precioBuscar = Double.parseDouble(precio);
 
-        if (!asientos.matches(regex3)) {
+        if (!asientosV.matches(regex3)) {
             JOptionPane.showMessageDialog(null, "La cantidad de asientos debe ser un dígito entre 1 y 4");
             return;
         }
