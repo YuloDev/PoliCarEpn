@@ -6,6 +6,8 @@ package vistas.usuarios;
 
 import controladorBD.usuarios.SqlUsuario;
 import controladorBD.usuarios.SqlVehiculo;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import modelo.usuarios.Conductor;
 import modelo.usuarios.Cuenta;
@@ -74,9 +76,31 @@ public class JFVehiculo extends javax.swing.JFrame {
 
         lblNumeroAsientos.setText("Número de asientos");
 
+        txtPlaca.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPlacaFocusLost(evt);
+            }
+        });
+        txtPlaca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPlacaKeyTyped(evt);
+            }
+        });
+
+        txtColor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtColorKeyTyped(evt);
+            }
+        });
+
         txtAnio.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtAnioFocusLost(evt);
+            }
+        });
+        txtAnio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnioKeyTyped(evt);
             }
         });
 
@@ -283,6 +307,48 @@ public class JFVehiculo extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_txtNumeroAsientosFocusLost
+
+    private void txtPlacaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPlacaKeyTyped
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtPlacaKeyTyped
+
+    private void txtColorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtColorKeyTyped
+        // TODO add your handling code here:
+        char validacion1 = evt.getKeyChar();
+        if(Character.isDigit(validacion1)){
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "Solo se permiten letras");  
+        }
+    }//GEN-LAST:event_txtColorKeyTyped
+
+    private void txtAnioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnioKeyTyped
+        // TODO add your handling code here:
+        char validacion1=evt.getKeyChar();
+        if(Character.isLetter(validacion1)){
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "Solo se permiten números");
+        }   
+    }//GEN-LAST:event_txtAnioKeyTyped
+    
+    public boolean validarPlaca(String placa){
+        String validarPlaca = "^[A-Z]{3}\\d{3,4}$";
+        Pattern pattern = Pattern.compile(validarPlaca);
+        Matcher matcher = pattern.matcher(placa);
+        return matcher.matches();
+    }
+    private void txtPlacaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlacaFocusLost
+        // TODO add your handling code here:
+        if(validarPlaca(txtPlaca.getText()) == true){
+            this.txtModelo.requestFocus();            
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "La placa ingresada no es válida");
+            txtPlaca.requestFocus();
+        }
+        
+    }//GEN-LAST:event_txtPlacaFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrarVehiculo;
