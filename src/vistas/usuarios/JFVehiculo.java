@@ -264,10 +264,7 @@ public class JFVehiculo extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error en el registro", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        }
-
-
-        
+        }        
         
         
     }//GEN-LAST:event_btnRegistrarVehiculoActionPerformed
