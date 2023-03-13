@@ -265,29 +265,16 @@ public class JFVehiculo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error en el registro", "Error", JOptionPane.ERROR_MESSAGE);
         }
         }
-
-
-        
-        
-        
     }//GEN-LAST:event_btnRegistrarVehiculoActionPerformed
 
     private void txtAnioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAnioFocusLost
-        if(Integer.parseInt(txtAnio.getText())>2008 && Integer.parseInt(txtAnio.getText())<=2023){
-            txtNumeroAsientos.requestFocus();
-        }else{
-            JOptionPane.showMessageDialog(null, "Solo se puede ingresar vehiculos mayores al 2008");
-            txtAnio.requestFocus();
-        
-        }
-        /*
+
         if (vehiculo.validarAño()) {
 
         } else {
             JOptionPane.showMessageDialog(null, "Solo se puede ingresar vehiculos mayores al 2008 en adelante");
             txtAnio.requestFocus();
         }
-        */
     }//GEN-LAST:event_txtAnioFocusLost
 
     private void txtNumeroAsientosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroAsientosKeyTyped
