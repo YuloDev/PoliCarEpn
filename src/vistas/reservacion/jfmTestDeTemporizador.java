@@ -70,7 +70,7 @@ public class jfmTestDeTemporizador extends javax.swing.JFrame {
         /* Ejemplo para eliminar controlador de tiempo de pago*/
         Factura factura = new Factura(reservacion);
         
-        Pago pagoTransf = new PagoTransferencia(factura, 20*60*1000, new Creditos(5.0));
+        Pago pagoTransf = new PagoTransferencia(factura, new Creditos(5.0));
        
         SqlTiempoDeReserva sqlTiempoDeReserva = new SqlTiempoDeReserva();
 

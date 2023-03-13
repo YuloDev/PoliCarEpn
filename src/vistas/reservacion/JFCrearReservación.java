@@ -6,6 +6,7 @@ package vistas.reservacion;
 
 import controladorBD.reservacion.SqlReservacion;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 import modelo.externo.Fecha;
 import modelo.reservacion.Reservacion;
 import modelo.usuarios.Conductor;
@@ -279,18 +280,19 @@ public class JFCrearReservación extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        this.setVisible(false);
-        Reservacion reservacion = new Reservacion(viajeSeleccionado, pasajero, cmbNumeroAsientos.getSelectedIndex() + 1);
-        JFPago jFPago = new JFPago(reservacion);
-        jFPago.setVisible(true);
+        try {
+            this.setVisible(false);
+            Reservacion reservacion = new Reservacion(viajeSeleccionado, pasajero, cmbNumeroAsientos.getSelectedIndex() + 1);
+            JFPago jFPago = new JFPago(reservacion);
+            jFPago.setVisible(true);
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo crear la reservación", "Aviso", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
-
         JFBuscarViaje jFBuscarViaje = new JFBuscarViaje(pasajero);
-
         jFBuscarViaje.setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 

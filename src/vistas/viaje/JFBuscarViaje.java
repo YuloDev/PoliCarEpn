@@ -4,6 +4,7 @@
  */
 package vistas.viaje;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -228,18 +229,21 @@ public class JFBuscarViaje extends javax.swing.JFrame {
 
             }
 
-            if (viaje.getUbicacionDestino().equals(destinoBuscar) && precioPorAsiento <= precioBuscar && asientosBuscar <= numeroDeAsientosDisponibles) {
-                idViajes.add(idviaje);
+            if (!LocalDateTime.now().isAfter(viaje.getFecha().getFechaYHora())) {
+                if (viaje.getUbicacionDestino().equals(destinoBuscar) && precioPorAsiento <= precioBuscar && asientosBuscar <= numeroDeAsientosDisponibles) {
+                    idViajes.add(idviaje);
 
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                String fechaHora = viaje.getFecha().getFechaYHora().format(formatter);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    String fechaHora = viaje.getFecha().getFechaYHora().format(formatter);
 
-                fila[0] = viaje.getUbicacionPartida();
-                fila[1] = viaje.getUbicacionDestino();
-                fila[2] = fechaHora.substring(0, 10);
-                fila[3] = fechaHora.substring(11);
-                model.addRow(fila);
+                    fila[0] = viaje.getUbicacionPartida();
+                    fila[1] = viaje.getUbicacionDestino();
+                    fila[2] = fechaHora.substring(0, 10);
+                    fila[3] = fechaHora.substring(11);
+                    model.addRow(fila);
+                }
             }
+
         }
 
     }//GEN-LAST:event_btnFiltrarActionPerformed

@@ -5,6 +5,7 @@
 package vistas.pago;
 
 import controladorBD.pago.SqlPago;
+import controladorBD.reservacion.SqlTiempoDeReserva;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,18 +29,25 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
     JFFactura jfFactura;
     SqlPago sqlPago = new SqlPago();
     Creditos creditos;
+    Reservacion reservacion;
+    Pasajero pasajero;
+            
+    
     /**
      * Creates new form JFPagoTransferencia
      */
     public JFPagoTransferencia(Reservacion reservacion, Pasajero pasajero) throws SQLException {
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        this.reservacion = reservacion;
+        this.pasajero = pasajero;
+        
         factura = new Factura(reservacion);
-        pagoTransferencia = new PagoTransferencia(factura, 20*60*1000, pasajero.getCreditos());
-        pagoTransferencia.billetera.setSaldo(sqlPago.obtenerSaldo());
+        
         jfFactura = new JFFactura(reservacion, pasajero);
         jPago = new JFPago(reservacion);
-        creditos = new Creditos(pasajero.getCreditos().getSaldo());
+        
         factura.calcularTotal();
         txtMontoTotal.setText(factura.valorTotal+"");
     }
@@ -148,13 +156,20 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
 
     private void btnRealizarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarPagoActionPerformed
         // TODO add your handling code here:
+        SqlTiempoDeReserva sqlTiempoDeReserva = new SqlTiempoDeReserva();
         double valor;
+        
+        pagoTransferencia = new PagoTransferencia(factura, pasajero.getCreditos());
+        pagoTransferencia.billetera.setSaldo(sqlPago.obtenerSaldo());
+        creditos = new Creditos(pasajero.getCreditos().getSaldo());
+        
         if(pagoTransferencia.realizarPago()){
             try {
                 sqlPago.insertarSaldo((float)pagoTransferencia.billetera.saldo);
                 valor = creditos.disminuirSaldo(factura.valorTotal);
                 sqlPago.actualizarCreditos(valor,pasajero.getCorreo());
                 sqlPago.cambiarEstadoDePago(factura,1);
+                sqlTiempoDeReserva.eliminarTiempoDeReserva(reservacion);
             } catch (SQLException ex) {
                 Logger.getLogger(JFPagoTransferencia.class.getName()).log(Level.SEVERE, null, ex);
             }

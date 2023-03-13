@@ -181,15 +181,16 @@ public class SqlReservacion {
             ps = (com.mysql.jdbc.PreparedStatement) conexion.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-
                 Pasajero cuentaTemp = (Pasajero) cuentas.get(rs.getInt(3));
-
-                Reservacion reservacion = new Reservacion(viajes.get(rs.getInt(2)), cuentaTemp, rs.getInt(5));
-
-                reservaciones.put(rs.getInt(1), reservacion);
-
-                cuentaTemp.crearReservacion(reservacion);
-                System.out.println("");
+                try {
+                    if (!estaCancelada(rs.getInt(1))) {
+                        Reservacion reservacion = new Reservacion(viajes.get(rs.getInt(2)), cuentaTemp, rs.getInt(5));
+                        reservaciones.put(rs.getInt(1), reservacion);
+                        cuentaTemp.crearReservacion(reservacion);
+                    }
+                } catch (IllegalArgumentException ex) {
+                    System.out.println(ex.toString());
+                }
             }
             System.out.println("Instanciación de Reservaciones");
             return reservaciones;
@@ -236,6 +237,29 @@ public class SqlReservacion {
             return false;
         } catch (SQLException e) {
             System.out.println("Tipo transferencia  no verificado");
+            return false;
+        }
+    }
+
+    private boolean estaCancelada(int idReservacion) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ConexionMySQL con = new ConexionMySQL();
+        Connection conexion = con.conectar();
+        String sql = "select fechafin<NOW() from fechadecancelacion where idreservacion = ?;";
+
+        try {
+            ps = (PreparedStatement) conexion.prepareStatement(sql);
+            ps.setInt(1, idReservacion);
+            rs = ps.executeQuery();
+            rs.next();
+            if (rs.getInt(1) == 1) {
+                System.out.println("Fecha de cancelación verificada");
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            System.out.println("Fallo en la fecha de cancelación");
             return false;
         }
     }

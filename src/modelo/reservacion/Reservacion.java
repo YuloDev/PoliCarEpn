@@ -23,9 +23,10 @@ public class Reservacion {
 
     public Reservacion(Viaje viaje, Cuenta cuenta, int numeroAsientosRequeridos) {
         this.viaje = viaje;
+        
         this.restriccion = new RestriccionFechaReservacion(cuenta.getListaReservacion());
         if (restriccion.verificarRestriccion(this)) {
-            return;
+            throw new IllegalArgumentException("Ya existe una reservación para la misma fecha y hora");
         }
         this.listaDeAsientos = new ListaAsiento();
         ListaAsiento listaAsientosDelViaje = viaje.getListaDeAsientos();
@@ -42,7 +43,7 @@ public class Reservacion {
             }
         }
         if (numeroAsientosDisponibles != numeroAsientosRequeridos) {
-            return;
+            throw new IllegalArgumentException("No existen asientos disponibles para la resevacion");
         }
 
         for (Asiento asiento : listaDeAsientos.getAsientos()) {

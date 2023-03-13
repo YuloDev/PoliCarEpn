@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import modelo.pago.*;
 import controladorBD.pago.SqlPago;
 import controladorBD.reservacion.SqlReservacion;
+import controladorBD.reservacion.SqlTiempoDeReserva;
 import modelo.reservacion.Reservacion;
 import modelo.usuarios.Pasajero;
 import vistas.reservacion.JFCrearReservación;
@@ -39,7 +40,7 @@ public class JFPago extends javax.swing.JFrame {
 
         this.factura = new Factura(reservacion);
         this.pasajero = (Pasajero) reservacion.getCuenta();
-        this.pagoTransferencia = new PagoTransferencia(factura, 20 * 60 * 1000, pasajero.getCreditos());
+        //
         this.factura.calcularTotal();
 
         txfValorTotal.setText(factura.valorTotal + "");
@@ -127,6 +128,7 @@ public class JFPago extends javax.swing.JFrame {
     private void BtnPagoTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPagoTransferenciaActionPerformed
         SqlReservacion sqlReservacion = new SqlReservacion();
         sqlReservacion.registrarReservacion(reservacion);
+        SqlTiempoDeReserva sqlTiempoDeReserva = new SqlTiempoDeReserva();
 
         pasajero.crearReservacion(reservacion);
 
@@ -135,6 +137,8 @@ public class JFPago extends javax.swing.JFrame {
         try {
             sqlPago.registrarFactura(factura);
             sqlPago.insertarPago(factura, tipoPago);
+            this.pagoTransferencia = new PagoTransferencia(factura, pasajero.getCreditos());
+            sqlTiempoDeReserva.registrarTiempoDeReserva(reservacion);
         } catch (SQLException ex) {
             Logger.getLogger(JFPago.class.getName()).log(Level.SEVERE, null, ex);
         }

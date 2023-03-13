@@ -156,8 +156,9 @@ public class JFCreditos extends javax.swing.JFrame {
 
     private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed
         // TODO add your handling code here:
-        if(txtValorRecargar.getText().equalsIgnoreCase(null)){
+        if(!txtValorRecargar.getText().equalsIgnoreCase(null)){
             double valor = Double.parseDouble(txtValorRecargar.getText());
+            System.out.println(valor);
             if( valor >= 1 && valor <= 50){
                 try {
                     valor = creditos.recargarSaldo(valor);
