@@ -5,7 +5,6 @@
 package vistas.pago;
 
 import controladorBD.pago.SqlPago;
-import controladorBD.usuarios.SqlCuenta;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -156,7 +155,7 @@ public class JFCreditos extends javax.swing.JFrame {
 
     private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed
         // TODO add your handling code here:
-        if(!txtValorRecargar.getText().equalsIgnoreCase(null)){
+        if(!txtValorRecargar.getText().equalsIgnoreCase("")){
             double valor = Double.parseDouble(txtValorRecargar.getText());
             System.out.println(valor);
             if( valor >= 1 && valor <= 50){

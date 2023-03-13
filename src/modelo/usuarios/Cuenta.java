@@ -1,10 +1,8 @@
 
 package modelo.usuarios;
 
+import modelo.pago.Creditos;
 import modelo.ranking.Calificacion;
-import modelo.ranking.CalificacionConductor;
-import modelo.ranking.CalificacionExperiencia;
-import modelo.ranking.CalificacionVehiculo;
 import modelo.ranking.Evaluacion;
 import modelo.ranking.Penalizacion;
 import modelo.reservacion.ListaReservacion;
@@ -21,8 +19,8 @@ public abstract class Cuenta {
     protected ListaViaje listaViaje;
     protected ListaReservacion listaReservacion;
     protected Penalizacion penalizacion;
+    protected Creditos creditos;
 
-    
     public Cuenta(String correo, String contraseña, Usuario usuario) {
        this.correo = correo;
        this.contraseña = contraseña;
