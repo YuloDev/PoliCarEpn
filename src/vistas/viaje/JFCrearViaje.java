@@ -179,18 +179,53 @@ public class JFCrearViaje extends javax.swing.JFrame {
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {
 
         //TODO
-        String partida, destino, asientos, precio;
+        String partida, destino, asientos, precio, fechaIngresada;
 
         partida = txtPartida.getText();
         destino = txtDestino.getText();
         asientos = txtAsientos.getText();
         precio = txtPrecio.getText();
+        fechaIngresada = txtFecha.getText();
+        String regex = "^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]{1,30}$"; // Expresión regular para validar el formato
+        String regex2 = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$"; // Expresión regular para validar el formato
+        String regex3 = "^[0-9]{1,2}(\\.[0-9]{1,2})?$"; // Expresión regular para validar el formato precio
+        String regex4 = "^[1-4]$"; // Expresión regular para validar el formato
+
+        if (partida.isEmpty() || destino.isEmpty() || asientos.isEmpty() || precio.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
+            return;
+        }
+
+        if (!fechaIngresada.matches(regex2)) {
+            JOptionPane.showMessageDialog(null, "El formato de la fecha debe ser: 2000-00-00 00:00:00");
+            return;
+        }
+
         Fecha fecha = new Fecha(txtFecha.getText());
+        if (partida.isEmpty() || !partida.matches(regex)) {
+            JOptionPane.showMessageDialog(null, "La partida debe tener entre 1 y 30 caracteres y contener solo letras y espacios");
+            return;
+        }
+
+        if (destino.isEmpty() || !destino.matches(regex)) {
+            JOptionPane.showMessageDialog(null, "El destino debe tener entre 1 y 30 caracteres y contener solo letras y espacios");
+            return;
+        }
+        if (!asientos.matches(regex4)) {
+            JOptionPane.showMessageDialog(null, "La cantidad de asientos debe ser un dígito entre 1 y 4");
+            return;
+        }
+
+        if (!precio.matches(regex3)) {
+            JOptionPane.showMessageDialog(null, "El formato del precio debe ser: una o dos dígitos . uno o dos dígitos");
+            return;
+        }
 
         Viaje nuevoViaje = new Viaje(partida, destino, Integer.parseInt(asientos), Double.parseDouble(precio), conductor, fecha);
         conductor.crearViaje(nuevoViaje);
 
         SqlViaje sqlViaje = new SqlViaje();
+
         if (sqlViaje.registrarViaje(nuevoViaje, Integer.parseInt(asientos), Double.parseDouble(precio), txtFecha.getText())) {
             //System.out.println("Se registro el viaje");
             this.setVisible(false);
