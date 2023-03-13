@@ -214,9 +214,12 @@ public class SqlPago extends ConexionMySQL {
 
         int idReservacion = 0;
         for (int id : reservaciones.keySet()) {
-            idReservacion = id;
+            Reservacion reservacion = reservaciones.get(id);
+            if (reservacion.equals(factura.getReservacion())) {
+                idReservacion = id;
+            }
         }
-        idReservacion++;
+        
         PreparedStatement ps = null;
         ResultSet rs = null;
         java.sql.Connection con = conectar();

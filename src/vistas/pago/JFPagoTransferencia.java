@@ -169,7 +169,6 @@ public class JFPagoTransferencia extends javax.swing.JFrame {
                 valor = creditos.disminuirSaldo(factura.valorTotal);
                 sqlPago.actualizarCreditos(valor,pasajero.getCorreo());
                 sqlPago.cambiarEstadoDePago(factura,1);
-                sqlTiempoDeReserva.eliminarTiempoDeReserva(reservacion);
             } catch (SQLException ex) {
                 Logger.getLogger(JFPagoTransferencia.class.getName()).log(Level.SEVERE, null, ex);
             }

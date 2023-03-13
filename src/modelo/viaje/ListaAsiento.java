@@ -28,9 +28,11 @@ public class ListaAsiento {
 
     public void quitarAsiento(Asiento asiento) {
         for (int i = 0; i < asientos.length; i++) {
-            if (asientos[i].equals(asiento)) {
-                asientos[i] = null;
-                return;
+            if (asientos[i] != null) {
+                if (asientos[i].equals(asiento)) {
+                    asientos[i] = null;
+                    return;
+                }
             }
         }
         System.out.println("El asiento no se encuentra");
