@@ -186,6 +186,7 @@ public class JFCrearViaje extends javax.swing.JFrame {
         asientos = txtAsientos.getText();
         precio = txtPrecio.getText();
         fechaIngresada = txtFecha.getText();
+        
         String regex = "^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]{1,30}$"; // Expresión regular para validar el formato
         String regex2 = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$"; // Expresión regular para validar el formato
         String regex3 = "^[0-9]{1,2}(\\.[0-9]{1,2})?$"; // Expresión regular para validar el formato precio
@@ -202,6 +203,7 @@ public class JFCrearViaje extends javax.swing.JFrame {
         }
 
         Fecha fecha = new Fecha(txtFecha.getText());
+
         if (partida.isEmpty() || !partida.matches(regex)) {
             JOptionPane.showMessageDialog(null, "La partida debe tener entre 1 y 30 caracteres y contener solo letras y espacios");
             return;
@@ -211,6 +213,12 @@ public class JFCrearViaje extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "El destino debe tener entre 1 y 30 caracteres y contener solo letras y espacios");
             return;
         }
+        if (partida.equals(destino)) {
+            // Si los valores son iguales, mostrar un mensaje de error y terminar la ejecución.
+            JOptionPane.showMessageDialog(null, "Error: La ubicación de partida y destino no puede ser la misma.");
+            return;
+        }
+        
         if (!asientos.matches(regex4)) {
             JOptionPane.showMessageDialog(null, "La cantidad de asientos debe ser un dígito entre 1 y 4");
             return;
