@@ -241,7 +241,7 @@ public class JFVehiculo extends javax.swing.JFrame {
                     if ((modSql2.registrarUsuario(nuevoUsuario))) {
                         if ((modSql2.registrarConductor(nuevoUsuario, cuentaConductor, "Conductor", placa))) {
                             if ((modSql2.registrarPasajero(nuevoUsuario, cuentaPasajero, "Pasajero"))) {
-                                JOptionPane.showMessageDialog(null, "Vehiculo registrado exitosamente!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "Conductor y vehiculo registrados exitosamente!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                             } else {
                                 JOptionPane.showMessageDialog(null, "No se pudo registrar pasajero", "Error", JOptionPane.ERROR_MESSAGE);
                             }
@@ -254,7 +254,7 @@ public class JFVehiculo extends javax.swing.JFrame {
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                JOptionPane.showMessageDialog(null, "Conductor registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(null, "Conductor registrado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 JFLogin login = new JFLogin();
                 login.setVisible(true);
                 this.setVisible(false);
@@ -268,12 +268,12 @@ public class JFVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarVehiculoActionPerformed
 
     private void txtAnioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAnioFocusLost
-
-        if (vehiculo.validarAño()) {
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Solo se puede ingresar vehiculos mayores al 2008 en adelante");
+        if(Integer.parseInt(txtAnio.getText())>2008 && Integer.parseInt(txtAnio.getText())<=2023){
+            txtNumeroAsientos.requestFocus();
+        }else{
+            JOptionPane.showMessageDialog(null, "Solo se puede ingresar vehiculos entre los años 2008 y 2023");
             txtAnio.requestFocus();
+        
         }
     }//GEN-LAST:event_txtAnioFocusLost
 
