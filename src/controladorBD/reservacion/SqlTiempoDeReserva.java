@@ -100,12 +100,9 @@ public class SqlTiempoDeReserva {
 
         int idReservacion = 0;
         for (int id : reservaciones.keySet()) {
-            Reservacion reservacion = reservaciones.get(id);
-            if (reservacionActual.equals(reservacion)) {
-                idReservacion = id;
-            }
+            idReservacion = id;
         }
-
+        idReservacion++;
         PreparedStatement ps = null;
         ConexionMySQL con = new ConexionMySQL();
         Connection conexion = con.conectar();
@@ -126,13 +123,20 @@ public class SqlTiempoDeReserva {
 
     public boolean eliminarTiempoDeReserva(Reservacion reservacionActual) {
 
-        int idReservacion = 0;
+        int idReservacion = -1;
         for (int id : reservaciones.keySet()) {
             Reservacion reservacion = reservaciones.get(id);
             if (reservacionActual.equals(reservacion)) {
                 idReservacion = id;
             }
         }
+        if (idReservacion == -1) {
+            idReservacion = 0;
+            for (int id : reservaciones.keySet()) {
+                idReservacion = id;
+            }
+        }
+        idReservacion++;
 
         PreparedStatement ps = null;
         ConexionMySQL con = new ConexionMySQL();
@@ -154,7 +158,7 @@ public class SqlTiempoDeReserva {
     }
 
     public boolean actualizarTiempoDeReserva(Reservacion reservacionSeleccionada) {
-        
+
         int idReservacion = 0;
         for (int id : reservaciones.keySet()) {
             Reservacion reservacion = reservaciones.get(id);

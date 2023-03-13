@@ -241,10 +241,10 @@ public class JFBuscarViaje extends javax.swing.JFrame {
                 continue;
             }
 
-            Asiento[] asientos = viaje.getListaDeAsientos().getAsientos();
-            double precioPorAsiento = asientos[0].getPrecio();
+            Asiento[] asientosDelViaje = viaje.getListaDeAsientos().getAsientos();
+            double precioPorAsiento = asientosDelViaje[0].getPrecio();
             int numeroDeAsientosDisponibles = 0;
-            for (Asiento asiento : asientos) {
+            for (Asiento asiento : asientosDelViaje) {
                 if (asiento != null) {
                     if (asiento.getEstado() instanceof Libre) {
                         numeroDeAsientosDisponibles++;
