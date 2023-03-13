@@ -197,6 +197,7 @@ public class SqlPago extends ConexionMySQL {
         Connection con = conectar();
         String sql = "UPDATE PAGO SET ESTADODEPAGO = " + estado
                 + " WHERE IDPAGO = ?;";
+        System.out.println(idPago);
         try {
             ps = (PreparedStatement) con.prepareStatement(sql);
             ps.setInt(1, idPago);
@@ -213,11 +214,9 @@ public class SqlPago extends ConexionMySQL {
 
         int idReservacion = 0;
         for (int id : reservaciones.keySet()) {
-            Reservacion reservacion = reservaciones.get(id);
-            if (reservacion.equals(factura.getReservacion())) {
-                idReservacion = id;
-            }
+            idReservacion = id;
         }
+        idReservacion++;
         PreparedStatement ps = null;
         ResultSet rs = null;
         java.sql.Connection con = conectar();
