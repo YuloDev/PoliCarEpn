@@ -137,8 +137,7 @@ public class JFPago extends javax.swing.JFrame {
         try {
             sqlPago.registrarFactura(factura);
             sqlPago.insertarPago(factura, tipoPago);
-            this.pagoTransferencia = new PagoTransferencia(factura, pasajero.getCreditos());
-            sqlTiempoDeReserva.registrarTiempoDeReserva(reservacion);
+            this.pagoTransferencia = new PagoTransferencia(factura, pasajero.getCreditos());            
         } catch (SQLException ex) {
             Logger.getLogger(JFPago.class.getName()).log(Level.SEVERE, null, ex);
         }

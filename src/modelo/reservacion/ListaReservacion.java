@@ -28,9 +28,11 @@ public class ListaReservacion {
 
     public void quitarReservacion(Reservacion reservacion) {
         for (int i = 0; i < reservaciones.length; i++) {
-            if (reservaciones[i].equals(reservacion)) {
+            if (reservaciones[i]!=null){
+                if (reservaciones[i].equals(reservacion)) {
                 reservaciones[i] = null;
                 return;
+                }
             }
         }
         System.out.println("La reservacion no se encuentra");

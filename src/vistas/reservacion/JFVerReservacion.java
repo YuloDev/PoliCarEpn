@@ -93,7 +93,6 @@ public class JFVerReservacion extends javax.swing.JFrame {
         btnVolver = new javax.swing.JButton();
         btnPagar = new javax.swing.JButton();
         btnCalificar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
         lblReservacion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -151,13 +150,6 @@ public class JFVerReservacion extends javax.swing.JFrame {
             }
         });
 
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout pnlDatosViajeLayout = new javax.swing.GroupLayout(pnlDatosViaje);
         pnlDatosViaje.setLayout(pnlDatosViajeLayout);
         pnlDatosViajeLayout.setHorizontalGroup(
@@ -185,13 +177,11 @@ public class JFVerReservacion extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDatosViajeLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnVolver)
-                        .addGap(18, 18, 18)
+                        .addGap(33, 33, 33)
                         .addComponent(btnPagar)
-                        .addGap(18, 18, 18)
+                        .addGap(36, 36, 36)
                         .addComponent(btnCalificar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancelar)
-                        .addGap(195, 195, 195))))
+                        .addGap(245, 245, 245))))
         );
         pnlDatosViajeLayout.setVerticalGroup(
             pnlDatosViajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,8 +215,7 @@ public class JFVerReservacion extends javax.swing.JFrame {
                 .addGroup(pnlDatosViajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVolver)
                     .addComponent(btnPagar)
-                    .addComponent(btnCalificar)
-                    .addComponent(btnCancelar))
+                    .addComponent(btnCalificar))
                 .addGap(95, 95, 95))
         );
 
@@ -314,17 +303,8 @@ public class JFVerReservacion extends javax.swing.JFrame {
         new JFrameRanking(this.reservacionSeleccionada.getViaje().getCuenta().getUsuario().getCodUnico()).setVisible(true);
     }//GEN-LAST:event_txtNombreConductorMouseClicked
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
-        SqlTiempoDeReserva sqlTiempoDeReserva = new SqlTiempoDeReserva();
-        
-        sqlTiempoDeReserva.actualizarTiempoDeReserva(reservacionSeleccionada);
-        reservacionSeleccionada.cancelar();
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalificar;
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnPagar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JPanel jPanel1;

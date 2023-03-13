@@ -19,9 +19,6 @@ public class Pasajero extends Cuenta {
         listaReservacion.añadirReservacion(nuevaReservacion);
     }
 
-    public void cancelarReservacion(Reservacion reservacion) {
-        reservacion.cancelar();
-    }
 
     @Override
     public void calificarViaje(Calificacion ... calificaciones) {

@@ -17,6 +17,7 @@ import modelo.usuarios.Cuenta;
 import modelo.usuarios.Pasajero;
 import modelo.viaje.Asiento;
 import modelo.viaje.Viaje;
+import static vistas.usuarios.JFLogin.reservaciones;
 import static vistas.usuarios.JFLogin.viajes;
 
 /**
@@ -57,6 +58,12 @@ public class SqlReservacion {
             ps.setInt(4, numeroDeAsientos);
             ps.execute();
             ocuparAsientos(idViaje, numeroDeAsientos);
+            int idReservacion = 0;
+            for (int id : reservaciones.keySet()) {
+                    idReservacion = id;
+            }
+            idReservacion++;
+            reservaciones.put(idReservacion, reservacion);
             return true;
         } catch (SQLException e) {
             System.out.println(e.toString());
@@ -183,11 +190,9 @@ public class SqlReservacion {
             while (rs.next()) {
                 Pasajero cuentaTemp = (Pasajero) cuentas.get(rs.getInt(3));
                 try {
-                    if (!estaCancelada(rs.getInt(1))) {
-                        Reservacion reservacion = new Reservacion(viajes.get(rs.getInt(2)), cuentaTemp, rs.getInt(5));
-                        reservaciones.put(rs.getInt(1), reservacion);
-                        cuentaTemp.crearReservacion(reservacion);
-                    }
+                    Reservacion reservacion = new Reservacion(viajes.get(rs.getInt(2)), cuentaTemp, rs.getInt(5));
+                    reservaciones.put(rs.getInt(1), reservacion);
+                    cuentaTemp.crearReservacion(reservacion);
                 } catch (IllegalArgumentException ex) {
                     System.out.println(ex.toString());
                 }
@@ -240,7 +245,7 @@ public class SqlReservacion {
             return false;
         }
     }
-
+    /*
     private boolean estaCancelada(int idReservacion) {
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -263,5 +268,9 @@ public class SqlReservacion {
             return false;
         }
     }
+     */
 
+ /*sqlTiempoDeReserva.registrarTiempoDeReserva(reservacion);
+    sqlTiempoDeReserva.eliminarTiempoDeReserva(reservacion);
+     */
 }
